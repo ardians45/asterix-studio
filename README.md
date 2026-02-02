@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Asterix Studio Portfolio
 
-## Getting Started
+![Asterix Studio Banner](/public/main-preview.png)
 
-First, run the development server:
+A high-performance, cinematic portfolio website built for **Asterix Studio**, showcasing advanced web interactions, 3D graphics, and modern UI/UX design. This project demonstrates the intersection of technical engineering and creative design.
+
+## 🚀 Overview
+
+This portfolio is designed to be **immersive, fast, and visually striking**. It moves beyond traditional static websites by incorporating WebGL, meaningful animations, and a cinematic user experience.
+
+**Live Demo:** [Visit Asterix Studio](https://asterix-studio.vercel.app) *(Replace with actual URL)*
+
+## ✨ Key Features
+
+- **Cinematic Hero Section**: Full-screen immersive visuals with oversized typography and blend-mode overlays.
+- **3D Circular Gallery**: An infinite scroll, WebGL-powered image gallery built with `ogl` and custom shaders.
+- **Interactive Projects**:
+    - **Cursor-Following Previews**: Project list items trigger floating, physics-based image previews that follow the mouse.
+    - **Dynamic Case Studies**: Detailed project pages with metric breakdowns and technical deep dives.
+- **Tech-Forward Design**: Glassmorphism, brutalist typography, and smooth page transitions using `framer-motion`.
+- **Performance Optimized**: Built on Next.js 15 with server-side rendering and optimized asset delivery.
+
+## 🛠️ Tech Stack
+
+### Core
+- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+
+### Creative & 3D
+- **Animation**: [Framer Motion](https://www.framer.com/motion/)
+- **WebGL**: [OGL](https://github.com/oframe/ogl) (Lightweight WebGL library)
+- **3D Rendering**: [React Three Fiber](https://docs.pmnd.rs/react-three-fiber) & [Three.js](https://threejs.org/)
+- **Shaders**: Custom GLSL fragments for gallery effects (grayscale to color transition).
+
+### Tools
+- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
+- **Linting**: ESLint + Prettier
+
+## 📦 Installation
+
+Clone the repository and install dependencies to run the project locally.
 
 ```bash
+# Clone the repository
+git clone https://github.com/your-username/asterix-studio.git
+
+# Navigate to project directory
+cd asterix-studio
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the project.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📂 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+asterix-studio/
+├── app/                  # Next.js App Router root
+│   ├── projects/         # Individual project case study pages
+│   ├── layout.tsx        # Root layout and metadata
+│   └── page.tsx          # Main landing page
+├── components/           # Reusable UI components
+│   ├── CircularGallery/  # 3D WebGL Gallery implementation
+│   ├── Hero.tsx          # Cinematic landing hero
+│   ├── Projects.tsx      # Interactive project list
+│   └── ...
+├── public/               # Static assets (images, icons)
+└── ...
+```
 
-## Learn More
+## 🤝 Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 License
 
-## Deploy on Vercel
+This project is open source and available under the [MIT License](LICENSE).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Based in Indonesia.
+**Asterix Studio** — *Building functional & scalable web systems.*

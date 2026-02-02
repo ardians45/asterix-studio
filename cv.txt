@@ -1,0 +1,53 @@
+ARDIAN SETIAWAN
+082133726484 | ardians1945@gmail.com | https://www.linkedin.com/in/ardian-setiawan45
+Tangerang Selatan, Banten
+UI/UX Designer and Web Developer with experience designing and developing landing pages, dashboards, and corporate websites. 
+Skilled in translating user needs and business objectives into intuitive, visually consistent, and developer-ready interfaces using React.js 
+and Tailwind CSS. Comfortable collaborating with cross-functional teams and continuously improving skills through hands-on projects.
+Work Experiences
+Asterix Studio 
+UI/UX Designer & Web Developer - Freelance
+Dec 2023 - Present
+Worked on multiple freelance projects covering UI/UX design and frontend development for small brands and individual clients.
+Designed UI/UX interfaces and developed responsive web solutions using Figma, Framer, React, Next.js, and Tailwind CSS.
+PT Kita Bantu Indonesia 
+Web Designer - Internship
+Mar 2025 - Jun 2025
+Selected as Top Intern (Batch 1) based on performance, design quality, and contribution to key digital products.
+Designed UI/UX for three core digital products using Figma, including a landing page, the official company website, and an Admin & 
+Customer Support dashboard.
+PT. Sumber Alfaria Trijaya, Tbk 
+Crew Store - Contract
+Jan 2022 - Jan 2024
+Gained hands-on insight into customer behavior and service flows, enhancing user empathy and problem-solving skills.
+Observed daily workflows and system usage, gaining contextual insight for digital products and service interfaces.
+SIAPkerja – Kementerian Ketenagakerjaan RI 
+Administrative & Office Support Trainee- Internship
+May 2021 - Jul 2021
+Completed a 280- hour competency- based training program (Practical Office Advanced II) and earned a professional competency 
+certification.
+Gained hands-on experience in office administration, document management, and reporting with standard office applications.
+PT. Kusuma Kreasi Utama 
+Digital Content & Event Organizer - Internship
+Feb 2020 - Mar 2020
+Planned and organized events from concept to execution, including timeline management, vendor coordination, and on-site operations.
+Developed and wrote targeted blog content aligned with audience insights to strengthen brand awareness and audience engagement.
+Education Level
+Universitas Pamulang
+Bachelor of Informatics Engineering, 3.57/4.00
+Jul 2023 - Jul 2027 (Expected)
+Studied core areas of informatics, including software development, networking, and artificial intelligence.
+Participated in technology seminars, hackathons, and coding competitions to continuously improve technical and problem-solving skills.
+SMK Negeri 2 Karanganyar
+Senior High School,  Software Engineering, 85.00/100.00
+Mar 2019 - Feb 2021
+Studied fundamental concepts of programming, application development, and basic project management.
+Participated in school-based software development bootcamps and collaborative projects to build simple applications.
+Skills
+Technical Skills: Figma, Framer, HTML5, CSS3, Tailwind CSS, React.js, Next.js, Three JS, Responsive Web Design, Ms Office
+Hard Skills: UI/UX Design, Frontend Development, Wireframing & Prototyping, Design-to-Code Handoff, Problem Solving
+Languages: Bahasa Indonesia (Native), English (Intermediate)
+Achievements
+2nd Place – UI/UX Design Competition - MIA (2025): Awarded 2nd Place at a national UI/UX competition sponsored by LinkAja and 
+hosted at UPN “Veteran” Jakarta. Served as UI/UX Designer for Team ISC Sans, delivering a user-centered solution for group financial 
+management. Selected as Top 3 out of 200+ teams nationwide.
