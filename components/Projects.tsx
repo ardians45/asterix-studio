@@ -100,9 +100,20 @@ export default function Projects() {
              key={index} 
              onMouseEnter={() => setActiveProject(index)}
              onMouseLeave={() => setActiveProject(null)}
-             className="group relative border-t border-gray-800 pt-12 md:flex gap-12 transition-all duration-300 hover:border-white/40"
+             className="group relative border-t border-gray-800 pt-12 md:flex gap-12 transition-all duration-300 hover:border-white/40 overflow-hidden"
           >
-            <div className="md:w-1/3 mb-6 md:mb-0">
+             {/* Mobile Minimalist Background */}
+             <div className="absolute inset-0 z-0 md:hidden pointer-events-none select-none">
+                <Image
+                    src={project.image}
+                    alt="" 
+                    fill
+                    className="object-cover grayscale opacity-20 blur-[2px] scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+             </div>
+
+             <div className="relative z-10 md:w-1/3 mb-6 md:mb-0">
                  <span className="text-sm font-mono text-gray-500 transition-colors group-hover:text-white">0{index + 1} / {project.year}</span>
                  <h4 className="text-3xl font-bold mt-2 font-display transition-colors group-hover:text-blue-400">{project.title}</h4>
                  <div className="mt-4 flex flex-wrap gap-2">
@@ -112,8 +123,8 @@ export default function Projects() {
                          </span>
                      ))}
                  </div>
-            </div>
-            <div className="md:w-2/3">
+             </div>
+             <div className="relative z-10 md:w-2/3">
                 <p className="text-xl text-gray-300 mb-6 max-w-2xl leading-relaxed group-hover:text-white transition-colors">
                     {project.description}
                 </p>
@@ -145,10 +156,68 @@ export default function Projects() {
                     <h2 className="text-xl text-gray-400 uppercase tracking-widest font-mono">UI/UX & Design</h2>
                </div>
                <div className="md:w-2/3">
+                    
+   
+                    {/* Featured Case Studies Grid */}
+                    <div className="mb-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        {/* Bantu Platform */}
+                        <div className="group relative block">
+                            <Link href="/projects/bantu-platform" className="block h-full">
+                                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-gray-800 transition-all duration-500 group-hover:border-white/30 h-full">
+                                    <Image 
+                                        src="/projects/bantu-platform/bantu.webp" 
+                                        alt="Bantu Platform" 
+                                        fill 
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 transition-opacity duration-500 group-hover:bg-black/40" />
+                                    <div className="absolute bottom-0 left-0 p-6">
+                                        <span className="mb-2 block text-xs font-mono uppercase tracking-widest text-blue-400">Case Study</span>
+                                        <h3 className="mb-2 text-2xl font-display font-bold text-white group-hover:text-blue-200 transition-colors">BANTU Platform</h3>
+                                        <p className="text-sm text-gray-300 opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 line-clamp-3">
+                                            Empowering Indonesia's informal workforce through a transparent digital ecosystem.
+                                        </p>
+                                    </div>
+                                    <div className="absolute top-6 right-6 rounded-full bg-white/10 p-3 backdrop-blur-md opacity-0 transform scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100">
+                                        <FaArrowRight className="text-white text-sm -rotate-45" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+
+                        {/* Cactastic */}
+                        <div className="group relative block">
+                            <Link href="/projects/cactastic" className="block h-full">
+                                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-gray-800 transition-all duration-500 group-hover:border-white/30 h-full">
+                                    <Image 
+                                        src="/projects/cactastic/cactastic.webp" 
+                                        alt="Cactastic" 
+                                        fill 
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 transition-opacity duration-500 group-hover:bg-black/40" />
+                                    <div className="absolute bottom-0 left-0 p-6">
+                                        <span className="mb-2 block text-xs font-mono uppercase tracking-widest text-green-400">Case Study</span>
+                                        <h3 className="mb-2 text-2xl font-display font-bold text-white group-hover:text-green-200 transition-colors">Cactastic</h3>
+                                        <p className="text-sm text-gray-300 opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 line-clamp-3">
+                                            A specialized e-commerce experience for cactus enthusiasts with AI plant ID.
+                                        </p>
+                                    </div>
+                                    <div className="absolute top-6 right-6 rounded-full bg-white/10 p-3 backdrop-blur-md opacity-0 transform scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100">
+                                        <FaArrowRight className="text-white text-sm -rotate-45" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+
+                    </div>
+
+                    <h4 className="text-sm font-mono text-gray-500 uppercase tracking-widest mb-6 border-b border-gray-900 pb-2">More Explorations</h4>
                     <ul className="space-y-6">
-                        {designs.map((design, i) => (
+                        {designs.filter(d => d !== "Bantu Platform").map((design, i) => (
                              <li key={i} className="flex justify-between items-center group cursor-pointer border-b border-gray-900 pb-6 hover:border-gray-700 transition-colors">
-                                 <span className="text-2xl md:text-4xl font-display text-gray-500 group-hover:text-white transition-colors">{design}</span>
+                                 <span className="text-2xl md:text-3xl font-display text-gray-500 group-hover:text-white transition-colors">{design}</span>
                                  <FaArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity -rotate-45 group-hover:rotate-0 transform duration-300" />
                              </li>
                         ))}

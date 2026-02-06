@@ -25,6 +25,7 @@ export default function Navbar() {
         <button
           onClick={() => setIsOpen(true)}
           className="text-2xl hover:text-gray-300 transition-colors"
+          aria-label="Open Menu"
         >
           <FaBars />
         </button>
@@ -42,6 +43,7 @@ export default function Navbar() {
                 <button
                 onClick={() => setIsOpen(false)}
                 className="text-2xl text-white hover:text-gray-300 transition-colors z-50"
+                aria-label="Close Menu"
                 >
                 <FaTimes />
                 </button>

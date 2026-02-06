@@ -24,13 +24,13 @@ export default function Footer() {
              </div>
 
              <div className="flex gap-6 text-3xl">
-                 <a href="https://www.linkedin.com/in/ardian-setiawan45" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors"><FaLinkedin /></a>
-                 <a href="#" className="hover:text-white transition-colors"><FaGithub /></a>
-                 <a href="#" className="hover:text-pink-500 transition-colors"><FaInstagram /></a>
-                 <a href="mailto:ardians1945@gmail.com" className="hover:text-yellow-500 transition-colors"><FaEnvelope /></a>
+                 <a href="https://www.linkedin.com/in/ardian-setiawan45" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 transition-colors" aria-label="LinkedIn Profile"><FaLinkedin /></a>
+                 <a href="https://github.com/ardians45" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" aria-label="GitHub Profile"><FaGithub /></a>
+                 <a href="https://instagram.com/ardilan_90" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500 transition-colors" aria-label="Instagram Profile"><FaInstagram /></a>
+                 <a href="mailto:ardians1945@gmail.com" className="hover:text-yellow-500 transition-colors" aria-label="Send Email"><FaEnvelope /></a>
              </div>
              
-             <div className="mt-12 text-sm text-gray-600 font-mono">
+             <div className="mt-12 text-sm text-gray-400 font-mono">
                  &copy; {new Date().getFullYear()} Ardian Setiawan. All rights reserved.
              </div>
         </div>
