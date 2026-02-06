@@ -30,7 +30,7 @@ export default function About() {
         >
             <div className="relative w-full aspect-[3/4] overflow-hidden rounded-2xl md:rounded-3xl">
                 <Image 
-                    src="/profile.jfif" 
+                    src="/profile.webp" 
                     alt="Ardian Setiawan" 
                     fill
                     className="object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-105"

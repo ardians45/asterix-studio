@@ -24,7 +24,7 @@ const projects = [
     tech: ["PHP Native", "MySQL", "Tailwind CSS", "FPDF"],
     impact: "Streamlined report card generation for teachers.",
     year: "2025",
-    image: "/projects/rapor-lamaholot/rapor1.png",
+    image: "/projects/rapor-lamaholot/rapor1.webp",
     link: "/projects/rapor-lamaholot"
   },
   {
@@ -33,7 +33,7 @@ const projects = [
     role: "Creative Developer",
     tech: ["React", "Three.js", "Tailwind CSS"],
     year: "2025",
-    image: "/projects/3d-tetris-grunge/tetris1.png",
+    image: "/projects/3d-tetris-grunge/tetris1.webp",
     link: "/projects/3d-tetris-grunge"
   },
 ];

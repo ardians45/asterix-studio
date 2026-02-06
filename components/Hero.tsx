@@ -16,26 +16,40 @@ export default function Hero() {
     offset: ["start start", "end end"],
   });
 
-  const frameCount = 161;
+  const frameCount = 80;
   const currentIndex = useTransform(scrollYProgress, [0, 1], [1, frameCount]);
 
-  // Scroll-driven Opacity & Transforms
-  const opacityTitle = useTransform(scrollYProgress, [0, 0.1, 0.2], [1, 0.8, 0]);
-  const yTitle = useTransform(scrollYProgress, [0, 0.2], [0, -100]);
-  const blurTitle = useTransform(scrollYProgress, [0, 0.1], ["0px", "20px"]);
+  // Title Animations: Fade In + Slide Up + Slight Scale Out
+  const opacityTitle = useTransform(scrollYProgress, [0, 0.1, 0.15], [1, 1, 0]);
+  const yTitle = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
+  const blurTitle = useTransform(scrollYProgress, [0, 0.15], ["0px", "10px"]);
+  const scaleTitle = useTransform(scrollYProgress, [0, 0.15], [1, 0.9]);
 
-  const opacitySlogan1 = useTransform(scrollYProgress, [0.25, 0.35, 0.45], [0, 1, 0]);
-  const blurSlogan1 = useTransform(scrollYProgress, [0.25, 0.35, 0.45], ["20px", "0px", "20px"]);
-  const ySlogan1 = useTransform(scrollYProgress, [0.25, 0.35, 0.45], [40, 0, -40]);
+  // Slogan 1: Staggered Reveal
+  const opacityS1_L1 = useTransform(scrollYProgress, [0.15, 0.25, 0.35], [0, 1, 0]);
+  const yS1_L1 = useTransform(scrollYProgress, [0.15, 0.25, 0.35], [50, 0, -50]);
+  const blurS1_L1 = useTransform(scrollYProgress, [0.15, 0.25, 0.35], ["10px", "0px", "10px"]);
+
+  const opacityS1_L2 = useTransform(scrollYProgress, [0.18, 0.28, 0.38], [0, 1, 0]);
+  const yS1_L2 = useTransform(scrollYProgress, [0.18, 0.28, 0.38], [50, 0, -50]);
+  const blurS1_L2 = useTransform(scrollYProgress, [0.18, 0.28, 0.38], ["10px", "0px", "10px"]);
+
+  const opacityS1_L3 = useTransform(scrollYProgress, [0.21, 0.31, 0.41], [0, 1, 0]);
+  const yS1_L3 = useTransform(scrollYProgress, [0.21, 0.31, 0.41], [50, 0, -50]);
+  const blurS1_L3 = useTransform(scrollYProgress, [0.21, 0.31, 0.41], ["10px", "0px", "10px"]);
   
-  const opacitySlogan2 = useTransform(scrollYProgress, [0.55, 0.65, 0.75], [0, 1, 0]);
-  const blurSlogan2 = useTransform(scrollYProgress, [0.55, 0.65, 0.75], ["20px", "0px", "20px"]);
-  const ySlogan2 = useTransform(scrollYProgress, [0.55, 0.65, 0.75], [40, 0, -40]);
+  // Slogan 2: Staggered Reveal
+  const opacityS2_L1 = useTransform(scrollYProgress, [0.45, 0.55, 0.65], [0, 1, 0]);
+  const yS2_L1 = useTransform(scrollYProgress, [0.45, 0.55, 0.65], [50, 0, -50]);
+  const blurS2_L1 = useTransform(scrollYProgress, [0.45, 0.55, 0.65], ["10px", "0px", "10px"]);
 
-  const opacityCTA = useTransform(scrollYProgress, [0.85, 0.95], [0, 1]);
-  const scaleCTA = useTransform(scrollYProgress, [0.85, 0.95], [0.9, 1]);
-  const blurCTA = useTransform(scrollYProgress, [0.85, 0.95], ["20px", "0px"]);
-  const pointerEventsCTA = useTransform(scrollYProgress, (v) => v > 0.85 ? "auto" : "none");
+  const opacityS2_L2 = useTransform(scrollYProgress, [0.48, 0.58, 0.68], [0, 1, 0]);
+  const yS2_L2 = useTransform(scrollYProgress, [0.48, 0.58, 0.68], [50, 0, -50]);
+  const blurS2_L2 = useTransform(scrollYProgress, [0.48, 0.58, 0.68], ["10px", "0px", "10px"]);
+
+  const opacityS2_L3 = useTransform(scrollYProgress, [0.51, 0.61, 0.71], [0, 1, 0]);
+  const yS2_L3 = useTransform(scrollYProgress, [0.51, 0.61, 0.71], [50, 0, -50]);
+  const blurS2_L3 = useTransform(scrollYProgress, [0.51, 0.61, 0.71], ["10px", "0px", "10px"]);
 
   // Loading State
   const [loadingProgress, setLoadingProgress] = useState(0);
@@ -48,7 +62,7 @@ export default function Hero() {
       for (let i = 1; i <= frameCount; i++) {
         const p = new Promise<void>((resolve) => {
           const img = new Image();
-          img.src = `/sequence/ezgif-frame-${i.toString().padStart(3, "0")}.jpg`;
+          img.src = `/sequence/ezgif-frame-${i.toString().padStart(3, "0")}.webp`;
           img.onload = () => {
               setLoadingProgress(prev => prev + 1);
               resolve();
@@ -157,7 +171,7 @@ export default function Hero() {
         />
 
         <motion.div 
-            style={{ opacity: opacityTitle, y: yTitle, filter: `blur(${blurTitle})` }} 
+            style={{ opacity: opacityTitle, y: yTitle, filter: `blur(${blurTitle})`, scale: scaleTitle }} 
             className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 pointer-events-none px-4"
         >
              <h1 className="text-[#F5F5F2] mix-blend-difference mb-8 drop-shadow-2xl flex flex-col items-center">
@@ -181,47 +195,35 @@ export default function Hero() {
              </motion.div>
         </motion.div>
 
-        <motion.div 
-             style={{ opacity: opacitySlogan1, filter: blurSlogan1 as any, y: ySlogan1 }}
-             className="absolute inset-0 flex items-center justify-start px-6 md:px-32 z-10 pointer-events-none"
-        >
-             <h2 className="text-white text-6xl md:text-8xl lg:text-9xl font-display font-black leading-[0.85] max-w-5xl mix-blend-difference">
-                 CRAFTING <br />
-                 <span className="italic font-light text-white/50 tracking-tight">IMMERSIVE</span> <br />
-                 DIGITAL REALMS.
+        {/* Slogan 1: Staggered */}
+        <div className="absolute inset-0 flex items-center justify-start px-6 md:px-32 z-10 pointer-events-none">
+             <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-start gap-2 md:gap-4">
+                 <motion.span style={{ opacity: opacityS1_L1, y: yS1_L1, filter: `blur(${blurS1_L1})` }} className="block">
+                    CRAFTING
+                 </motion.span>
+                 <motion.span style={{ opacity: opacityS1_L2, y: yS1_L2, filter: `blur(${blurS1_L2})` }} className="block">
+                    <span className="italic font-light text-white/50 tracking-tight">IMMERSIVE</span>
+                 </motion.span>
+                 <motion.span style={{ opacity: opacityS1_L3, y: yS1_L3, filter: `blur(${blurS1_L3})` }} className="block">
+                    DIGITAL REALMS.
+                 </motion.span>
              </h2>
-        </motion.div>
+        </div>
 
-        <motion.div 
-             style={{ opacity: opacitySlogan2, filter: blurSlogan2 as any, y: ySlogan2 }}
-             className="absolute inset-0 flex items-center justify-end px-6 md:px-32 z-10 pointer-events-none text-right"
-        >
-             <h2 className="text-white text-6xl md:text-8xl lg:text-9xl font-display font-black leading-[0.85] max-w-5xl mix-blend-difference">
-                 ENGINEERED <br />
-                 FOR <span className="italic font-light text-white/50 tracking-tight">LIMITLESS</span> <br />
-                 PERFORMANCE.
+        {/* Slogan 2: Staggered */}
+        <div className="absolute inset-0 flex items-center justify-end px-6 md:px-32 z-10 pointer-events-none text-right">
+             <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-end gap-2 md:gap-4">
+                 <motion.span style={{ opacity: opacityS2_L1, y: yS2_L1, filter: `blur(${blurS2_L1})` }} className="block">
+                    ENGINEERED
+                 </motion.span>
+                 <motion.span style={{ opacity: opacityS2_L2, y: yS2_L2, filter: `blur(${blurS2_L2})` }} className="block">
+                    FOR <span className="italic font-light text-white/50 tracking-tight">LIMITLESS</span>
+                 </motion.span>
+                 <motion.span style={{ opacity: opacityS2_L3, y: yS2_L3, filter: `blur(${blurS2_L3})` }} className="block">
+                    PERFORMANCE.
+                 </motion.span>
              </h2>
-        </motion.div>
-
-        <motion.div 
-             style={{ opacity: opacityCTA, scale: scaleCTA, filter: blurCTA as any, pointerEvents: pointerEventsCTA }}
-             className="absolute inset-0 flex flex-col items-center justify-center z-20"
-        >
-             <h2 className="text-white text-4xl md:text-6xl font-display font-black mb-16 text-center leading-[0.9] mix-blend-difference">
-                 READY TO <br/>
-                 <span className="italic font-light text-white/50">IGNITE</span> YOUR <br/>
-                 NEXT PROJECT?
-             </h2>
-             
-             <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative px-12 py-6 bg-white text-black font-black uppercase tracking-[0.2em] text-xs md:text-sm rounded-none transition-all hover:bg-black hover:text-white duration-500 overflow-hidden"
-             >
-                <span className="relative z-10">Initiate Contact</span>
-                <div className="absolute inset-0 bg-white group-hover:bg-transparent transition-colors duration-500" />
-             </motion.button>
-        </motion.div>
+        </div>
 
       </div>
     </div>

@@ -501,23 +501,23 @@ class App {
   ) {
     const defaultItems = [
       {
-        image: '/achievement/mia1.png',
+        image: '/achievement/mia1.webp',
         text: 'MIA 2025'
       },
       {
-        image: '/achievement/mia2.png',
+        image: '/achievement/mia2.webp',
         text: 'MIA 2025'
       },
       {
-        image: '/achievement/mia3.png',
+        image: '/achievement/mia3.webp',
         text: 'MIA 2025'
       },
       {
-        image: '/achievement/bantu.png',
+        image: '/achievement/bantu.webp',
         text: 'BANTU'
       },
       {
-        image: '/achievement/pkm.png',
+        image: '/achievement/pkm.webp',
         text: 'PKM'
       }
     ];

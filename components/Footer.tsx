@@ -14,9 +14,6 @@ export default function Footer() {
                 <a href="mailto:ardians1945@gmail.com" className="px-8 py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors rounded-sm">
                     Contact Me
                 </a>
-                 <a href="/cv.txt" target="_blank" className="px-8 py-4 border border-white text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors rounded-sm">
-                    View CV
-                </a>
             </div>
         </div>
 

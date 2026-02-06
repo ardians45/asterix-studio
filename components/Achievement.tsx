@@ -5,11 +5,11 @@ import { FaTrophy } from "react-icons/fa6"; // Assuming react-icons is installed
 
 export default function Achievement() {
   const galleryItems = [
-    { image: '/achievement/mia1.png', text: 'MIA 2025' },
-    { image: '/achievement/mia2.png', text: 'MIA 2025' },
-    { image: '/achievement/mia3.png', text: 'MIA 2025' },
-    { image: '/achievement/bantu.png', text: 'BANTU' },
-    { image: '/achievement/pkm.png', text: 'PKM' },
+    { image: '/achievement/mia1.webp', text: 'MIA 2025' },
+    { image: '/achievement/mia2.webp', text: 'MIA 2025' },
+    { image: '/achievement/mia3.webp', text: 'MIA 2025' },
+    { image: '/achievement/bantu.webp', text: 'BANTU' },
+    { image: '/achievement/pkm.webp', text: 'PKM' },
   ];
 
   return (
