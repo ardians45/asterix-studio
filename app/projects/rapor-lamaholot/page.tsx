@@ -32,7 +32,7 @@ export default function RaporLamaholotPage() {
       <section className="relative w-full h-[80vh] md:h-screen flex items-end pb-20 overflow-hidden">
          {/* Background Image */}
          <Image 
-             src="/projects/rapor-lamaholot/rapor1.png" 
+             src="/projects/rapor-lamaholot/rapor1.webp" 
              alt="Rapor Lamaholot Background" 
              fill 
              className="object-cover object-top opacity-50"
@@ -158,7 +158,7 @@ export default function RaporLamaholotPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8">
                      <div className="aspect-video relative bg-[#111] rounded-2xl border border-white/10 overflow-hidden group">
                         <Image 
-                            src="/projects/rapor-lamaholot/rapor2.png" 
+                            src="/projects/rapor-lamaholot/rapor2.webp" 
                             alt="Feature Screenshot" 
                             fill 
                             className="object-cover object-top transition-transform duration-500 group-hover:scale-105" 
@@ -166,7 +166,7 @@ export default function RaporLamaholotPage() {
                      </div>
                      <div className="aspect-video relative bg-[#111] rounded-2xl border border-white/10 overflow-hidden group">
                         <Image 
-                            src="/projects/rapor-lamaholot/rapor3.png" 
+                            src="/projects/rapor-lamaholot/rapor3.webp" 
                             alt="Report PDF Screenshot" 
                             fill 
                             className="object-cover object-top transition-transform duration-500 group-hover:scale-105" 
