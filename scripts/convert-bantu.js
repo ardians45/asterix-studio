@@ -2,8 +2,8 @@ const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
 
-// Changed target directory to cactastic
-const projectDir = path.join(__dirname, '../public/projects/cactastic');
+// Changed target directory to link-aja-kas
+const projectDir = path.join(__dirname, '../public/projects/link-aja-kas');
 
 if (!fs.existsSync(projectDir)) {
     console.error(`Directory not found: ${projectDir}`);
@@ -18,11 +18,16 @@ const files = fs.readdirSync(projectDir);
         if (ext === '.png' || ext === '.jpg' || ext === '.jpeg') {
             const oldPath = path.join(projectDir, file);
             
-            // Clean filename: lowercase, replace spaces with hyphens, remove special chars
-            const cleanName = path.basename(file, ext)
+            // Custom renaming for LinkAja
+            let cleanName = path.basename(file, ext)
                 .toLowerCase()
                 .replace(/\s+/g, '-')
                 .replace(/[^\w-]/g, '');
+            
+            // Specific overrides
+            if (cleanName.includes('hifi-dashboard')) cleanName = 'dashboard-hifi';
+            if (cleanName.includes('wireframe')) cleanName = 'dashboard-wireframe';
+            if (cleanName.includes('thumb')) cleanName = 'thumbnail';
             
             const newPath = path.join(projectDir, `${cleanName}.webp`);
             
@@ -32,9 +37,6 @@ const files = fs.readdirSync(projectDir);
                 await sharp(oldPath)
                     .webp({ quality: 80 })
                     .toFile(newPath);
-                
-                // Optional: Delete original
-                // fs.unlinkSync(oldPath); 
             } catch (err) {
                 console.error(`Error converting ${file}:`, err);
             }

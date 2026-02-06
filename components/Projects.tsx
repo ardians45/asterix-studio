@@ -38,7 +38,7 @@ const projects = [
   },
 ];
 
-const designs = ["Bantu Platform", "LinkAja Kas", "Team ISC Sans Competition"];
+
 
 export default function Projects() {
   const [activeProject, setActiveProject] = useState<number | null>(null);
@@ -211,17 +211,82 @@ export default function Projects() {
                             </Link>
                         </div>
 
-                    </div>
+                        {/* Greenify */}
+                        <div className="group relative block md:col-span-2">
+                            <Link href="/projects/greenify" className="block h-full">
+                                <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl border border-gray-800 transition-all duration-500 group-hover:border-white/30 h-full">
+                                    <Image 
+                                        src="/projects/greenify/thumbnail.webp" 
+                                        alt="Greenify" 
+                                        fill 
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 transition-opacity duration-500 group-hover:bg-black/40" />
+                                    <div className="absolute bottom-0 left-0 p-8">
+                                        <span className="mb-2 block text-xs font-mono uppercase tracking-widest text-emerald-400">Featured Case Study</span>
+                                        <h3 className="mb-2 text-3xl font-display font-bold text-white group-hover:text-emerald-200 transition-colors">Greenify</h3>
+                                        <p className="max-w-xl text-gray-300 opacity-0 transform translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                                            A digital platform bridging individuals, businesses, and schools for a sustainable future.
+                                        </p>
+                                    </div>
+                                    <div className="absolute top-8 right-8 rounded-full bg-white/10 p-4 backdrop-blur-md opacity-0 transform scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100">
+                                        <FaArrowRight className="text-white -rotate-45" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
 
-                    <h4 className="text-sm font-mono text-gray-500 uppercase tracking-widest mb-6 border-b border-gray-900 pb-2">More Explorations</h4>
-                    <ul className="space-y-6">
-                        {designs.filter(d => d !== "Bantu Platform").map((design, i) => (
-                             <li key={i} className="flex justify-between items-center group cursor-pointer border-b border-gray-900 pb-6 hover:border-gray-700 transition-colors">
-                                 <span className="text-2xl md:text-3xl font-display text-gray-500 group-hover:text-white transition-colors">{design}</span>
-                                 <FaArrowRight className="opacity-0 group-hover:opacity-100 transition-opacity -rotate-45 group-hover:rotate-0 transform duration-300" />
-                             </li>
-                        ))}
-                    </ul>
+                         {/* GoGo Groceries */}
+                        <div className="group relative block md:col-span-1">
+                             <Link href="/projects/gogo-groceries" className="block h-full">
+                                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-gray-800 transition-all duration-500 group-hover:border-white/30 h-full">
+                                    <Image 
+                                        src="/projects/gogo-groceries/thumbnail.webp" 
+                                        alt="GoGo Groceries" 
+                                        fill 
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 transition-opacity duration-500 group-hover:bg-black/40" />
+                                    <div className="absolute bottom-0 left-0 p-6">
+                                        <span className="mb-2 block text-xs font-mono uppercase tracking-widest text-orange-400">Featured</span>
+                                        <h3 className="mb-1 text-2xl font-display font-bold text-white group-hover:text-orange-200 transition-colors">GoGo</h3>
+                                        <p className="text-sm text-gray-300 opacity-80 line-clamp-2">
+                                            Instant quick-commerce with real-time tracking.
+                                        </p>
+                                    </div>
+                                    <div className="absolute top-6 right-6 rounded-full bg-white/10 p-3 backdrop-blur-md opacity-0 transform scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100">
+                                        <FaArrowRight className="text-white -rotate-45 text-sm" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+
+                        {/* LinkAja Kas */}
+                        <div className="group relative block md:col-span-1">
+                             <Link href="/projects/link-aja-kas" className="block h-full">
+                                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-gray-800 transition-all duration-500 group-hover:border-white/30 h-full">
+                                    <Image 
+                                        src="/projects/link-aja-kas/thumbnail.webp" 
+                                        alt="LinkAja Kas" 
+                                        fill 
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                                    />
+                                    <div className="absolute inset-0 bg-black/60 transition-opacity duration-500 group-hover:bg-black/40" />
+                                    <div className="absolute bottom-0 left-0 p-6">
+                                        <span className="mb-2 block text-xs font-mono uppercase tracking-widest text-[#E11931]">Featured</span>
+                                        <h3 className="mb-1 text-2xl font-display font-bold text-white group-hover:text-red-300 transition-colors">LinkAja Kas</h3>
+                                        <p className="text-sm text-gray-300 opacity-80 line-clamp-2">
+                                            Collective finance management for communities.
+                                        </p>
+                                    </div>
+                                    <div className="absolute top-6 right-6 rounded-full bg-white/10 p-3 backdrop-blur-md opacity-0 transform scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-100">
+                                        <FaArrowRight className="text-white -rotate-45 text-sm" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+
+                    </div>
                </div>
            </div>
       </div>
