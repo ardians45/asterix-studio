@@ -28,7 +28,7 @@ export default function TetrisPage() {
       <section className="relative w-full h-[80vh] md:h-screen flex items-end pb-20 overflow-hidden">
          {/* Background Image / Placeholder until user adds one */}
          <Image 
-            src="/projects/3d-tetris-grunge/tetris1.png" 
+            src="/projects/3d-tetris-grunge/tetris1.webp" 
             alt="3D Tetris Background" 
             fill 
             className="object-cover object-top opacity-50"
@@ -154,7 +154,7 @@ export default function TetrisPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8">
                      <div className="aspect-video relative bg-[#111] rounded-2xl border border-white/10 overflow-hidden group">
                         <Image 
-                            src="/projects/3d-tetris-grunge/tetris2.png" 
+                            src="/projects/3d-tetris-grunge/tetris2.webp" 
                             alt="Gameplay Screenshot" 
                             fill 
                             className="object-cover object-top transition-transform duration-500 group-hover:scale-105" 
@@ -162,7 +162,7 @@ export default function TetrisPage() {
                      </div>
                      <div className="aspect-video relative bg-[#111] rounded-2xl border border-white/10 overflow-hidden group">
                          <Image 
-                            src="/projects/3d-tetris-grunge/tetris3.png" 
+                            src="/projects/3d-tetris-grunge/tetris3.webp" 
                             alt="Mobile UI Screenshot" 
                             fill 
                             className="object-cover object-top transition-transform duration-500 group-hover:scale-105" 

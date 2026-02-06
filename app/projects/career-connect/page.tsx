@@ -35,7 +35,7 @@ export default function CareerConnectPage() {
       <section className="relative w-full h-[80vh] md:h-screen flex items-end pb-20 overflow-hidden">
          {/* Background Image */}
          <Image 
-            src="/projects/career-connect/cc1.png" 
+            src="/projects/career-connect/cc1.webp" 
             alt="CareerConnect Background" 
             fill 
             className="object-cover object-top opacity-50"
@@ -161,7 +161,7 @@ export default function CareerConnectPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8">
                      <div className="aspect-video relative bg-[#111] rounded-2xl border border-white/10 overflow-hidden group">
                         <Image 
-                            src="/projects/career-connect/cc2.png" 
+                            src="/projects/career-connect/cc2.webp" 
                             alt="Feature Screenshot" 
                             fill 
                             className="object-cover object-top transition-transform duration-500 group-hover:scale-105" 
@@ -169,7 +169,7 @@ export default function CareerConnectPage() {
                      </div>
                      <div className="aspect-video relative bg-[#111] rounded-2xl border border-white/10 overflow-hidden group">
                         <Image 
-                            src="/projects/career-connect/cc3.png" 
+                            src="/projects/career-connect/cc3.webp" 
                             alt="Dashboard Screenshot" 
                             fill 
                             className="object-cover object-top transition-transform duration-500 group-hover:scale-105" 
