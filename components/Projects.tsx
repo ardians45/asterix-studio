@@ -14,7 +14,7 @@ const projects = [
     tech: ["React", "Tailwind CSS", "Frontend Architecture"],
     impact: "Centralized academic data access for students.",
     year: "2025",
-    image: "/projects/career-connect/cc1.png",
+    image: "/projects/career-connect/cc1.webp",
     link: "/projects/career-connect"
   },
   {
