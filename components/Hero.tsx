@@ -53,6 +53,19 @@ export default function Hero() {
   const yS2_L3 = useTransform(scrollYProgress, [0.51, 0.61, 0.71], [50, 0, -50]);
   const blurS2_L3 = useTransform(scrollYProgress, [0.51, 0.61, 0.71], ["10px", "0px", "10px"]);
 
+  // Slogan 3: Staggered Reveal
+  const opacityS3_L1 = useTransform(scrollYProgress, [0.75, 0.85, 0.95], [0, 1, 0]);
+  const yS3_L1 = useTransform(scrollYProgress, [0.75, 0.85, 0.95], [50, 0, -50]);
+  const blurS3_L1 = useTransform(scrollYProgress, [0.75, 0.85, 0.95], ["10px", "0px", "10px"]);
+
+  const opacityS3_L2 = useTransform(scrollYProgress, [0.78, 0.88, 0.98], [0, 1, 0]);
+  const yS3_L2 = useTransform(scrollYProgress, [0.78, 0.88, 0.98], [50, 0, -50]);
+  const blurS3_L2 = useTransform(scrollYProgress, [0.78, 0.88, 0.98], ["10px", "0px", "10px"]);
+
+  const opacityS3_L3 = useTransform(scrollYProgress, [0.81, 0.91, 1], [0, 1, 0]);
+  const yS3_L3 = useTransform(scrollYProgress, [0.81, 0.91, 1], [50, 0, -50]);
+  const blurS3_L3 = useTransform(scrollYProgress, [0.81, 0.91, 1], ["10px", "0px", "10px"]);
+
   // Loading State
   const [loadingProgress, setLoadingProgress] = useState(0);
 
@@ -256,8 +269,8 @@ export default function Hero() {
         </div>
 
         {/* Slogan 2: Staggered */}
-        <div className="absolute inset-0 flex items-center justify-end px-6 md:px-32 z-10 pointer-events-none text-right">
-             <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-end gap-2 md:gap-4">
+        <div className="absolute inset-0 flex items-center justify-start px-6 md:px-32 z-10 pointer-events-none">
+             <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-start gap-2 md:gap-4">
                  <motion.span style={{ opacity: opacityS2_L1, y: yS2_L1, filter: `blur(${blurS2_L1})` }} className="block">
                     ENGINEERED
                  </motion.span>
@@ -266,6 +279,21 @@ export default function Hero() {
                  </motion.span>
                  <motion.span style={{ opacity: opacityS2_L3, y: yS2_L3, filter: `blur(${blurS2_L3})` }} className="block">
                     PERFORMANCE
+                 </motion.span>
+             </h2>
+        </div>
+
+        {/* Slogan 3: Staggered */}
+        <div className="absolute inset-0 flex items-center justify-start px-6 md:px-32 z-10 pointer-events-none">
+             <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-start gap-2 md:gap-4">
+                 <motion.span style={{ opacity: opacityS3_L1, y: yS3_L1, filter: `blur(${blurS3_L1})` }} className="block">
+                    SCULPTING
+                 </motion.span>
+                 <motion.span style={{ opacity: opacityS3_L2, y: yS3_L2, filter: `blur(${blurS3_L2})` }} className="block">
+                    <span className="italic font-light text-white/50 tracking-tight">VISIONARY</span>
+                 </motion.span>
+                 <motion.span style={{ opacity: opacityS3_L3, y: yS3_L3, filter: `blur(${blurS3_L3})` }} className="block">
+                    FUTURES.
                  </motion.span>
              </h2>
         </div>

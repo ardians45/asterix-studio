@@ -68,7 +68,7 @@ export default function Skills() {
                                 viewport={{ once: true }}
                                 className="group flex items-center gap-3 px-5 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/30 transition-all cursor-default"
                             >
-                                <div className="text-xl filter grayscale group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100 group-hover:scale-110">
+                                <div className="text-xl filter lg:grayscale lg:group-hover:grayscale-0 transition-all duration-300 opacity-70 group-hover:opacity-100 group-hover:scale-110">
                                     {skill.icon}
                                 </div>
                                 <span className="text-gray-400 text-sm font-medium group-hover:text-white transition-colors tracking-wide">

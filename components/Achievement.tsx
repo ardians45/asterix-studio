@@ -1,131 +1,99 @@
 "use client";
 
-import CircularGallery from './CircularGallery';
-import { FaTrophy } from "react-icons/fa6"; // Assuming react-icons is installed, as seen in package.json
+import Image from "next/image";
 
 export default function Achievement() {
-  const galleryItems = [
-    { image: '/achievement/mia1.webp', text: 'MIA 2025' },
-    { image: '/achievement/mia2.webp', text: 'MIA 2025' },
-    { image: '/achievement/mia3.webp', text: 'MIA 2025' },
-    { image: '/achievement/bantu.webp', text: 'BANTU' },
-    { image: '/achievement/pkm.webp', text: 'PKM' },
+  const achievements = [
+    {
+      year: "2025",
+      title: "2nd Place Winner",
+      subtitle: "UI/UX Design Competition (MIA)",
+      description: "Outperformed 200+ teams with a research-backed financial management solution. Designed LinkAja Kas, improving transparency for group transactions.",
+      image: "/achievement/mia3.webp",
+      tags: ["🏆 Top 3 National", "LinkAja Case"]
+    },
+    {
+      year: "2025",
+      title: "Top Web Designer Intern — Batch 1",
+      subtitle: "BANTU · Internship",
+      description: "Shipped designs for 3 core products: Landing Page, Corporate Site, & Dashboard. Built scalable Design Systems to accelerate dev handoff by 20%.",
+      image: "/achievement/bantu.webp",
+      tags: ["⭐ Top Intern Batch 1", "Remote"]
+    },
+    {
+      year: "2025",
+      title: "Project Lead & Full-Stack Developer",
+      subtitle: "PKM (Pengabdian kepada Masyarakat)",
+      description: "Served as team leader and primary full-stack developer, responsible for defining the project concept, designing system architecture, developing the application end-to-end, and leading UI/UX design decisions.",
+      image: "/achievement/pkm.webp",
+      tags: ["💡 Research & Dev", "National"]
+    },
+    {
+      year: "2025",
+      title: "Dies Natalis HIMTIF",
+      subtitle: "University Pamulang",
+      description: "Participated in a UI/UX Design Competition held during the Dies Natalis of HIMTIF, contributing design ideas and user experience solutions while strengthening practical skills in interface design and usability principles.",
+      image: "/achievement/diesnatalis.png",
+      tags: ["🎓 Exhibition", "Campus Event"]
+    }
   ];
 
   return (
-    <section className="w-full bg-black py-20 relative overflow-hidden" id="achievement">
-      <div className="container mx-auto px-4 md:px-8">
+    <section className="w-full bg-black py-32 relative overflow-hidden text-white font-serif" id="achievement">
+      <div className="container mx-auto px-4 md:px-12 max-w-6xl">
         
-        {/* Text Content */}
         {/* Section Header */}
-        <div className="flex flex-col items-center mb-16 relative z-10">
-            <span className="text-yellow-500 uppercase tracking-[0.3em] text-sm font-bold mb-4 animate-pulse">
-                Recognition
-            </span>
-            <h2 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500 mb-6 text-center">
-                Honor & Award
+        <div className="mb-24 relative z-10 flex flex-col items-center text-center">
+            <h2 className="text-5xl md:text-7xl font-bold text-white italic tracking-tight border-b border-white/20 pb-6 inline-block">
+                Achievements
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-yellow-500 to-transparent rounded-full"></div>
+            <p className="mt-6 text-sm md:text-base text-gray-400 max-w-2xl font-sans leading-relaxed">
+                A chronological overview of technical milestones, competitive design awards, and industry recognition. Documenting the ongoing journey of crafting high-end digital experiences and scaling technical foundations.
+            </p>
         </div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 mb-20 relative z-10 w-full max-w-7xl mx-auto px-4">
-            
-            {/* Card 1: Competition Award */}
-            <div className="group relative bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-white/5 p-8 lg:p-10 rounded-3xl overflow-hidden hover:border-yellow-500/30 hover:shadow-2xl hover:shadow-yellow-900/10 transition-all duration-500">
-                {/* Background Glow */}
-                <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/5 rounded-full blur-[100px] group-hover:bg-yellow-500/10 transition-colors duration-700"></div>
-                <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-10 transition-opacity duration-500 transform translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0">
-                    <FaTrophy className="w-40 h-40 rotate-12 text-yellow-500" />
-                </div>
-                
-                <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-8">
-                        <div className="bg-yellow-500/10 p-2.5 rounded-xl border border-yellow-500/20 text-yellow-500">
-                             <FaTrophy className="w-5 h-5" />
+        {/* Timeline Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
+            {achievements.map((item, index) => (
+                <div 
+                    key={index}
+                    // Apply top margin to even items on desktop to create the staggered masonry look
+                    className={`flex flex-col ${index % 2 !== 0 ? 'md:mt-32' : ''}`} 
+                >
+                    {/* Year Header */}
+                    <div className="border-b border-gray-800 pb-2 mb-6">
+                        <span className="text-5xl md:text-6xl font-bold italic text-white tracking-tighter">
+                            {item.year}
+                        </span>
+                    </div>
+
+                    {/* Image Block */}
+                    <div className="relative aspect-[4/3] w-full mb-6 bg-[#050505] overflow-hidden group rounded-sm border border-white/5">
+                        <Image 
+                            src={item.image}
+                            alt={item.title}
+                            fill
+                            className="object-cover lg:grayscale lg:group-hover:grayscale-0 transition-all duration-700 opacity-90 group-hover:opacity-100"
+                        />
+                    </div>
+
+                    {/* Content Block */}
+                    <div className="font-sans">
+                        <h3 className="text-xl font-display font-medium text-white mb-2">{item.title}</h3>
+                        <span className="block text-sm font-mono tracking-widest uppercase text-gray-500 mb-4">{item.subtitle}</span>
+                        <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                            {item.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                             {item.tags.map(tag => (
+                                 <span key={tag} className="text-[10px] uppercase tracking-wider border border-gray-800 text-gray-400 px-3 py-1.5 rounded-full">
+                                     {tag}
+                                 </span>
+                             ))}
                         </div>
-                        <span className="text-sm font-bold tracking-widest uppercase text-gray-400 group-hover:text-white transition-colors">Competition</span>
-                    </div>
-
-                    <h3 className="text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight group-hover:text-yellow-400 transition-colors">
-                        2nd Place Winner
-                    </h3>
-                    <p className="text-lg text-gray-400 mb-8 font-light italic border-l-2 border-yellow-500/30 pl-4 py-1">
-                        UI/UX Design Competition (MIA 2025)
-                    </p>
-
-                    <div className="space-y-6">
-                         <div className="flex flex-wrap gap-2">
-                            <span className="bg-white/5 px-3 py-1.5 rounded-lg text-xs font-mono text-yellow-500/80 border border-yellow-500/10">🏆 Top 3 National</span>
-                            <span className="bg-white/5 px-3 py-1.5 rounded-lg text-xs font-mono text-gray-400 border border-white/5">LinkAja Case</span>
-                         </div>
-                         
-                         <ul className="space-y-4 text-gray-300">
-                            <li className="flex items-start gap-4 group/item">
-                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-yellow-500 flex-shrink-0 group-hover/item:scale-150 transition-transform"></span>
-                                <span className="leading-relaxed">Outperformed <strong>200+ teams</strong> with a research-backed financial management solution.</span>
-                            </li>
-                            <li className="flex items-start gap-4 group/item">
-                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-yellow-500 flex-shrink-0 group-hover/item:scale-150 transition-transform"></span>
-                                <span className="leading-relaxed">Designed <strong>LinkAja Kas</strong>, improving transparency for group transactions.</span>
-                            </li>
-                         </ul>
                     </div>
                 </div>
-            </div>
-
-            {/* Card 2: Internship */}
-            <div className="group relative bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-white/5 p-8 lg:p-10 rounded-3xl overflow-hidden hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500">
-                 {/* Background Glow */}
-                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] group-hover:bg-blue-500/10 transition-colors duration-700"></div>
-                 
-                 <div className="relative z-10">
-                     <div className="flex items-center gap-3 mb-8">
-                        <div className="bg-blue-500/10 p-2.5 rounded-xl border border-blue-500/20 text-blue-400">
-                            <span className="text-lg font-bold">💼</span>
-                        </div>
-                        <span className="text-sm font-bold tracking-widest uppercase text-gray-400 group-hover:text-white transition-colors">Experience</span>
-                    </div>
-
-                    <h3 className="text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight group-hover:text-blue-400 transition-colors">
-                        Top Web Designer Intern — Batch 1
-                    </h3>
-                    <p className="text-lg text-gray-400 mb-8 font-light italic border-l-2 border-blue-500/30 pl-4 py-1">
-                        BANTU · Internship
-                    </p>
-
-                    <div className="space-y-6">
-                         <div className="flex flex-wrap gap-2">
-                             <span className="bg-blue-500/10 text-blue-300 px-3 py-1.5 rounded-lg text-xs font-mono border border-blue-500/20">⭐ Top Intern Batch 1</span>
-                             <span className="bg-white/5 text-gray-400 px-3 py-1.5 rounded-lg text-xs font-mono border border-white/5">Remote</span>
-                         </div>
-                         
-                         <ul className="space-y-4 text-gray-300">
-                            <li className="flex items-start gap-4 group/item">
-                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0 group-hover/item:scale-150 transition-transform"></span>
-                                <span className="leading-relaxed">Shipped designs for <strong>3 core products</strong>: Landing Page, Corporate Site, & Dashboard.</span>
-                            </li>
-                            <li className="flex items-start gap-4 group/item">
-                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0 group-hover/item:scale-150 transition-transform"></span>
-                                <span className="leading-relaxed">Built scalable <strong>Design Systems</strong> to accelerate dev handoff by 20%.</span>
-                            </li>
-                         </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        {/* 3D Circular Gallery */}
-        <div style={{ height: '600px', position: 'relative' }}>
-          <CircularGallery 
-             items={galleryItems}
-             bend={-1}
-             textColor="#ffffff"
-             borderRadius={0.05}
-             scrollSpeed={2}
-             scrollEase={0.05}
-          />
+            ))}
         </div>
 
       </div>

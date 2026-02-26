@@ -33,7 +33,7 @@ export default function About() {
                     src="/profile.webp" 
                     alt="Ardian Setiawan" 
                     fill
-                    className="object-cover transition-all duration-700 filter grayscale group-hover:grayscale-0 group-hover:scale-105"
+                    className="object-cover transition-all duration-700 filter lg:grayscale lg:group-hover:grayscale-0 group-hover:scale-105"
                 />
                 
                 {/* Overlay Gradient */}

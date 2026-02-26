@@ -37,7 +37,7 @@ export default function GreenifyPage() {
          />
          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
          
-         <div className="absolute top-8 left-6 md:top-12 md:left-12 z-20">
+         <div className="absolute top-20 left-6 md:top-12 md:left-12 z-50">
             <Link href="/#projects" className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-white/20 bg-black/50 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all duration-300 group">
                 <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
             </Link>

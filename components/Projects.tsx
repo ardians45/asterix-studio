@@ -94,57 +94,79 @@ export default function Projects() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-20">
+      <div className="flex flex-col md:gap-20 gap-0">
         {projects.map((project, index) => (
           <div 
              key={index} 
              onMouseEnter={() => setActiveProject(index)}
              onMouseLeave={() => setActiveProject(null)}
-             className="group relative border-t border-gray-800 pt-12 md:flex gap-12 transition-all duration-300 hover:border-white/40 overflow-hidden"
+             className="group relative"
           >
-             {/* Mobile Minimalist Background */}
-             <div className="absolute inset-0 z-0 md:hidden pointer-events-none select-none">
-                <Image
-                    src={project.image}
-                    alt="" 
-                    fill
-                    className="object-cover grayscale opacity-20 blur-[2px] scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-             </div>
-
-             <div className="relative z-10 md:w-1/3 mb-6 md:mb-0">
-                 <span className="text-sm font-mono text-gray-500 transition-colors group-hover:text-white">0{index + 1} / {project.year}</span>
-                 <h4 className="text-3xl font-bold mt-2 font-display transition-colors group-hover:text-blue-400">{project.title}</h4>
-                 <div className="mt-4 flex flex-wrap gap-2">
-                     {project.tech.map((t) => (
-                         <span key={t} className="text-xs border border-gray-800 px-2 py-1 rounded-full text-gray-400 group-hover:border-gray-600 transition-colors">
-                             {t}
-                         </span>
-                     ))}
+             {/* --- MOBILE UI --- */}
+             <div className="md:hidden flex flex-col w-full pt-8">
+                 {/* Header */}
+                 <div className="flex items-center gap-4 mb-4">
+                     <span className="text-xs font-mono text-gray-500">0{index + 1}</span>
+                     <h4 className="text-[28px] font-display font-black uppercase tracking-widest text-[#F5F5F2] leading-none">{project.title}</h4>
+                 </div>
+                 
+                 {/* Image */}
+                 <Link href={project.link} className="block w-full group/mob">
+                     <div className="relative aspect-auto h-[220px] sm:h-[300px] w-full bg-[#050505] overflow-hidden mb-4 rounded-sm">
+                         <Image 
+                             src={project.image}
+                             alt={project.title}
+                             fill
+                             className="object-cover transition-transform duration-700 group-hover/mob:scale-105 opacity-90"
+                         />
+                         <div className="absolute inset-0 bg-black/10 transition-opacity duration-500 group-hover/mob:opacity-0" />
+                     </div>
+                 </Link>
+                 
+                 {/* Footer */}
+                 <div className="flex justify-between items-center text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-gray-500 border-b border-gray-800 pb-12">
+                     <span>{project.role}</span>
+                     <Link href={project.link} className="p-2 -mr-2 text-gray-400">
+                          <FaArrowRight className="text-sm" />
+                     </Link>
                  </div>
              </div>
-             <div className="relative z-10 md:w-2/3">
-                <p className="text-xl text-gray-300 mb-6 max-w-2xl leading-relaxed group-hover:text-white transition-colors">
-                    {project.description}
-                </p>
-                <div className="grid grid-cols-2 gap-6 mb-8 text-sm">
-                    <div>
-                        <span className="block text-gray-500 uppercase tracking-wider text-xs mb-1">Role</span>
-                        {project.role}
+
+             {/* --- DESKTOP UI --- */}
+             <div className="hidden md:flex gap-12 border-t border-gray-800 pt-12 transition-all duration-300 hover:border-white/40">
+                 <div className="relative z-10 md:w-1/3 mb-6 md:mb-0">
+                     <span className="text-sm font-mono text-gray-500 transition-colors group-hover:text-white">0{index + 1} / {project.year}</span>
+                     <h4 className="text-3xl font-bold mt-2 font-display transition-colors group-hover:text-blue-400">{project.title}</h4>
+                     <div className="mt-4 flex flex-wrap gap-2">
+                         {project.tech.map((t) => (
+                             <span key={t} className="text-xs border border-gray-800 px-2 py-1 rounded-full text-gray-400 group-hover:border-gray-600 transition-colors">
+                                 {t}
+                             </span>
+                         ))}
+                     </div>
+                 </div>
+                 <div className="relative z-10 md:w-2/3">
+                    <p className="text-xl text-gray-300 mb-6 max-w-2xl leading-relaxed group-hover:text-white transition-colors">
+                        {project.description}
+                    </p>
+                    <div className="grid grid-cols-2 gap-6 mb-8 text-sm">
+                        <div>
+                            <span className="block text-gray-500 uppercase tracking-wider text-xs mb-1">Role</span>
+                            {project.role}
+                        </div>
+                         <div>
+                            <span className="block text-gray-500 uppercase tracking-wider text-xs mb-1">Impact</span>
+                            {project.impact}
+                        </div>
                     </div>
-                     <div>
-                        <span className="block text-gray-500 uppercase tracking-wider text-xs mb-1">Impact</span>
-                        {project.impact}
-                    </div>
+                    
+                    <Link href={project.link}>
+                        <button className="flex items-center gap-2 uppercase tracking-widest text-sm hover:text-blue-400 transition-colors group-hover:translate-x-2 duration-300">
+                            View Project <FaArrowRight />
+                        </button>
+                    </Link>
                 </div>
-                
-                <Link href={project.link}>
-                    <button className="flex items-center gap-2 uppercase tracking-widest text-sm hover:text-blue-400 transition-colors group-hover:translate-x-2 duration-300">
-                        View Project <FaArrowRight />
-                    </button>
-                </Link>
-            </div>
+             </div>
           </div>
         ))}
       </div>
