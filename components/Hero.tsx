@@ -1,22 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useTransform, useMotionValueEvent, motion } from "framer-motion";
+import { useScroll, useTransform, useMotionValueEvent, motion, useInView } from "framer-motion";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const imageCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
   const [isLoaded, setIsLoaded] = useState(false);
   const lastRenderedFrame = useRef<number>(-1);
   const rafId = useRef<number | null>(null);
+  
+  const isInView = useInView(containerRef);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const frameCount = 80;
+  const frameCount = 257;
   const currentIndex = useTransform(scrollYProgress, [0, 1], [1, frameCount]);
 
   // Title Animations: Fade In + Slide Up + Slight Scale Out
@@ -54,30 +56,38 @@ export default function Hero() {
   // Loading State
   const [loadingProgress, setLoadingProgress] = useState(0);
 
-  useEffect(() => {
-    const loadImages = async () => {
-      const loadedImages: HTMLImageElement[] = [];
-      const promises = [];
-
-      for (let i = 1; i <= frameCount; i++) {
-        const p = new Promise<void>((resolve) => {
-          const img = new Image();
-          img.src = `/sequence/ezgif-frame-${i.toString().padStart(3, "0")}.webp`;
-          img.onload = () => {
-              setLoadingProgress(prev => prev + 1);
-              resolve();
-          };
-          loadedImages[i] = img;
-        });
-        promises.push(p);
+  const preloadImage = (index: number): Promise<void> => {
+    return new Promise((resolve) => {
+      if (imageCacheRef.current.has(index)) {
+        resolve();
+        return;
       }
+      const img = new Image();
+      img.src = `/sequence/ezgif-frame-${index.toString().padStart(3, "0")}.webp`;
+      img.onload = () => {
+        imageCacheRef.current.set(index, img);
+        resolve();
+      };
+      img.onerror = () => resolve(); 
+    });
+  };
 
+  useEffect(() => {
+    // Stage 1: Fast Loading sequence (First 15 critical frames only)
+    const loadInitialFrames = async () => {
+      const initialFrameCount = Math.min(15, frameCount);
+      const promises = [];
+      for (let i = 1; i <= initialFrameCount; i++) {
+        promises.push(preloadImage(i).then(() => {
+           setLoadingProgress((prev) => prev + 1);
+        }));
+      }
       await Promise.all(promises);
-      imagesRef.current = loadedImages;
       setIsLoaded(true);
+      requestAnimationFrame(() => renderFrame(1));
     };
 
-    loadImages();
+    loadInitialFrames();
 
     return () => {
         if (rafId.current) cancelAnimationFrame(rafId.current);
@@ -85,11 +95,11 @@ export default function Hero() {
   }, []);
 
   const renderFrame = (index: number) => {
-    if (index === lastRenderedFrame.current) return;
+    if (index === lastRenderedFrame.current || !isInView) return;
     
     const canvas = canvasRef.current;
-    const ctx = canvas?.getContext("2d", { alpha: false }); // Optimization: no alpha
-    const img = imagesRef.current[index];
+    const ctx = canvas?.getContext("2d", { alpha: false }); 
+    const img = imageCacheRef.current.get(index);
     
     if (!canvas || !ctx || !img) return;
 
@@ -108,7 +118,13 @@ export default function Hero() {
     } else {
         drawWidth = canvasHeight * imgAspect;
         drawHeight = canvasHeight;
-        offsetX = (canvasWidth - drawWidth) / 2;
+        
+        // On mobile and tablet, align to the right to keep the character visible. Otherwise, center.
+        if (window.innerWidth <= 1024) {
+            offsetX = canvasWidth - drawWidth;
+        } else {
+            offsetX = (canvasWidth - drawWidth) / 2;
+        }
         offsetY = 0;
     }
 
@@ -116,10 +132,36 @@ export default function Hero() {
     lastRenderedFrame.current = index;
   };
 
+  const manageMemory = (currentFrame: number) => {
+    const preloadRange = 10;
+    const safeZone = 20; // purge beyond this
+
+    // 1. Preload near frames
+    for (let i = currentFrame - preloadRange; i <= currentFrame + preloadRange; i++) {
+      if (i > 0 && i <= frameCount && !imageCacheRef.current.has(i)) {
+        const img = new Image();
+        img.src = `/sequence/ezgif-frame-${i.toString().padStart(3, "0")}.webp`;
+        img.onload = () => {
+          imageCacheRef.current.set(i, img);
+        };
+      }
+    }
+
+    // 2. Garbage Collection for far frames
+    imageCacheRef.current.forEach((img, key) => {
+      if (Math.abs(key - currentFrame) > safeZone) {
+        img.src = ""; // Clear src to stop decoding/release memory
+        imageCacheRef.current.delete(key);
+      }
+    });
+  };
+
   useMotionValueEvent(currentIndex, "change", (latest) => {
-    if (!isLoaded) return;
+    if (!isLoaded || !isInView) return;
     const frameIndex = Math.floor(latest);
     
+    manageMemory(frameIndex);
+
     if (rafId.current) cancelAnimationFrame(rafId.current);
     rafId.current = requestAnimationFrame(() => renderFrame(frameIndex));
   });
@@ -127,8 +169,11 @@ export default function Hero() {
   useEffect(() => {
     const handleResize = () => {
         if(canvasRef.current) {
-            canvasRef.current.width = window.innerWidth;
-            canvasRef.current.height = window.innerHeight;
+            const isMobile = window.innerWidth <= 768;
+            const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5); 
+            
+            canvasRef.current.width = window.innerWidth * dpr;
+            canvasRef.current.height = window.innerHeight * dpr;
             if(isLoaded) renderFrame(Math.floor(currentIndex.get()));
         }
     };
@@ -156,11 +201,11 @@ export default function Hero() {
                     <motion.div 
                         className="h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]" 
                         initial={{ width: 0 }}
-                        animate={{ width: `${(loadingProgress / frameCount) * 100}%` }}
+                        animate={{ width: `${(loadingProgress / Math.min(15, frameCount)) * 100}%` }}
                     />
                  </div>
                 <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-white/40">
-                    Syncing Neural Sequence // {Math.round((loadingProgress / frameCount) * 100)}%
+                    Syncing Neural Sequence // {Math.round((loadingProgress / Math.min(15, frameCount)) * 100)}%
                 </span>
             </div>
         )}
@@ -220,7 +265,7 @@ export default function Hero() {
                     FOR <span className="italic font-light text-white/50 tracking-tight">LIMITLESS</span>
                  </motion.span>
                  <motion.span style={{ opacity: opacityS2_L3, y: yS2_L3, filter: `blur(${blurS2_L3})` }} className="block">
-                    PERFORMANCE.
+                    PERFORMANCE
                  </motion.span>
              </h2>
         </div>
