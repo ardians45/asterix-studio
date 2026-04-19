@@ -21,9 +21,8 @@ export default function B2BProblem() {
                Masalah
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.1] tracking-tight">
-              Website Anda <span className="text-red-500 italic">Bocor?</span> <br/>
-              Traffic Masuk, Tapi <br/>
-              <span className="text-[#10b981]">Inquiry Tetap Nol.</span>
+              Mengapa Kebanyakan Website Perusahaan <span className="text-red-500 italic">Gagal</span> <br/>
+              Menghasilkan <span className="text-[#10b981]">Inquiry?</span>
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-medium mt-6 text-balance">
               Percuma membakar uang untuk iklan jika website Anda tidak mampu mengikat pengunjung. Setiap detik yang terbuang adalah potensi profit yang hilang karena desain yang tidak menjual.
@@ -95,8 +94,8 @@ export default function B2BProblem() {
                Solusi
             </div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-[1.1] tracking-tight">
-              Hentikan Pemborosan, <br/>
-              Mulai <span className="text-[#10b981]">Konversi.</span>
+              
+              Website Performa Tinggi yang Fokus pada <span className="text-[#10b981]">Kejelasan ROI.</span>
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-medium mt-6 text-balance">
               Kami merancang ulang setiap pixel untuk satu tujuan: Memastikan setiap pengunjung yang datang memiliki alasan kuat untuk menghubungi bisnis Anda.
@@ -150,7 +149,7 @@ export default function B2BProblem() {
              {/* Main Image Container */}
              <div className="relative w-full aspect-video md:aspect-[4/3] z-10 group bg-white rounded-[32px] shadow-2xl overflow-hidden border border-gray-100">
                 <img 
-                  src="/portfolio/BANTU.png" 
+                  src="/portfolio/pagespeed.png" 
                   alt="Solution Visualization" 
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
                 />

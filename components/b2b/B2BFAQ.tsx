@@ -39,7 +39,7 @@ export default function B2BFAQ() {
         <div className="text-center mb-16">
           <p className="text-[#10b981] font-bold mb-2 uppercase text-sm tracking-widest">FAQ</p>
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
-            Hal yang Sering <span className="text-[#10b981]">Ditanyakan.</span>
+            Pertanyaan Mengenai <span className="text-[#10b981]">Jasa Website Perusahaan.</span>
           </h2>
         </div>
 

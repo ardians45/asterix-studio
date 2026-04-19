@@ -61,9 +61,9 @@ export default function B2BHero() {
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             <h1 className="text-4xl md:text-[5rem] font-bold text-gray-900 tracking-tighter leading-[1.1] mb-8 max-w-5xl mx-auto">
-              Berhenti Membakar Uang untuk Iklan pada <span className="text-[#10b981] italic">Website yang Bocor.</span>
+              Jasa Website Perusahaan & <span className="text-[#10b981] italic">Landing Page Konversi Tinggi.</span>
             </h1>
-            <p className="sr-only">Jasa Pembuatan Website Profesional oleh Asterix Studio — Creative Agency Indonesia</p>
+            <p className="sr-only">Jasa Web Design Bisnis & Pembuatan Website Company Profile — Asterix Studio</p>
           </motion.div>
 
           {/* Subheading */}
@@ -73,7 +73,7 @@ export default function B2BHero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-[17px] md:text-xl text-gray-600 mb-12 max-w-3xl leading-relaxed font-medium mx-auto"
           >
-            Jangan biarkan traffic mahal Anda menguap begitu saja. Kami merombak website Anda menjadi instrumen konversi yang menghasilkan leads berkualitas secara konsisten.
+            Berhenti membakar budget iklan pada website yang tidak menjual. Kami menyediakan solusi web design bisnis dan website company profile yang fokus menghasilkan client baru untuk perusahaan Anda.
           </motion.p>
 
           {/* CTA Buttons - Matching Image Style (One dark, one light pill) */}

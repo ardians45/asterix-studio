@@ -22,8 +22,8 @@ export default function B2BCTA() {
           </div>
           
           <h2 className="text-4xl md:text-6xl font-black text-white leading-[1.1] mb-6 tracking-tight font-sans text-balance">
-            Berhenti Menunda. <br/> 
-            Saatnya Website <span className="text-[#10b981]">Menghasilkan.</span>
+            Berhenti Membayar Iklan untuk Website yang Bocor. <br/> 
+            Mulai <span className="text-[#10b981]">Transformasi Sekarang.</span>
           </h2>
           
           <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto font-medium leading-relaxed text-balance">
@@ -50,7 +50,7 @@ export default function B2BCTA() {
 
       {/* Decorative Brand Text */}
       <div className="mt-32 pt-8 flex flex-col items-center border-t border-gray-800/50">
-         <h3 className="text-[12vw] font-black text-gray-800/40 tracking-tighter uppercase leading-none select-none pointer-events-none">Asterix Studio</h3>
+         <div className="text-[12vw] font-black text-gray-800/40 tracking-tighter uppercase leading-none select-none pointer-events-none">Asterix Studio</div>
          <div className="flex flex-col sm:flex-row justify-between w-full px-12 mt-4 text-xs font-medium text-gray-500">
            <span>&copy; {new Date().getFullYear()} Asterix Studio. All Rights Reserved.</span>
            <div className="flex gap-4 mt-2 sm:mt-0">

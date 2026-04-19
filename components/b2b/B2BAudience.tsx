@@ -8,19 +8,19 @@ export default function B2BAudience() {
 
   const audiences = [
     {
-      role: "Pemilik Bisnis",
+      role: "Pemilik Bisnis (Fokus pada Strategi & Profit)",
       desc: "Tingkatkan ROI dari website Anda. Website bukan sekadar beban biaya, melainkan aset investasi yang bekerja 24/7 menghasilkan client baru untuk bisnis Anda.",
-      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600"
+      img: "https://images.unsplash.com/photo-1736939763234-f176517e95ca?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
-      role: "Manajer Operasional",
+      role: "Manajer Operasional (Fokus pada Efisiensi Sistem)",
       desc: "Dapatkan platform yang terotomasi, load super cepat, dan SEO-ready sehingga kampanye marketing Anda tidak bocor akibat conversion rate yang buruk.",
-      img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=600"
+      img: "https://images.unsplash.com/photo-1606877096964-c306a05f4d6f?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
-      role: "Tim Growth",
+      role: "Tim Growth (Fokus pada Data & Eksperimen)",
       desc: "Website yang secara otomatis menyaring leads berkualitas, sehingga tim sales Anda bisa fokus pada closing, bukan mengurus prospek dingin.",
-      img: "https://images.unsplash.com/photo-1522202176988-66273c2ea66e?auto=format&fit=crop&q=80&w=600"
+      img: "https://images.unsplash.com/photo-1565598571120-4081876df4f7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
   ];
 
@@ -30,8 +30,8 @@ export default function B2BAudience() {
         <div className="mb-20">
           <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Target Utama</p>
           <div className="flex justify-between items-end border-b border-gray-200 pb-8">
-             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight max-w-2xl">
-               Dirancang untuk perusahaan <br/> yang ingin <span className="text-[#10b981]">website-nya bekerja.</span>
+             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight max-w-4xl">
+               Solusi <span className="text-[#10b981]">Web Design Bisnis</span> <br/> untuk Tim Pertumbuhan Anda.
              </h2>
              <button className="hidden md:block bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors">
                Lihat Portofolio
@@ -50,7 +50,7 @@ export default function B2BAudience() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: activeIndex === idx ? 1 : 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover object-top"
               />
             ))}
           </div>

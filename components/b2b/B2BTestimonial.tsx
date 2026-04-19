@@ -16,8 +16,8 @@ export default function B2BTestimonial() {
              </svg>
           </div>
           <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Testimoni</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight max-w-3xl mx-auto">
-            Digunakan Oleh Perusahaan Yang Mengutamakan <span className="text-[#10b981]">Kejelasan ROI.</span>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight max-w-4xl mx-auto">
+            Dipercaya oleh Perusahaan yang Menuntut <span className="text-[#10b981]">Transparansi Hasil.</span>
           </h2>
         </div>
 

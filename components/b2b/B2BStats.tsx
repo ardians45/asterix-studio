@@ -5,21 +5,21 @@ import { motion } from "framer-motion";
 export default function B2BStats() {
   const stats = [
     {
-      title: "Skor Kecepatan",
+      title: "Infrastruktur Kecepatan Maksimal",
       value: "100",
       change: "Optimal",
       desc: "Kecepatan maksimal berarti tidak ada lagi client yang kabur karena loading lambat.",
       type: "speed",
     },
     {
-      title: "Konversi Inquiry",
+      title: "Arsitektur Navigasi Berbasis Konversi",
       value: "8.5%",
       change: "+2.4x",
       desc: "Desain yang memandu pengunjung melakukan aksi nyata menghubungi Anda.",
       type: "conversion",
     },
     {
-      title: "Traffic Tertarget",
+      title: "Strategi Konten untuk Traffic Tertarget",
       value: "45K",
       change: "+150%",
       desc: "Struktur SEO yang rapi menarik pengunjung yang siap membeli solusi Anda.",
