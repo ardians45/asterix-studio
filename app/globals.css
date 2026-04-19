@@ -3,11 +3,19 @@
 @theme {
   --font-display: var(--font-inter);
   --font-body: var(--font-inter);
+
+  /* Brand Palette */
+  --color-brand-primary: #10b981;    /* Emerald Green */
+  --color-brand-secondary: #1A1A2E;  /* Dark Slate */
+  --color-brand-accent: #f59e0b;     /* Amber/Orange */
+  --color-brand-bg: #F8F9FA;         /* Soft Background */
 }
 
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  --background: var(--color-brand-bg);
+  --foreground: #111827;
+  --primary: var(--color-brand-primary);
+  --secondary: var(--color-brand-secondary);
 }
 
 body {

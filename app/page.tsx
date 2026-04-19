@@ -1,10 +1,11 @@
-import B2BHero from "@/components/b2b/B2BHero";
-import B2BProblem from "@/components/b2b/B2BProblem";
-import B2BStats from "@/components/b2b/B2BStats";
-import B2BAudience from "@/components/b2b/B2BAudience";
-import B2BTestimonial from "@/components/b2b/B2BTestimonial";
-import B2BFAQ from "@/components/b2b/B2BFAQ";
-import B2BCTA from "@/components/b2b/B2BCTA";
+import B2BHero from "@/components/sections/b2b/B2BHero";
+import B2BProblem from "@/components/sections/b2b/B2BProblem";
+import B2BStats from "@/components/sections/b2b/B2BStats";
+import B2BAudience from "@/components/sections/b2b/B2BAudience";
+import B2BTestimonial from "@/components/sections/b2b/B2BTestimonial";
+import B2BFAQ from "@/components/sections/b2b/B2BFAQ";
+import B2BCTA from "@/components/sections/b2b/B2BCTA";
+import B2BFooter from "@/components/sections/b2b/B2BFooter";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <B2BTestimonial />
       <B2BFAQ />
       <B2BCTA />
+      <B2BFooter />
     </main>
   );
 }

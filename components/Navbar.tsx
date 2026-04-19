@@ -47,7 +47,7 @@ export default function Navbar() {
         <div className="hidden lg:flex flex-none items-center justify-center gap-8 xl:gap-10">
              <Link href="/services" className={`text-[13px] font-medium tracking-wide transition-colors ${isPortfolio ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Layanan</Link>
              <Link href="/projects" className={`text-[13px] font-medium tracking-wide transition-colors ${isPortfolio ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Project</Link>
-             <Link href="/pricing" className={`text-[13px] font-medium tracking-wide transition-colors ${isPortfolio ? 'text-emerald-400 hover:text-emerald-300' : 'text-[#10b981] hover:text-emerald-600'}`}>Pricing</Link>
+             <Link href="/pricing" className={`text-[13px] font-medium tracking-wide transition-colors ${isPortfolio ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Pricing</Link>
              <Link href="/blog" className={`text-[13px] font-medium tracking-wide transition-colors ${isPortfolio ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Blog</Link>
              <Link href="/portfolio" className={`text-[13px] font-medium tracking-wide transition-colors ${isPortfolio ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Portfolio</Link>
              <Link href="/contact" className={`text-[13px] font-medium tracking-wide transition-colors ${isPortfolio ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-black'}`}>Contact</Link>
