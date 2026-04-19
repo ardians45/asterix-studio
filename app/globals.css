@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: var(--font-syne);
+  --font-display: var(--font-inter);
   --font-body: var(--font-inter);
 }
 

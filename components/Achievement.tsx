@@ -5,6 +5,15 @@ import Image from "next/image";
 export default function Achievement() {
   const achievements = [
     {
+      year: "2026",
+      title: "3rd Place Winner",
+      subtitle: "Ramadan PRADA Competition 1447H",
+      description: "Organized by Telkom University. Competed by focusing on UI/UX design via a human-centered approach for Ramadan. Developed a digital application solution tailored to user needs during the fasting month, prioritizing ease of use.",
+      image: "/achievement/prada.png",
+      tags: ["🏆 3rd Place", "National"],
+      objectPosition: "object-left"
+    },
+    {
       year: "2025",
       title: "2nd Place Winner",
       subtitle: "UI/UX Design Competition (MIA)",
@@ -73,7 +82,7 @@ export default function Achievement() {
                             src={item.image}
                             alt={item.title}
                             fill
-                            className="object-cover lg:grayscale lg:group-hover:grayscale-0 transition-all duration-700 opacity-90 group-hover:opacity-100"
+                            className={`object-cover ${item.objectPosition || 'object-center'} lg:grayscale lg:group-hover:grayscale-0 transition-all duration-700 opacity-90 group-hover:opacity-100`}
                         />
                     </div>
 
