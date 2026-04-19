@@ -233,8 +233,9 @@ export default function Hero() {
             className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 pointer-events-none px-4"
         >
              <h1 className="text-[#F5F5F2] mix-blend-difference mb-8 drop-shadow-2xl flex flex-col items-center">
-                 <div className="flex items-start overflow-hidden py-4">
-                    <span className="text-[12vw] md:text-[10vw] font-[family-name:var(--font-montserrat)] font-extrabold tracking-[-0.05em] leading-[0.8] block">ASTER</span>
+                 <div className="flex items-center overflow-hidden py-4">
+                    <img src="/logo-white.svg" alt="Asterix" className="h-[10vw] md:h-[8vw] w-auto mr-2 translate-y-[-0.5vw]" />
+                    <span className="text-[12vw] md:text-[10vw] font-[family-name:var(--font-montserrat)] font-extrabold tracking-[-0.05em] leading-[0.8] block">STER</span>
                     <span className="text-[16vw] md:text-[14vw] font-[family-name:var(--font-montserrat)] font-extrabold tracking-[-0.05em] leading-[0.7] block -mt-2">IX</span>
                  </div>
                  <span className="text-[5vw] md:text-[3.5vw] font-[family-name:var(--font-montserrat)] font-extrabold text-[#F5F5F2] tracking-[0.4em] -mt-4">STUDIO</span>
