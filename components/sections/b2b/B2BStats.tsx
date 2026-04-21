@@ -31,9 +31,9 @@ export default function B2BStats() {
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-[#f8fafc]">
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         <div className="text-center mb-12 md:mb-20">
-          <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Metrik Performa</p>
+          <p className="text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Metrik Performa</p>
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
-            Performa Nyata yang Bisa <span className="text-[#10b981]">Diukur.</span>
+            Performa Nyata yang Bisa <span className="text-emerald-600">Diukur.</span>
           </h2>
           <p className="text-sm md:text-lg text-gray-500 mt-4 md:mt-6 max-w-2xl mx-auto font-medium leading-relaxed px-4">
             Kami tidak hanya membuat website yang terlihat cantik, tapi memastikan website menjadi aset digital produktif bagi bisnis Anda.
@@ -53,9 +53,9 @@ export default function B2BStats() {
               <div className="flex justify-between items-start mb-6 md:mb-8">
                  <div className="flex-1">
                     <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">{stat.title}</h3>
-                    <p className="text-xs md:text-sm text-gray-500 leading-relaxed font-medium">{stat.desc}</p>
+                    <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-medium">{stat.desc}</p>
                  </div>
-                 <div className="bg-[#10b981]/10 text-[#10b981] px-2 md:px-3 py-1 rounded-[8px] text-[10px] md:text-xs font-bold whitespace-nowrap ml-4">
+                  <div className="bg-emerald-100/50 text-emerald-700 px-2 md:px-3 py-1 rounded-[8px] text-[10px] md:text-xs font-bold whitespace-nowrap ml-4">
                     {stat.change}
                  </div>
               </div>
@@ -65,16 +65,16 @@ export default function B2BStats() {
                     <div className="relative w-32 md:w-40 h-32 md:h-40 flex items-center justify-center">
                        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                           <circle cx="50" cy="50" r="40" stroke="#f1f5f9" strokeWidth="10" fill="none" />
-                          <circle cx="50" cy="50" r="40" stroke="#10b981" strokeWidth="10" fill="none" strokeDasharray="251" strokeDashoffset="0" />
+                        <circle cx="50" cy="50" r="40" stroke="#059669" strokeWidth="10" fill="none" strokeDasharray="251" strokeDashoffset="0" />
                        </svg>
-                       <span className="absolute inset-0 flex items-center justify-center text-4xl md:text-5xl font-black text-[#10b981]">{stat.value}</span>
+                        <span className="absolute inset-0 flex items-center justify-center text-4xl md:text-5xl font-black text-emerald-600">{stat.value}</span>
                     </div>
                  )}
                  {stat.type === 'conversion' && (
                     <div className="w-full flex items-end justify-between gap-2 md:gap-3 h-full">
                        {[30, 45, 60, 50, 75, 90, 100].map((h, i) => (
                           <div key={i} className={`flex-1 rounded-t-lg relative transition-all duration-500 ${i === 6 ? 'bg-[#10b981]' : 'bg-[#e0f2fe]'}`} style={{ height: `${h}%` }}>
-                             {i === 6 && <div className="absolute -top-6 md:-top-8 left-1/2 -translate-x-1/2 text-xs md:text-sm font-black text-[#10b981]">{stat.value}</div>}
+                             {i === 6 && <div className="absolute -top-6 md:-top-8 left-1/2 -translate-x-1/2 text-xs md:text-sm font-black text-emerald-600">{stat.value}</div>}
                           </div>
                        ))}
                     </div>

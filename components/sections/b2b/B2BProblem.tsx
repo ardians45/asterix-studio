@@ -17,12 +17,12 @@ export default function B2BProblem() {
             transition={{ duration: 0.8 }}
             className="flex-1 space-y-4 md:space-y-6"
           >
-            <div className="inline-flex items-center gap-2 text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">
+            <div className="inline-flex items-center gap-2 text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">
                Masalah
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-[1.1] tracking-tight">
               Mengapa Kebanyakan Website Perusahaan <span className="text-red-500 italic">Gagal</span> <br className="hidden md:block" />
-              Menghasilkan <span className="text-[#10b981]">Inquiry?</span>
+              Menghasilkan <span className="text-emerald-600">Inquiry?</span>
             </h2>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 md:mt-6 text-balance">
               Percuma membakar uang untuk iklan jika website Anda tidak mampu mengikat pengunjung. Setiap detik yang terbuang adalah potensi profit yang hilang karena desain yang tidak menjual.
@@ -41,7 +41,7 @@ export default function B2BProblem() {
                <div className="flex justify-between items-center mb-6 md:mb-8 pb-4">
                   <div>
                     <p className="text-[#1A1A2E] font-bold text-lg md:text-xl mb-1">Weekly Visitors</p>
-                    <p className="text-[10px] md:text-sm text-gray-400 font-medium">vs Inquiry generated</p>
+                    <p className="text-[10px] md:text-sm text-gray-500 font-medium">vs Inquiry generated</p>
                   </div>
                   <div className="flex text-lg font-black text-gray-300">
                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="md:w-6 md:h-6">
@@ -90,11 +90,11 @@ export default function B2BProblem() {
             transition={{ duration: 0.8 }}
             className="flex-1 space-y-4 md:space-y-6"
           >
-            <div className="inline-flex items-center gap-2 text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">
+            <div className="inline-flex items-center gap-2 text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">
                Solusi
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-[1.1] tracking-tight">
-              Website Performa Tinggi yang Fokus pada <span className="text-[#10b981]">Kejelasan ROI.</span>
+              Website Performa Tinggi yang Fokus pada <span className="text-emerald-600">Kejelasan ROI.</span>
             </h2>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 md:mt-6 text-balance">
               Kami merancang ulang setiap pixel untuk satu tujuan: Memastikan setiap pengunjung yang datang memiliki alasan kuat untuk menghubungi bisnis Anda.

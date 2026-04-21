@@ -37,9 +37,9 @@ export default function B2BFAQ() {
     <section className="py-20 md:py-24 bg-[#f8fafc]">
       <div className="container mx-auto px-4 md:px-6 max-w-5xl">
         <div className="text-center mb-12 md:mb-16">
-          <p className="text-[#10b981] font-bold mb-2 uppercase text-[10px] md:text-sm tracking-widest">FAQ</p>
+          <p className="text-emerald-600 font-bold mb-2 uppercase text-[10px] md:text-sm tracking-widest">FAQ</p>
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
-            Pertanyaan Mengenai <br className="md:hidden" /> <span className="text-[#10b981]">Jasa Website Perusahaan.</span>
+            Pertanyaan Mengenai <br className="md:hidden" /> <span className="text-emerald-600">Jasa Website Perusahaan.</span>
           </h2>
         </div>
 
@@ -56,7 +56,7 @@ export default function B2BFAQ() {
                   className="w-full text-left px-5 md:px-6 py-5 md:py-6 flex justify-between items-start outline-none focus:ring-0 gap-4"
                 >
                    <span className={`text-sm md:text-base font-bold leading-snug ${isOpen ? 'text-gray-900' : 'text-gray-900'}`}>{faq.q}</span>
-                   <span className={`text-xl transition-transform duration-300 font-light mt-0.5 ${isOpen ? 'rotate-45 text-[#10b981]' : 'text-gray-400'}`}>+</span>
+                   <span className={`text-xl transition-transform duration-300 font-light mt-0.5 ${isOpen ? 'rotate-45 text-emerald-600' : 'text-gray-500'}`}>+</span>
                 </button>
                 <AnimatePresence>
                   {isOpen && (

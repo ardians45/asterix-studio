@@ -40,7 +40,13 @@ export default function Navbar() {
       >
         <div className="flex-1 flex justify-start">
           <Link href="/" className="flex items-center gap-3 group">
-             <img src={isPortfolio ? "/logo-white.svg" : "/logo-black.svg"} alt="Asterix Studio Logo" className="h-[30px] md:h-[38px] w-auto object-contain transform group-hover:scale-105 transition-transform" />
+             <img 
+               src={isPortfolio ? "/logo-white.svg" : "/logo-black.svg"} 
+               alt="Asterix Studio Logo" 
+               width={150}
+               height={35}
+               className="h-[30px] md:h-[38px] w-auto object-contain transform group-hover:scale-105 transition-transform" 
+             />
           </Link>
         </div>
           

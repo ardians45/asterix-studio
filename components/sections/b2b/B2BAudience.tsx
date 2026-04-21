@@ -28,10 +28,10 @@ export default function B2BAudience() {
     <section className="py-20 md:py-32 bg-white relative">
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         <div className="mb-12 md:mb-20">
-          <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Target Utama</p>
+          <p className="text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Target Utama</p>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-gray-200 pb-6 md:pb-8">
              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight max-w-4xl">
-               Solusi <span className="text-[#10b981]">Web Design Bisnis</span> <br className="hidden md:block" /> untuk Tim Pertumbuhan Anda.
+               Solusi <span className="text-emerald-600">Web Design Bisnis</span> <br className="hidden md:block" /> untuk Tim Pertumbuhan Anda.
              </h2>
              <button className="mt-6 md:mt-0 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm md:text-base">
                Lihat Portofolio
@@ -66,7 +66,7 @@ export default function B2BAudience() {
                    className={`cursor-pointer border-b border-gray-100 py-6 md:py-8 transition-all group`}
                  >
                     <div className="flex justify-between items-start gap-4">
-                       <h3 className={`text-xl md:text-3xl font-bold transition-colors ${isActive ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`}>
+                       <h3 className={`text-xl md:text-3xl font-bold transition-colors ${isActive ? 'text-gray-900' : 'text-gray-500 group-hover:text-gray-700'}`}>
                          {audience.role}
                        </h3>
                        <div className="text-gray-300 transition-colors group-hover:text-gray-900 flex-shrink-0">

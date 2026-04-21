@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   title: "Asterix Studio | Jasa Pembuatan Website & Creative Agency",
   description: "Jasa pembuatan website profesional & berkinerja tinggi. Asterix Studio siap membantu pertumbuhan bisnis digital Anda.",
   keywords: ["Jasa Pembuatan Website", "Web Developer Indonesia", "Creative Agency", "Jasa Web Profesional", "Asterix Studio", "Web Design", "Desain Website", "Pembuatan Website Murah"],
-  authors: [{ name: "Asterix Studio", url: "https://asterixstudio.id" }],
+  authors: [{ name: "Asterix Studio", url: "https://asterixstudio.site" }],
   creator: "Asterix Studio",
   publisher: "Asterix Studio",
   robots: {
@@ -55,9 +55,9 @@ export const metadata: Metadata = {
     description: "Jasa pembuatan website profesional & berkinerja tinggi. Asterix Studio siap membantu pertumbuhan bisnis digital Anda.",
   },
   icons: {
-    icon: "/logo-black.svg",
-    shortcut: "/logo-black.svg",
-    apple: "/logo-black.svg",
+    icon: "/logo-white.svg",
+    shortcut: "/logo-white.svg",
+    apple: "/logo-white.svg",
   },
 };
 

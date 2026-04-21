@@ -10,7 +10,7 @@ export default function B2BFooter() {
          <div className="text-[12vw] font-black text-gray-200/50 tracking-tighter uppercase leading-none select-none pointer-events-none mb-8">
            Asterix Studio
          </div>
-         <div className="container mx-auto px-12 flex flex-col sm:flex-row justify-between w-full text-[10px] font-bold text-gray-400 uppercase tracking-widest border-t border-gray-100 pt-8">
+         <div className="container mx-auto px-12 flex flex-col sm:flex-row justify-between w-full text-[10px] font-bold text-gray-500 uppercase tracking-widest border-t border-gray-100 pt-8">
            <span>&copy; {new Date().getFullYear()} Asterix Studio. All Rights Reserved.</span>
            <div className="flex gap-8 mt-4 sm:mt-0">
              <a href="#" className="hover:text-emerald-500 transition-colors">Privacy Policy</a>

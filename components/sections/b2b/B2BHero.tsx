@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 
 export default function B2BHero() {
@@ -10,13 +11,17 @@ export default function B2BHero() {
       {/* Outer rounded container mimicking the soft image frame */}
       <div className="relative rounded-[24px] md:rounded-[40px] overflow-hidden w-full max-w-7xl mx-auto border border-gray-200/50 shadow-sm min-h-[600px] md:min-h-[800px]">
         
-        {/* Soft landscape background image */}
-        <div 
-           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-90 blur-[2px] transform scale-105"
-           style={{
-             backgroundImage: "url('https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&q=80&w=2000')", 
-           }} 
-        />
+        {/* Soft landscape background image - Optimized with Next.js Image */}
+        <div className="absolute inset-0 opacity-90 blur-[2px] transform scale-105 pointer-events-none">
+          <Image
+            src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&q=80&w=2000"
+            alt="Asterix Studio Office background"
+            fill
+            priority
+            fetchPriority="high"
+            className="object-cover object-center"
+          />
+        </div>
         {/* Soft white gradient overlay to ensure text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white/10" />
         
@@ -61,7 +66,7 @@ export default function B2BHero() {
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             <h1 className="text-3xl md:text-[5rem] font-bold text-gray-900 tracking-tighter leading-[1.1] mb-6 md:mb-8 max-w-5xl mx-auto px-2">
-              Jasa Website Perusahaan & <span className="text-[#10b981] italic">Landing Page Konversi Tinggi.</span>
+              Jasa Website Perusahaan & <span className="text-emerald-600 italic">Landing Page Konversi Tinggi.</span>
             </h1>
             <p className="sr-only">Jasa Web Design Bisnis & Pembuatan Website Company Profile — Asterix Studio</p>
           </motion.div>
@@ -144,7 +149,7 @@ export default function B2BHero() {
                     <img src="/logo-black.svg" alt="AsterixHQ" className="w-8 h-8 object-contain rounded" />
                     <div>
                        <p className="text-xs font-bold text-gray-900">AsterixHQ</p>
-                       <p className="text-[10px] text-[#10b981] flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#10b981] inline-block"></span> Online</p>
+                       <p className="text-[10px] text-emerald-600 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block"></span> Online</p>
                     </div>
                  </div>
                  
@@ -174,7 +179,7 @@ export default function B2BHero() {
                          </p>
                          <div className="mt-4 flex items-end gap-3">
                             <span className="text-3xl md:text-4xl font-bold text-gray-900">4,250</span>
-                            <span className="text-[10px] md:text-xs font-bold text-[#10b981] bg-[#10b981]/10 px-2 py-1 rounded-md mb-1">+24.5%</span>
+                            <span className="text-[10px] md:text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md mb-1">+24.5%</span>
                          </div>
                        </div>
                        <select className="bg-gray-50 border border-gray-100 rounded-full px-4 py-2 text-[10px] md:text-xs font-bold text-gray-600 outline-none">

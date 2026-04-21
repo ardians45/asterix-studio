@@ -16,9 +16,9 @@ export default function B2BTestimonial() {
                 <path d="M20 12C20 8.68629 18.6569 5.68629 16.3431 3.34315" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
              </svg>
           </div>
-          <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Testimoni</p>
+          <p className="text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Testimoni</p>
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight max-w-4xl mx-auto px-4">
-            Dipercaya oleh Perusahaan yang Menuntut <span className="text-[#10b981]">Transparansi Hasil.</span>
+            Dipercaya oleh Perusahaan yang Menuntut <span className="text-emerald-600">Transparansi Hasil.</span>
           </h2>
         </div>
 
@@ -34,7 +34,7 @@ export default function B2BTestimonial() {
                className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 border border-gray-100 shadow-[0_5px_20px_rgba(0,0,0,0.02)] md:shadow-[0_10px_40px_rgba(0,0,0,0.03)] flex flex-col justify-between hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] transition-all group"
              >
                 <div>
-                  <div className="text-[#10b981] mb-5 sm:mb-6 flex gap-0.5 text-sm sm:text-base">
+                  <div className="text-emerald-500 mb-5 sm:mb-6 flex gap-0.5 text-sm sm:text-base">
                     <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                   </div>
                   <p className="text-lg md:text-xl text-gray-900 font-bold mb-6 md:mb-8 leading-relaxed">
