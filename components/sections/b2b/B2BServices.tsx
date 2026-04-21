@@ -51,11 +51,11 @@ export default function B2BServices() {
         <div className="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-6">
           {b2bServices.map((service, idx) => {
             const themes = [
-              { bg: "bg-rose-50/50", text: "text-rose-950", accent: "bg-rose-200/40", span: "md:col-span-3 min-h-[280px] md:h-[320px]" },
-              { bg: "bg-sky-50", text: "text-sky-950", accent: "bg-sky-200/40", span: "md:col-span-3 min-h-[280px] md:h-[320px]" },
-              { bg: "bg-indigo-50", text: "text-indigo-950", accent: "bg-indigo-200/40", span: "md:col-span-2 min-h-[280px] md:h-[320px]" },
-              { bg: "bg-amber-50", text: "text-amber-950", accent: "bg-amber-200/40", span: "md:col-span-2 min-h-[280px] md:h-[320px]" },
-              { bg: "bg-emerald-50", text: "text-emerald-950", accent: "bg-emerald-200/40", span: "md:col-span-2 min-h-[280px] md:h-[320px]" }
+              { bg: "bg-rose-50/40", text: "text-red-900", accent: "border-red-100",   span: "md:col-span-3 min-h-[280px] md:h-[340px]" },
+              { bg: "bg-sky-50/40",  text: "text-sky-900", accent: "border-sky-100",   span: "md:col-span-3 min-h-[280px] md:h-[340px]" },
+              { bg: "bg-indigo-50/40", text: "text-indigo-900", accent: "border-indigo-100",  span: "md:col-span-2 min-h-[280px] md:h-[340px]" },
+              { bg: "bg-amber-50/40", text: "text-amber-900", accent: "border-amber-100",  span: "md:col-span-2 min-h-[280px] md:h-[340px]" },
+              { bg: "bg-emerald-50/40", text: "text-emerald-900", accent: "border-emerald-100", span: "md:col-span-2 min-h-[280px] md:h-[340px]" }
             ];
             const theme = themes[idx % themes.length];
 
@@ -66,32 +66,32 @@ export default function B2BServices() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className={`group relative ${theme.span} rounded-[32px] md:rounded-[40px] overflow-hidden cursor-pointer shadow-sm border border-black/5 ${theme.bg} p-8 md:p-10 flex items-center`}
+                className={`group relative ${theme.span} rounded-[32px] md:rounded-[48px] overflow-hidden cursor-pointer border border-white ${theme.bg} p-8 md:p-12 flex items-center shadow-sm hover:shadow-xl transition-all duration-500`}
               >
-                {/* Background Pattern */}
-                <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-40">
-                   <div className={`absolute -top-10 -right-10 w-32 md:w-48 h-32 md:h-48 border-[8px] md:border-[12px] rounded-full ${theme.accent.replace('/40', '/20')}`} />
-                   <div className={`absolute top-20 right-20 w-24 md:w-32 h-24 md:h-32 border-[8px] md:border-[12px] rounded-full ${theme.accent.replace('/40', '/20')}`} />
+                {/* Background Pattern - Softer & Thinner */}
+                <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-15">
+                   <div className={`absolute -top-10 -right-10 w-40 md:w-64 h-40 md:h-64 border-[4px] md:border-[6px] rounded-full ${theme.accent}`} />
+                   <div className={`absolute top-20 right-20 w-32 md:w-48 h-32 md:h-48 border-[4px] md:border-[6px] rounded-full ${theme.accent}`} />
                 </div>
 
-                <div className="relative z-10 w-full flex flex-row justify-between items-center gap-4 md:gap-6">
-                   <div className="max-w-[65%] md:max-w-[60%]">
-                      <p className={`text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] opacity-40 mb-1 md:mb-2 ${theme.text}`}>Layanan Kami</p>
-                      <h3 className={`text-2xl md:text-5xl font-black leading-[1] tracking-tighter mb-2 md:mb-4 ${theme.text}`}>
+                <div className="relative z-10 w-full flex flex-row justify-between items-center gap-6">
+                   <div className="max-w-[55%] md:max-w-[50%]">
+                      <p className={`text-[9px] font-black uppercase tracking-[0.3em] opacity-30 mb-2 md:mb-4 ${theme.text}`}>Layanan Kami</p>
+                      <h3 className={`text-2xl md:text-5xl font-black leading-[1] tracking-tighter mb-4 md:mb-6 ${theme.text}`}>
                         {service.title.split(' ').map((word, i) => (
                           <span key={i} className="block">{word}</span>
                         ))}
                       </h3>
-                      <p className={`text-[10px] md:text-xs font-semibold leading-relaxed max-w-xs opacity-60 ${theme.text}`}>
+                      <p className={`text-xs font-bold leading-relaxed max-w-[200px] opacity-40 ${theme.text}`}>
                         {service.desc}
                       </p>
                    </div>
                    
-                   <div className="flex-1 flex justify-end transition-transform duration-500 group-hover:scale-110">
+                   <div className="flex-1 flex justify-end items-center translate-x-4 md:translate-x-8">
                       <img 
                         src={service.img} 
                         alt={service.title} 
-                        className="w-full max-w-[120px] md:max-w-[180px] h-auto object-contain drop-shadow-2xl" 
+                        className="w-full max-w-[150px] md:max-w-[260px] h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform duration-700" 
                       />
                    </div>
                 </div>
