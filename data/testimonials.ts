@@ -23,7 +23,7 @@ export const testimonials: Testimonial[] = [
     color: "bg-orange-100 text-orange-600"
   },
   {
-    quote: "Sebagai intern, Ardian memberikan kontribusi yang signifikan dalam pengembangan desain website dan dashboard. Workflow rapi, desain konsisten, dan mudah diimplementasikan ke development.",
+    quote: "Ardian memberikan kontribusi yang signifikan dalam pengembangan desain website dan dashboard. Workflow rapi, desain konsisten, dan mudah diimplementasikan ke development.",
     name: "BANTU Startup Team",
     role: "Internal Review",
     initial: "B",
