@@ -6,9 +6,9 @@ import { FaStar } from "react-icons/fa";
 
 export default function B2BHero() {
   return (
-    <section className="bg-[#F8F9FA] pt-24 pb-12 px-4 md:px-6">
+    <section className="bg-[#F8F9FA] pt-20 md:pt-24 pb-12 px-4 md:px-6">
       {/* Outer rounded container mimicking the soft image frame */}
-      <div className="relative rounded-[40px] overflow-hidden w-full max-w-7xl mx-auto border border-gray-200/50 shadow-sm" style={{minHeight: "800px"}}>
+      <div className="relative rounded-[24px] md:rounded-[40px] overflow-hidden w-full max-w-7xl mx-auto border border-gray-200/50 shadow-sm min-h-[600px] md:min-h-[800px]">
         
         {/* Soft landscape background image */}
         <div 
@@ -20,36 +20,36 @@ export default function B2BHero() {
         {/* Soft white gradient overlay to ensure text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white/10" />
         
-        <div className="relative z-10 flex flex-col items-center text-center pt-24 px-6">
+        <div className="relative z-10 flex flex-col items-center text-center pt-16 md:pt-24 px-4 md:px-6">
           {/* Top Badge matching "3K+ Already Joined" */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex items-center gap-4 mb-8"
+            className="flex items-center gap-2 md:gap-4 mb-6 md:mb-8"
           >
              {/* Laurel Wreath Left */}
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-400">
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-400 md:w-6 md:h-6">
                 <path d="M7 19C7 19 3 15 3 10C3 5 7 3 7 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
              </svg>
              
-             <div className="flex items-center gap-4">
+             <div className="flex items-center gap-3 md:gap-4">
                 {/* Overlapping Avatars */}
                 <div className="flex -space-x-2">
-                   <img className="w-8 h-8 rounded-full border-2 border-white/80 object-cover" src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80&w=400" alt="User 1"/>
-                   <img className="w-8 h-8 rounded-full border-2 border-white/80 object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" alt="User 2"/>
-                   <img className="w-8 h-8 rounded-full border-2 border-white/80 object-cover" src="https://images.unsplash.com/photo-1582213723385-dce61a6671a1?auto=format&fit=crop&q=80&w=400" alt="User 3"/>
+                   <img className="w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-white/80 object-cover" src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80&w=400" alt="User 1"/>
+                   <img className="w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-white/80 object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400" alt="User 2"/>
+                   <img className="w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-white/80 object-cover" src="https://images.unsplash.com/photo-1582213723385-dce61a6671a1?auto=format&fit=crop&q=80&w=400" alt="User 3"/>
                 </div>
-                <div className="flex flex-col items-start gap-0.5 mt-1">
-                   <div className="flex text-[#FF6B00] space-x-[1px] text-[10px]">
+                <div className="flex flex-col items-start gap-0 md:gap-0.5 mt-1">
+                   <div className="flex text-[#FF6B00] space-x-[1px] text-[8px] md:text-[10px]">
                       <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                    </div>
-                   <span className="text-xs font-semibold text-gray-700 tracking-tight">Kepuasan 5 Bintang</span>
+                   <span className="text-[9px] md:text-xs font-semibold text-gray-700 tracking-tight">Kepuasan 5 Bintang</span>
                 </div>
              </div>
 
              {/* Laurel Wreath Right */}
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="text-gray-400 transform scale-x-[-1]">
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-400 md:w-6 md:h-6 transform scale-x-[-1]">
                 <path d="M7 19C7 19 3 15 3 10C3 5 7 3 7 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
              </svg>
           </motion.div>
@@ -60,7 +60,7 @@ export default function B2BHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
-            <h1 className="text-4xl md:text-[5rem] font-bold text-gray-900 tracking-tighter leading-[1.1] mb-8 max-w-5xl mx-auto">
+            <h1 className="text-3xl md:text-[5rem] font-bold text-gray-900 tracking-tighter leading-[1.1] mb-6 md:mb-8 max-w-5xl mx-auto px-2">
               Jasa Website Perusahaan & <span className="text-[#10b981] italic">Landing Page Konversi Tinggi.</span>
             </h1>
             <p className="sr-only">Jasa Web Design Bisnis & Pembuatan Website Company Profile — Asterix Studio</p>
@@ -71,7 +71,7 @@ export default function B2BHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-[17px] md:text-xl text-gray-600 mb-12 max-w-3xl leading-relaxed font-medium mx-auto"
+            className="text-sm md:text-xl text-gray-600 mb-8 md:mb-12 max-w-2xl md:max-w-3xl leading-relaxed font-medium mx-auto px-4"
           >
             Berhenti membakar budget iklan pada website yang tidak menjual. Kami menyediakan solusi web design bisnis dan website company profile yang fokus menghasilkan client baru untuk perusahaan Anda.
           </motion.p>
@@ -81,18 +81,18 @@ export default function B2BHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center lg:mb-20 mb-10 z-20"
+            className="flex flex-col sm:flex-row items-center gap-3 md:gap-4 w-full justify-center lg:mb-20 mb-8 z-20 px-4"
           >
             <Link
               href="https://wa.me/6285129488941?text=Halo%20Asterix%20Studio,%20saya%20ingin%20konsultasikan%20website%20saya%20sekarang."
               target="_blank"
-              className="px-8 py-3.5 bg-[#1A1A2E] text-white font-medium rounded-full hover:bg-black transition-colors shadow-lg shadow-black/20 w-fit"
+              className="px-8 py-3.5 bg-[#1A1A2E] text-white font-medium rounded-full hover:bg-black transition-colors shadow-lg shadow-black/20 w-fit text-sm md:text-base"
             >
               Konsultasi WA
             </Link>
             <Link
               href="#problem"
-              className="px-8 py-3.5 bg-white text-gray-900 font-medium rounded-full hover:bg-gray-50 transition-colors shadow-md border border-gray-100 w-fit"
+              className="px-8 py-3.5 bg-white text-gray-900 font-medium rounded-full hover:bg-gray-50 transition-colors shadow-md border border-gray-100 w-fit text-sm md:text-base"
             >
               Lihat Cara Kerjanya
             </Link>
@@ -103,7 +103,7 @@ export default function B2BHero() {
              initial={{ opacity: 0, y: 40 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-             className="relative mx-auto w-full max-w-[1100px] mt-4 z-10"
+             className="relative mx-auto w-full max-w-[1100px] mt-4 z-10 hidden sm:block"
           >
             {/* Floating Hook Cards */}
             <motion.div 
@@ -168,38 +168,38 @@ export default function B2BHero() {
                  <div className="flex-1 space-y-6">
                     <div className="flex justify-between items-end">
                        <div>
-                         <p className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                         <p className="text-lg md:text-xl font-bold text-gray-900 flex items-center gap-2">
                             <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                             Total Inquiry Growth
                          </p>
                          <div className="mt-4 flex items-end gap-3">
-                            <span className="text-4xl font-bold text-gray-900">4,250</span>
-                            <span className="text-xs font-bold text-[#10b981] bg-[#10b981]/10 px-2 py-1 rounded-md mb-1">+24.5% dari bulan lalu</span>
+                            <span className="text-3xl md:text-4xl font-bold text-gray-900">4,250</span>
+                            <span className="text-[10px] md:text-xs font-bold text-[#10b981] bg-[#10b981]/10 px-2 py-1 rounded-md mb-1">+24.5%</span>
                          </div>
                        </div>
-                       <select className="bg-gray-50 border border-gray-100 rounded-full px-4 py-2 text-xs font-bold text-gray-600 outline-none">
+                       <select className="bg-gray-50 border border-gray-100 rounded-full px-4 py-2 text-[10px] md:text-xs font-bold text-gray-600 outline-none">
                           <option>This Month</option>
                        </select>
                     </div>
 
-                    <div className="pt-8 h-64 flex items-end justify-between gap-2 md:gap-6 relative border-t border-gray-100">
+                    <div className="pt-8 h-48 md:h-64 flex items-end justify-between gap-2 md:gap-6 relative border-t border-gray-100">
                        {[30, 45, 25, 60, 80, 50, 40, 75].map((h, i) => (
                           <div key={i} className="flex-1 flex flex-col justify-end items-center group relative h-full">
                              {/* Floating Tooltip Mockup */}
                              {i === 4 && (
-                               <div className="absolute -top-12 bg-gray-900 text-white text-xs font-bold px-3 py-2 rounded-lg shadow-xl z-20 whitespace-nowrap">
+                               <div className="absolute -top-12 bg-gray-900 text-white text-[10px] font-bold px-3 py-2 rounded-lg shadow-xl z-20 whitespace-nowrap">
                                   +80 Leads
                                </div>
                              )}
                              <div className={`w-full rounded-t-xl transition-all ${i === 4 ? 'bg-gray-900' : 'bg-[#e0f2fe]'}`} style={{ height: `${h}%` }}></div>
-                             <span className="text-[10px] text-gray-400 font-bold mt-2">W{i+1}</span>
+                             <span className="text-[8px] md:text-[10px] text-gray-400 font-bold mt-2">W{i+1}</span>
                           </div>
                        ))}
                     </div>
                  </div>
 
                  {/* Right Sidebar Charts */}
-                 <div className="w-full md:w-72 flex flex-col gap-6">
+                 <div className="hidden md:flex w-72 flex-col gap-6">
                     <div className="bg-[#F8F9FB] rounded-2xl p-6 border border-gray-100">
                        <p className="text-sm font-bold text-gray-900 mb-6 flex items-center gap-2">
                           <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>

@@ -25,23 +25,23 @@ export default function B2BAudience() {
   ];
 
   return (
-    <section className="py-32 bg-white relative">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="mb-20">
-          <p className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Target Utama</p>
-          <div className="flex justify-between items-end border-b border-gray-200 pb-8">
-             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight max-w-4xl">
-               Solusi <span className="text-[#10b981]">Web Design Bisnis</span> <br/> untuk Tim Pertumbuhan Anda.
+    <section className="py-20 md:py-32 bg-white relative">
+      <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+        <div className="mb-12 md:mb-20">
+          <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">Target Utama</p>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-gray-200 pb-6 md:pb-8">
+             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight max-w-4xl">
+               Solusi <span className="text-[#10b981]">Web Design Bisnis</span> <br className="hidden md:block" /> untuk Tim Pertumbuhan Anda.
              </h2>
-             <button className="hidden md:block bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+             <button className="mt-6 md:mt-0 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors text-sm md:text-base">
                Lihat Portofolio
              </button>
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
-          {/* Image Display - Large minimal crop */}
-          <div className="flex-1 w-full relative h-[500px] md:h-[600px] rounded-[24px] overflow-hidden shadow-2xl">
+        <div className="flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
+          {/* Image Display */}
+          <div className="flex-1 w-full relative h-[300px] md:h-[600px] rounded-[24px] overflow-hidden shadow-2xl">
             {audiences.map((audience, idx) => (
               <motion.img
                 key={idx}
@@ -55,23 +55,23 @@ export default function B2BAudience() {
             ))}
           </div>
 
-          {/* Accordion / List directly matching the design reference */}
-          <div className="flex-1 w-full flex flex-col justify-center">
+          {/* Accordion / List */}
+          <div className="flex-1 w-full flex flex-col justify-center mt-6 lg:mt-0">
              {audiences.map((audience, idx) => {
                const isActive = activeIndex === idx;
                return (
                  <div 
                    key={idx}
                    onClick={() => setActiveIndex(idx)}
-                   className={`cursor-pointer border-b border-gray-100 py-8 transition-all group`}
+                   className={`cursor-pointer border-b border-gray-100 py-6 md:py-8 transition-all group`}
                  >
-                    <div className="flex justify-between items-center">
-                       <h3 className={`text-3xl font-bold transition-colors ${isActive ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`}>
+                    <div className="flex justify-between items-start gap-4">
+                       <h3 className={`text-xl md:text-3xl font-bold transition-colors ${isActive ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`}>
                          {audience.role}
                        </h3>
-                       <div className="text-gray-300 transition-colors group-hover:text-gray-900">
-                          {/* Chevron icon mimicking the reference */}
-                          <svg className={`w-8 h-8 transition-transform duration-500 ${isActive ? 'rotate-90 text-gray-900' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <div className="text-gray-300 transition-colors group-hover:text-gray-900 flex-shrink-0">
+                          {/* Chevron icon */}
+                          <svg className={`w-6 h-6 md:w-8 md:h-8 transition-transform duration-500 ${isActive ? 'rotate-90 text-gray-900' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
                        </div>
@@ -79,10 +79,10 @@ export default function B2BAudience() {
                     {/* Expandable Content */}
                     <motion.div 
                       initial={false}
-                      animate={{ height: isActive ? 'auto' : 0, opacity: isActive ? 1 : 0, marginTop: isActive ? 16 : 0 }}
+                      animate={{ height: isActive ? 'auto' : 0, opacity: isActive ? 1 : 0, marginTop: isActive ? 12 : 0 }}
                       className="overflow-hidden"
                     >
-                       <p className="text-lg text-gray-600 leading-relaxed max-w-xl font-medium">
+                       <p className="text-sm md:text-lg text-gray-600 leading-relaxed max-w-xl font-medium">
                          {audience.desc}
                        </p>
                     </motion.div>

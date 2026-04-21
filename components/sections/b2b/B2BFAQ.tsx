@@ -34,28 +34,28 @@ export default function B2BFAQ() {
   ];
 
   return (
-    <section className="py-24 bg-[#f8fafc]">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="text-center mb-16">
-          <p className="text-[#10b981] font-bold mb-2 uppercase text-sm tracking-widest">FAQ</p>
+    <section className="py-20 md:py-24 bg-[#f8fafc]">
+      <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+        <div className="text-center mb-12 md:mb-16">
+          <p className="text-[#10b981] font-bold mb-2 uppercase text-[10px] md:text-sm tracking-widest">FAQ</p>
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
-            Pertanyaan Mengenai <span className="text-[#10b981]">Jasa Website Perusahaan.</span>
+            Pertanyaan Mengenai <br className="md:hidden" /> <span className="text-[#10b981]">Jasa Website Perusahaan.</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div 
                 key={idx} 
-                className={`border rounded-2xl transition-all h-fit ${isOpen ? 'border-[#10b981]/20 shadow-[0_4px_20px_rgba(16,185,129,0.05)] bg-white' : 'border-gray-200 bg-white hover:bg-gray-50'}`}
+                className={`border rounded-xl md:rounded-2xl transition-all h-fit ${isOpen ? 'border-[#10b981]/20 shadow-[0_4px_20px_rgba(16,185,129,0.05)] bg-white' : 'border-gray-200 bg-white hover:bg-gray-50'}`}
               >
                 <button 
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full text-left px-6 py-6 flex justify-between items-start outline-none focus:ring-0 gap-4"
+                  className="w-full text-left px-5 md:px-6 py-5 md:py-6 flex justify-between items-start outline-none focus:ring-0 gap-4"
                 >
-                   <span className={`font-bold leading-snug ${isOpen ? 'text-gray-900' : 'text-gray-900'}`}>{faq.q}</span>
+                   <span className={`text-sm md:text-base font-bold leading-snug ${isOpen ? 'text-gray-900' : 'text-gray-900'}`}>{faq.q}</span>
                    <span className={`text-xl transition-transform duration-300 font-light mt-0.5 ${isOpen ? 'rotate-45 text-[#10b981]' : 'text-gray-400'}`}>+</span>
                 </button>
                 <AnimatePresence>
@@ -66,7 +66,7 @@ export default function B2BFAQ() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-0 text-gray-500 text-sm font-medium leading-relaxed">
+                      <div className="px-5 md:px-6 pb-5 md:pb-6 pt-0 text-gray-500 text-[13px] md:text-sm font-medium leading-relaxed">
                         {faq.a}
                       </div>
                     </motion.div>

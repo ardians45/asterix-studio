@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
+import Link from "next/link";
 
 interface MenuItemData {
   link: string;
@@ -159,16 +160,16 @@ const MenuItem: React.FC<MenuItemProps> = ({
       ref={itemRef}
       style={{ borderTop: isFirst ? 'none' : `1px solid ${borderColor}` }}
     >
-      <a
-        className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-bold text-[7vh] font-display"
+      <Link
         href={link}
+        className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-bold text-[5vh] md:text-[7vh] font-display z-10"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={onItemClick}
         style={{ color: textColor }}
       >
         {text}
-      </a>
+      </Link>
       <div
         className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none translate-y-[101%]"
         ref={marqueeRef}
@@ -177,9 +178,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
         <div className="h-full w-fit flex" ref={marqueeInnerRef}>
           {[...Array(repetitions)].map((_, idx) => (
             <div className="marquee-part flex items-center flex-shrink-0" key={idx} style={{ color: marqueeTextColor }}>
-              <span className="whitespace-nowrap uppercase font-bold text-[7vh] font-display leading-[1] px-[1vw]">{text}</span>
+              <span className="whitespace-nowrap uppercase font-bold text-[5vh] md:text-[7vh] font-display leading-[1] px-[1vw]">{text}</span>
               <div
-                className="w-[200px] h-[7vh] my-[2em] mx-[2vw] py-[1em] rounded-[50px] bg-cover bg-center"
+                className="w-[120px] md:w-[200px] h-[5vh] md:h-[7vh] my-[2em] mx-[4vw] md:mx-[2vw] py-[1em] rounded-[50px] bg-cover bg-center"
                 style={{ backgroundImage: `url(${image})` }}
               />
             </div>
