@@ -18,6 +18,22 @@ export const bentoProjects: BentoProjectDetail[] = [
     ]
   },
   {
+    id: "srlaundry",
+    title: "SR Laundry Landing Page",
+    client: "SR Laundry",
+    category: "Conversion Optimization",
+    description: "Transformasi landing page yang fokus pada 'Direct Booking'. Mengoptimalkan alur navigasi dari traffic iklan langsung ke WhatsApp.",
+    mockupLaptop: "/projects/showcase/srlaundry/after.png",
+    mockupMobile: "/projects/showcase/srlaundry/mobile.webp",
+    beforeImage: "/projects/showcase/srlaundry/before.png",
+    logoUrl: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=400",
+    palette: ["#BA0000", "#450a0a", "#ffffff", "#f8fafc"],
+    results: [
+      { label: "Leads", value: "+180%", detail: "WhatsApp Inquiry" },
+      { label: "Speed", value: "1.2s", detail: "Load Time" }
+    ]
+  },
+  {
     id: "rapor-digital",
     title: "Sistem Manajemen Rapor Digital",
     client: "SD Lamaholot",
@@ -31,22 +47,6 @@ export const bentoProjects: BentoProjectDetail[] = [
     results: [
       { label: "Efficiency", value: "10x", detail: "Faster Processing" },
       { label: "Accuracy", value: "99%", detail: "Error Reduction" }
-    ]
-  },
-  {
-    id: "srlaundry",
-    title: "SR Laundry Landing Page",
-    client: "SR Laundry",
-    category: "Conversion Optimization",
-    description: "Transformasi landing page yang fokus pada 'Direct Booking'. Mengoptimalkan alur navigasi dari traffic iklan langsung ke WhatsApp.",
-    mockupLaptop: "/projects/showcase/srlaundry/after.png",
-    mockupMobile: "https://images.unsplash.com/photo-1556740734-7569c4417a7d?auto=format&fit=crop&q=80&w=800",
-    beforeImage: "/projects/showcase/srlaundry/before.png",
-    logoUrl: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=400",
-    palette: ["#3b82f6", "#1e293b", "#ffffff", "#f1f5f9"],
-    results: [
-      { label: "Leads", value: "+180%", detail: "WhatsApp Inquiry" },
-      { label: "Speed", value: "1.2s", detail: "Load Time" }
     ]
   }
 ];
