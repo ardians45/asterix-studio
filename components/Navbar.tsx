@@ -5,7 +5,10 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
-import FlowingMenu from "./FlowingMenu";
+import Image from "next/image";
+import dynamic from 'next/dynamic';
+
+const FlowingMenu = dynamic(() => import("./FlowingMenu"), { ssr: false });
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -40,12 +43,13 @@ export default function Navbar() {
       >
         <div className="flex-1 flex justify-start">
           <Link href="/" className="flex items-center gap-3 group">
-             <img 
+             <Image 
                src={isPortfolio ? "/logo-white.svg" : "/logo-black.svg"} 
                alt="Asterix Studio Logo" 
                width={150}
-               height={35}
+               height={38}
                className="h-[30px] md:h-[38px] w-auto object-contain transform group-hover:scale-105 transition-transform" 
+               priority
              />
           </Link>
         </div>
@@ -89,7 +93,7 @@ export default function Navbar() {
           >
              <div className="flex items-center justify-between px-6 py-6 md:px-12 relative z-50">
                 <Link href="/" onClick={() => setIsOpen(false)}>
-                   <img src="/logo-white.svg" alt="Asterix Logo" className="h-8 w-auto" />
+                   <Image src="/logo-white.svg" alt="Asterix Logo" width={120} height={32} className="h-8 w-auto" />
                 </Link>
                 <button
                 onClick={() => setIsOpen(false)}

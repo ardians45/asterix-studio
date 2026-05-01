@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaWrench, FaArrowRight } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
+import Image from "next/image";
 
 import { b2bServices } from "@/data/services";
 
@@ -88,10 +89,13 @@ export default function B2BServices() {
                    </div>
                    
                    <div className="flex-1 flex justify-end items-center translate-x-4 md:translate-x-8">
-                      <img 
+                      <Image 
                         src={service.img} 
                         alt={service.title} 
+                        width={260}
+                        height={260}
                         className="w-full max-w-[150px] md:max-w-[260px] h-auto object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.1)] group-hover:scale-110 transition-transform duration-700" 
+                        sizes="(max-width: 768px) 150px, 260px"
                       />
                    </div>
                 </div>

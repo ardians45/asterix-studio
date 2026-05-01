@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
+import Image from "next/image";
 import { BentoProjectDetail } from "@/types/projects";
 
 interface ProjectBentoSectionProps {
@@ -33,7 +34,14 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
               <p className="text-lg font-bold text-gray-900">{project.client}</p>
            </div>
            <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center p-2">
-              <img src={project.logoUrl} alt={project.client} className="w-full h-full object-contain mix-blend-multiply opacity-50" />
+               <Image 
+                 src={project.logoUrl} 
+                 alt={project.client} 
+                 width={48} 
+                 height={48} 
+                 className="w-full h-full object-contain mix-blend-multiply opacity-50" 
+                 sizes="48px"
+               />
            </div>
         </div>
       </div>
@@ -53,11 +61,16 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
                 className="w-full h-full p-3 md:p-8"
               >
                 <div className="w-full h-full relative overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 shadow-inner">
-                   <img 
-                    src={showAfter ? project.mockupLaptop : project.beforeImage} 
-                    alt={project.title}
-                    className="w-full h-auto absolute top-0 left-0 transition-transform duration-[8s] ease-in-out group-hover:translate-y-[calc(-100%+400px)] md:group-hover:translate-y-[calc(-100%+700px)]" 
-                   />
+                   <Image 
+                     src={showAfter ? project.mockupLaptop : project.beforeImage} 
+                     alt={project.title}
+                     width={1000}
+                     height={2000}
+                     priority={true}
+                     className="w-full h-auto absolute top-0 left-0 transition-transform duration-[8s] ease-in-out group-hover:translate-y-[calc(-100%+400px)] md:group-hover:translate-y-[calc(-100%+700px)]" 
+                     sizes="(max-width: 768px) 100vw, 800px"
+                     style={{ height: 'auto' }}
+                    />
                    
                    {/* Scroll Indicator Overlay */}
                    <div className="absolute inset-0 bg-black/0 md:group-hover:bg-black/20 transition-colors pointer-events-none flex items-center justify-center">
@@ -92,10 +105,13 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
         {/* 2. TALL CARD: Mobile Version */}
         <div className="md:col-span-1 md:row-span-2 bg-[#1A1A2E] rounded-[32px] md:rounded-[40px] overflow-hidden relative group h-[400px] md:h-full">
            <div className="absolute inset-0 w-full h-[85%] p-6 md:p-8">
-              <img 
-                src={project.mockupMobile} 
-                className="w-full h-full object-contain object-center drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-700" 
-              />
+               <Image 
+                 src={project.mockupMobile} 
+                 alt={`${project.title} mobile`}
+                 fill
+                 className="w-full h-full object-contain object-center drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-700" 
+                 sizes="(max-width: 768px) 100vw, 400px"
+               />
            </div>
            <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 bg-gradient-to-t from-[#1A1A2E] via-[#1A1A2E]/80 to-transparent pt-12">
               <h3 className="text-xl md:text-2xl font-black text-white mb-2">Mobile Ready</h3>

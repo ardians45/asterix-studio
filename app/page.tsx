@@ -1,11 +1,14 @@
+import dynamic from 'next/dynamic';
 import B2BHero from "@/components/sections/b2b/B2BHero";
 import B2BProblem from "@/components/sections/b2b/B2BProblem";
-import B2BStats from "@/components/sections/b2b/B2BStats";
-import B2BAudience from "@/components/sections/b2b/B2BAudience";
-import B2BTestimonial from "@/components/sections/b2b/B2BTestimonial";
-import B2BFAQ from "@/components/sections/b2b/B2BFAQ";
-import B2BCTA from "@/components/sections/b2b/B2BCTA";
-import B2BFooter from "@/components/sections/b2b/B2BFooter";
+
+// Deferring heavy client-side sections to reduce initial main-thread work
+const B2BStats = dynamic(() => import("@/components/sections/b2b/B2BStats"), { ssr: true });
+const B2BAudience = dynamic(() => import("@/components/sections/b2b/B2BAudience"), { ssr: true });
+const B2BTestimonial = dynamic(() => import("@/components/sections/b2b/B2BTestimonial"), { ssr: true });
+const B2BFAQ = dynamic(() => import("@/components/sections/b2b/B2BFAQ"), { ssr: true });
+const B2BCTA = dynamic(() => import("@/components/sections/b2b/B2BCTA"), { ssr: true });
+const B2BFooter = dynamic(() => import("@/components/sections/b2b/B2BFooter"), { ssr: true });
 
 export default function Home() {
   return (

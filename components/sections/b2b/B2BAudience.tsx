@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function B2BAudience() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,15 +44,21 @@ export default function B2BAudience() {
           {/* Image Display */}
           <div className="flex-1 w-full relative h-[300px] md:h-[600px] rounded-[24px] overflow-hidden shadow-2xl">
             {audiences.map((audience, idx) => (
-              <motion.img
+              <motion.div
                 key={idx}
-                src={audience.img}
-                alt={audience.role}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: activeIndex === idx ? 1 : 0 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0 w-full h-full object-cover object-top"
-              />
+                className="absolute inset-0 w-full h-full"
+              >
+                <Image
+                  src={audience.img}
+                  alt={audience.role}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 576px"
+                  className="object-cover object-top"
+                />
+              </motion.div>
             ))}
           </div>
 

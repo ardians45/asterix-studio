@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function B2BProblem() {
   return (
@@ -147,10 +148,12 @@ export default function B2BProblem() {
 
              {/* Main Image Container */}
              <div className="relative w-full aspect-video md:aspect-[4/3] z-10 group bg-white rounded-[24px] md:rounded-[32px] shadow-xl md:shadow-2xl overflow-hidden border border-gray-100">
-                <img 
+                <Image 
                   src="/portfolio/pagespeed.png" 
                   alt="Solution Visualization" 
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 576px"
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-700" 
                 />
              </div>
           </motion.div>

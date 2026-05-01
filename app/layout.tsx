@@ -71,6 +71,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+      </head>
       <body
         className={`${syne.variable} ${inter.variable} ${montserrat.variable} antialiased bg-black text-white`}
         suppressHydrationWarning
