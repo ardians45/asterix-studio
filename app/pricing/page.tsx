@@ -9,9 +9,9 @@ import Navbar from "@/components/Navbar";
 
 const pricingData = [
   {
-    name: "PAKET BASIC",
-    price: "899.000",
-    originalPrice: "989.000",
+    name: "Paket Basic",
+    price: "1.350.000",
+    originalPrice: "1.500.000",
     discount: "DISKON 10%",
     icon: <FaRocket className="text-emerald-500" />,
     features: [
@@ -26,9 +26,9 @@ const pricingData = [
     color: "emerald",
   },
   {
-    name: "PAKET ADVANCE",
-    price: "2.400.000",
-    originalPrice: "3.200.000",
+    name: "Paket Advance",
+    price: "2.175.000",
+    originalPrice: "2.900.000",
     discount: "DISKON 25%",
     popular: true,
     icon: <FaStar className="text-sky-500" />,
@@ -40,62 +40,57 @@ const pricingData = [
       "Sertifikat Keamanan (SSL/HTTPS)",
       "Optimasi Google Kelanjutan",
       "Tombol Chat WhatsApp Langsung",
-      "Bantuan Maintenance 1 Tahun",
-      "Ruang Simpan Data Luas",
       "Dashboard Admin Profesional",
     ],
     cta: "Pilih Paket Ini",
     color: "sky",
   },
   {
-    name: "PAKET ULTIMATE",
-    price: "5.940.000",
-    originalPrice: "6.600.000",
+    name: "Paket Professional",
+    price: "5.400.000",
+    originalPrice: "6.000.000",
     discount: "DISKON 10%",
     icon: <FaCrown className="text-amber-500" />,
     features: [
-      "Desain Standar Perusahaan Besar",
-      "Halaman Website Tanpa Batas",
-      "Server Performa Tinggi (E-commerce)",
-      "Sistem Keamanan Berlapis",
-      "Laporan Pengunjung & Analitik",
-      "Optimasi Kecepatan Website",
-      "Strategi Digital & Marketing",
-      "Prioritas Perbaikan & Update",
-      "Penyimpanan Data Tak Terbatas",
-      "Sistem Management Custom",
-      "Tanpa Label Asterix (White-label)",
+      "Desain Custom Eksklusif & Modern",
+      "Halaman Website Maks 15 Halaman",
+      "CMS / Dashboard Admin Lengkap",
+      "SEO On-Page Menyeluruh",
+      "Laporan Google Analytics Bulanan",
+      "Integrasi Formulir & WhatsApp",
+      "SSL + Hosting Performa Tinggi",
+      "Maintenance & Revisi Minor 1 Tahun",
+      "Ruang Simpan Data Luas",
     ],
     cta: "Pilih Paket Ini",
     color: "amber",
   },
   {
-    name: "PAKET EXCLUSIVE",
-    price: "10.800.000",
-    originalPrice: "12.000.000",
-    discount: "DISKON 10%",
+    name: "Paket Enterprise / Proyek Custom",
+    price: "Harga Sesuai Kebutuhan",
+    originalPrice: "",
+    discount: "",
     icon: <FaGem className="text-purple-500" />,
-    features: [
-      "Sistem Aplikasi Custom Sesuai Request",
-      "Infrastruktur Server Khusus (VPS)",
-      "Keamanan Tingkat Tinggi",
-      "Audit Teknis & Performa Rutin",
-      "Distribusi Akses Global (Cepat)",
-      "Management Iklan & Campaign",
-      "Konsultasi Langsung Project Manager",
-      "Backup Data Otomatis Harian",
-      "Kepemilikan Penuh Kode Sumber",
-      "Sistem Banyak Bahasa (Multi-language)",
-      "Kelola Banyak Sub-domain",
-      "Bantuan Teknis Prioritas 24/7",
-    ],
-    cta: "Pilih Paket Ini",
+    features: [],
+    description: "Butuh sistem aplikasi, e-commerce, atau infrastruktur khusus? Kami kerjakan sesuai kebutuhan bisnis Anda.",
+    cta: "Konsultasi Gratis",
     color: "purple",
+    isCustom: true,
+    customLink: "https://wa.me/6285129488941?text=Halo%20Asterix%20Studio,%20saya%20ingin%20konsultasi%20gratis.",
   },
 ];
 
 export default function PricingPage() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [currentMonth, setCurrentMonth] = useState("Bulan Ini");
+
+  useEffect(() => {
+    const months = [
+      "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+      "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    ];
+    setCurrentMonth(months[new Date().getMonth()]);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -132,15 +127,15 @@ export default function PricingPage() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <span className="inline-block py-1.5 px-4 bg-white/80 backdrop-blur-sm border border-gray-100 rounded-full text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase mb-6 shadow-sm">
-            Investasi Bisnis
+          <span className="inline-block py-1.5 px-4 bg-emerald-50 border border-emerald-100 rounded-full text-[10px] font-black tracking-[0.2em] text-emerald-600 uppercase mb-6 shadow-sm">
+            Promo {currentMonth}
           </span>
           <h1 className="text-5xl md:text-7xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-8 italic">
             PAKET HEMAT <br/> 
             <span className="text-emerald-500">& JELAS</span>
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed">
-            Investasi sekali, manfaat seumur hidup untuk bisnis Anda. Penawaran terbatas bulan ini saja!
+            Investasi sekali, manfaat seumur hidup untuk bisnis Anda. Penawaran terbatas Promo {currentMonth}!
           </p>
         </motion.div>
 
@@ -154,7 +149,7 @@ export default function PricingPage() {
            <div className="relative z-10">
               <div className="flex items-center justify-center gap-3 text-emerald-400 font-black text-xs uppercase tracking-[0.3em] mb-8">
                  <FaClock className="animate-pulse" />
-                 Promo Selesai Dalam
+                 Promo {currentMonth} Selesai Dalam
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-12">
@@ -200,45 +195,69 @@ export default function PricingPage() {
                 <div className="p-4 bg-gray-50 rounded-2xl group-hover:scale-110 transition-transform duration-500">
                   {pkg.icon}
                 </div>
-                <span className="text-[10px] font-black text-white bg-emerald-500 py-1.5 px-3 rounded-lg tracking-widest shadow-lg shadow-emerald-500/20">
-                  {pkg.discount}
-                </span>
+                {pkg.discount && (
+                  <span className="text-[10px] font-black text-white bg-emerald-500 py-1.5 px-3 rounded-lg tracking-widest shadow-lg shadow-emerald-500/20">
+                    {pkg.discount}
+                  </span>
+                )}
               </div>
 
               <h3 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-2">
                 {pkg.name}
               </h3>
               
-              <div className="mb-8">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-sm font-bold text-gray-400">Rp</span>
-                  <span className="text-3xl font-black text-slate-900 tracking-tighter">{pkg.price}</span>
-                </div>
-                <div className="text-sm font-medium text-gray-400 line-through">
-                  Rp {pkg.originalPrice}
-                </div>
+              <div className="mb-8 min-h-[56px] flex flex-col justify-center">
+                {pkg.isCustom ? (
+                  <span className="text-xl font-black text-slate-900 tracking-tight leading-tight">
+                    {pkg.price}
+                  </span>
+                ) : (
+                  <>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-sm font-bold text-gray-400">Rp</span>
+                      <span className="text-3xl font-black text-slate-900 tracking-tighter">{pkg.price}</span>
+                    </div>
+                    {pkg.originalPrice && (
+                      <div className="text-sm font-medium text-gray-400 line-through">
+                        Rp {pkg.originalPrice}
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
 
-              {/* Features List */}
-              <div className="flex-1 space-y-4 mb-10">
-                {pkg.features.map((feature, fIdx) => (
-                  <div key={fIdx} className="flex items-start gap-4">
-                    <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-[8px]">
-                      <FaCheck />
-                    </div>
-                    <span className="text-sm font-medium text-gray-600 leading-tight">{feature}</span>
+              {/* Features List or Description */}
+              <div className="flex-1 mb-10">
+                {pkg.description ? (
+                  <p className="text-sm font-medium text-gray-500 leading-relaxed">
+                    {pkg.description}
+                  </p>
+                ) : (
+                  <div className="space-y-4">
+                    {pkg.features.map((feature, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-4">
+                        <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-[8px]">
+                          <FaCheck />
+                        </div>
+                        <span className="text-sm font-medium text-gray-600 leading-tight">{feature}</span>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
 
               {/* CTA */}
               <Link
-                href={`https://wa.me/6285129488941?text=Halo%20Asterix%20Studio,%20saya%20tertarik%20dengan%20${pkg.name}%20(Promo%20Bulan%20Ini)`}
+                href={
+                  pkg.customLink 
+                    ? pkg.customLink 
+                    : `https://wa.me/6285129488941?text=Halo%20Asterix%20Studio,%20saya%20tertarik%20dengan%20${pkg.name}%20(Promo%20${currentMonth})`
+                }
                 target="_blank"
                 className={`mt-auto flex items-center justify-center w-full py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
                   pkg.popular 
                     ? "bg-sky-500 text-white hover:bg-sky-600 shadow-lg shadow-sky-500/20" 
-                    : "bg-white border-2 border-gray-100 text-slate-900 hover:border-gray-900"
+                    : "bg-white border-2 border-gray-100 text-slate-900 hover:border-gray-900 hover:bg-gray-50"
                 }`}
               >
                 {pkg.cta}
