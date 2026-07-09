@@ -5,24 +5,24 @@ import { motion } from "framer-motion";
 export default function B2BStats() {
   const stats = [
     {
-      title: "Infrastruktur Kecepatan Maksimal",
-      value: "100",
-      change: "Optimal",
-      desc: "Kecepatan maksimal berarti tidak ada lagi client yang kabur karena loading lambat.",
+      title: "Google PageSpeed Skor",
+      value: "95+",
+      change: "PageSpeed 95+",
+      desc: "Skor optimal di perangkat mobile & desktop, memastikan performa dan indexing Google maksimal.",
       type: "speed",
     },
     {
-      title: "Arsitektur Navigasi Berbasis Konversi",
-      value: "8.5%",
-      change: "+2.4x",
-      desc: "Desain yang memandu pengunjung melakukan aksi nyata menghubungi Anda.",
+      title: "Peningkatan Konversi Bisnis",
+      value: "2x Lipat",
+      change: "Conversion 2x",
+      desc: "Alur navigasi psikologis memandu pengunjung langsung ke form WhatsApp / inquiry bisnis Anda.",
       type: "conversion",
     },
     {
-      title: "Strategi Konten untuk Traffic Tertarget",
-      value: "45K",
-      change: "+150%",
-      desc: "Struktur SEO yang rapi menarik pengunjung yang siap membeli solusi Anda.",
+      title: "Kecepatan Muat Halaman",
+      value: "<1.5s",
+      change: "Load <1.5 Detik",
+      desc: "Loading secepat kilat menurunkan bounce rate hingga 30% dan menahan prospek agar tidak kabur.",
       type: "traffic",
     }
   ];
@@ -89,10 +89,10 @@ export default function B2BStats() {
                               <path d="M0 80 C 50 80, 80 90, 120 50 C 160 10, 180 20, 200 10" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
                            </svg>
                        </div>
-                       <div className="relative z-10 bg-white shadow-lg border border-gray-100 rounded-xl px-3 md:px-4 py-1.5 md:py-2 mt-auto">
-                          <span className="text-xl md:text-2xl font-black text-[#2563eb]">{stat.value}</span>
-                          <span className="text-[10px] text-gray-500 ml-1 font-bold">Visits</span>
-                       </div>
+                        <div className="relative z-10 bg-white shadow-lg border border-gray-100 rounded-xl px-3 md:px-4 py-1.5 md:py-2 mt-auto">
+                           <span className="text-xl md:text-2xl font-black text-[#2563eb]">{stat.value}</span>
+                           <span className="text-[10px] text-gray-500 ml-1 font-bold">Speed</span>
+                        </div>
                     </div>
                  )}
               </div>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import HeroContent from "./HeroContent";
 
-export default function B2BHero() {
+export default function B2BHero({ seoTitle }: { seoTitle?: string }) {
   return (
     <section className="bg-[#F8F9FA] pt-20 md:pt-24 pb-12 px-4 md:px-6">
       {/* Outer rounded container mimicking the soft image frame */}
@@ -23,7 +23,7 @@ export default function B2BHero() {
         <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white/10" />
         
         {/* Client-side motion content */}
-        <HeroContent />
+        <HeroContent seoTitle={seoTitle} />
         
       </div>
     </section>

@@ -39,7 +39,7 @@ export default function B2BCTA() {
               Konsultasi Gratis
             </Link>
             <Link
-              href="#portfolio"
+              href="#projects"
               className="px-8 py-3.5 md:py-4 bg-transparent border border-gray-600 text-white text-xs md:text-sm font-bold uppercase tracking-wider rounded-full hover:border-white transition-all w-full sm:w-auto"
             >
               Lihat Portofolio Kami

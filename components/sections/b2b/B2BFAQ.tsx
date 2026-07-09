@@ -8,28 +8,36 @@ export default function B2BFAQ() {
 
   const faqs = [
     {
-      q: "Berapa lama proses pembuatan website B2B ini?",
-      a: "Umumnya memakan waktu 3-4 minggu tergantung pada kompleksitas. Kami fokus pada kualitas struktur SEO dan performa sebelum peluncuran untuk memastikan website siap menghasilkan prospek."
+      q: "Apakah website saya nanti bisa ranking di Google?",
+      a: "Tentu. Setiap website yang kami buat sudah dilengkapi dengan arsitektur SEO-ready, optimasi meta tags, Google Search Console setup, dan struktur HTML yang ramah mesin pencari untuk mempercepat proses indexing dan meningkatkan peluang ranking halaman pertama."
     },
     {
-      q: "Apakah layanan ini termasuk pembuatan konten?",
-      a: "Ya, kami membantu merumuskan copywriting bisnis yang mengkonversi. Strategi konten disusun berdasarkan analisis keyword dan identitas target audiens Anda."
+      q: "Bagaimana jika saya belum memiliki domain dan hosting?",
+      a: "Tenang saja, kami akan membantu memproses pembelian dan setup domain (.com, .id, dll) serta cloud hosting berkinerja tinggi yang disesuaikan dengan kapasitas pengunjung website Anda."
     },
     {
-      q: "Apakah website ini bisa diintegrasikan ke CRM?",
-      a: "Tentu. Kami dapat mengintegrasikan formulir leads langsung ke WhatsApp, email perusahaan, atau CRM spesifik seperti HubSpot maupun Salesforce yang Anda gunakan."
+      q: "Apakah websitenya bisa saya edit sendiri setelah selesai?",
+      a: "Ya. Kami menggunakan CMS (Content Management System) modern yang sangat mudah digunakan bahkan bagi orang awam. Anda bisa mengubah teks, menambahkan foto portofolio, atau mempublikasikan artikel blog baru secara instan."
     },
     {
-      q: "Bagaimana cara kerja maintenance dan garansi?",
-      a: "Kami menyediakan dukungan maintenance 3 bulan gratis paska rilis untuk memastikan PageSpeed tetap optimal dan sistem form/inquiry berjalan tanpa kendala."
+      q: "Apakah pembayaran jasanya bisa dicicil?",
+      a: "Bisa. Untuk menjaga arus kas bisnis Anda tetap sehat, kami memberlakukan sistem pembayaran bertahap (Down Payment 50% di awal dan pelunasan 50% setelah website selesai dideploy dan disetujui)."
     },
     {
-      q: "Bagaimana jika saya ingin custom fitur interaktif?",
-      a: "Sangat memungkinkan. Kami ahlinya dalam pembuatan komponen interaktif khusus untuk memberikan pengalaman premium, mirip dengan visual 3D atau animasi data."
+      q: "Apakah layanannya sudah termasuk penulisan konten (copywriting)?",
+      a: "Benar. Kami menyediakan layanan penulisan copywriting profesional yang disesuaikan dengan psikologi target pelanggan industri B2B Anda, untuk memastikan setiap pengunjung tertarik menghubungi sales Anda."
     },
     {
-      q: "Apakah ada biaya tersembunyi setelah selesai?",
-      a: "Semua dijelaskan di awal kontrak kerja. Biaya jangka panjang umumnya hanya terkait server atau layanan pihak ketiga yang Anda perlukan untuk operasional web."
+      q: "Bagaimana jika bisnis saya belum memiliki logo resmi?",
+      a: "Kami bisa membantu merancang logo minimalis/modern standar perusahaan di awal proyek sebagai bagian dari identitas visual baru website Anda."
+    },
+    {
+      q: "Apakah website bisa diintegrasikan dengan WhatsApp dan CRM?",
+      a: "Tentu. Semua form inquiry bisa diintegrasikan langsung ke WhatsApp nomor sales Anda, email perusahaan, maupun sistem CRM populer seperti HubSpot, Salesforce, atau Zoho."
+    },
+    {
+      q: "Apakah ada biaya tersembunyi setelah website diluncurkan?",
+      a: "Tidak ada. Semua rincian biaya (domain, hosting tahunan, lisensi tools) akan kami paparkan secara transparan di awal kontrak. Kami juga menyertakan garansi support teknis gratis selama 3 bulan pertama."
     }
   ];
 

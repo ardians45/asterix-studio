@@ -2,6 +2,13 @@ import { Testimonial } from "@/types";
 
 export const testimonials: Testimonial[] = [
   {
+    quote: "Setelah e-catalog dan sistem admin panel kami didevelop oleh Asterix Studio, manajemen stok barang kami jadi jauh lebih cepat dan terpantau secara realtime. Kecepatan load websitenya luar biasa, sangat membantu operasional tim kami.",
+    name: "Ahmad",
+    role: "Direktur Operasional • Paletindo",
+    initial: "P",
+    color: "bg-amber-100 text-amber-600"
+  },
+  {
     quote: "Kerjanya rapi dan sesuai sama yang kami butuhin. Komunikasinya enak, prosesnya jelas, dan hasil akhirnya bikin tampilan bisnis kami jadi lebih profesional.",
     name: "Owner SRLaundry",
     role: "Business Owner • SRLaundry",
