@@ -3,7 +3,6 @@ import B2BHero from "@/components/sections/b2b/B2BHero";
 import B2BProblem from "@/components/sections/b2b/B2BProblem";
 import ClientLogos from "@/components/sections/b2b/ClientLogos";
 import WhyChooseUs from "@/components/sections/b2b/WhyChooseUs";
-import DataDrivenExpertise from "@/components/sections/b2b/DataDrivenExpertise";
 import ProjectBentoSection from "@/components/sections/ProjectBentoSection";
 import { bentoProjects } from "@/data/projects";
 
@@ -22,7 +21,6 @@ export default function Home() {
       <ClientLogos />
       <B2BProblem />
       <WhyChooseUs />
-      <DataDrivenExpertise />
       <B2BStats />
       
       {/* Portfolio Showcase Section */}
