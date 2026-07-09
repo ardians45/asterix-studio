@@ -171,7 +171,7 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
                     onClick={() => setActiveTab("analytics")} 
                     className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all ${activeTab === "analytics" ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-900"}`}
                   >
-                     Dashboard Performa
+                     Audit PageSpeed
                   </button>
                   <button 
                     onClick={() => setActiveTab("paletindo")} 
@@ -203,75 +203,52 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
             {/* Main Dashboard Body / Website Showcase */}
             <div className="relative p-0 h-[480px] bg-[#f8fafc] overflow-hidden">
                {activeTab === "analytics" && (
-                 <div className="flex flex-col md:flex-row p-6 md:p-8 gap-6 h-full animate-fadeIn">
-                    {/* Main Chart Area */}
-                    <div className="flex-1 space-y-6">
-                       <div className="flex justify-between items-end">
-                          <div className="text-left">
-                            <p className="text-lg md:text-xl font-bold text-gray-900 flex items-center gap-2">
-                               <svg className="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                               Total Inquiry Growth
-                            </p>
-                            <div className="mt-4 flex items-end gap-3">
-                               <span className="text-3xl md:text-4xl font-bold text-gray-900">4,250</span>
-                               <span className="text-[10px] md:text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md mb-1">+24.5%</span>
-                            </div>
-                          </div>
-                          <span className="bg-gray-50 border border-gray-100 rounded-full px-4 py-2 text-[10px] md:text-xs font-bold text-gray-600">
-                             Bulan Ini
-                          </span>
-                       </div>
-
-                       <div className="pt-8 h-48 md:h-64 flex items-end justify-between gap-2 md:gap-6 relative border-t border-gray-100">
-                          {[30, 45, 25, 60, 80, 50, 40, 75].map((h, i) => (
-                             <div key={i} className="flex-1 flex flex-col justify-end items-center group relative h-full">
-                                {/* Floating Tooltip Mockup */}
-                                {i === 4 && (
-                                  <div className="absolute -top-12 bg-gray-900 text-white text-[10px] font-bold px-3 py-2 rounded-lg shadow-xl z-20 whitespace-nowrap">
-                                     +80 Leads
-                                  </div>
-                                )}
-                                <div className={`w-full rounded-t-xl transition-all ${i === 4 ? 'bg-gray-900' : 'bg-[#e0f2fe]'}`} style={{ height: `${h}%` }}></div>
-                                <span className="text-[8px] md:text-[10px] text-gray-400 font-bold mt-2">W{i+1}</span>
-                             </div>
-                          ))}
-                       </div>
+                 <div className="flex flex-col p-6 md:p-8 justify-center items-center h-full animate-fadeIn text-left">
+                    <div className="text-center mb-6">
+                      <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1 flex items-center justify-center gap-1">
+                         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Google Lighthouse Audit
+                      </p>
+                      <h4 className="text-lg md:text-xl font-bold text-gray-900">Performa Teknis Maksimal & SEO-Ready</h4>
                     </div>
 
-                    {/* Right Sidebar Charts */}
-                    <div className="hidden md:flex w-72 flex-col gap-6 text-left">
-                       <div className="bg-white rounded-2xl p-6 border border-gray-100">
-                          <p className="text-sm font-bold text-gray-900 mb-6 flex items-center gap-2">
-                             <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
-                             Conversion Rate
-                          </p>
-                          <div className="relative w-full aspect-square max-h-[160px] mx-auto flex items-center justify-center">
-                             <svg className="w-full h-full transform -rotate-180" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="40" stroke="#f1f5f9" strokeWidth="15" fill="none" strokeDasharray="125" strokeDashoffset="0" />
-                                <circle cx="50" cy="50" r="40" stroke="#10b981" strokeWidth="15" fill="none" strokeDasharray="125" strokeDashoffset="25" />
-                             </svg>
-                             <div className="absolute flex flex-col items-center translate-y-4">
-                                <span className="text-3xl font-black text-gray-900">80%</span>
-                                <span className="text-[10px] font-bold text-gray-400">Target Reached</span>
+                    {/* 4 Circles Row */}
+                    <div className="flex flex-wrap items-center justify-center gap-6 md:gap-12 mb-8">
+                       {[
+                         { name: "Performance", val: 100 },
+                         { name: "Accessibility", val: 100 },
+                         { name: "Best Practices", val: 100 },
+                         { name: "SEO", val: 100 }
+                       ].map((item, idx) => (
+                          <div key={idx} className="flex flex-col items-center gap-2">
+                             <div className="relative w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                   <circle cx="50" cy="50" r="42" stroke="#ecfdf5" strokeWidth="8" fill="none" />
+                                   <circle cx="50" cy="50" r="42" stroke="#10b981" strokeWidth="8" fill="none" strokeDasharray="264" strokeDashoffset="0" />
+                                </svg>
+                                <span className="absolute inset-0 flex items-center justify-center text-xl md:text-2xl font-black text-emerald-600">{item.val}</span>
                              </div>
+                             <span className="text-[10px] md:text-xs font-bold text-gray-700 tracking-tight">{item.name}</span>
                           </div>
-                       </div>
+                       ))}
+                    </div>
 
-                       <div className="bg-white rounded-2xl p-6 border border-gray-100 flex-1">
-                          <p className="text-sm font-bold text-gray-900 mb-4">Traffic Source</p>
-                          <div className="space-y-4">
-                             <div className="flex justify-between items-center">
-                                <span className="text-xs font-bold text-gray-500">Organic (SEO)</span>
-                                <span className="text-xs font-bold text-gray-900">85%</span>
-                             </div>
-                             <div className="w-full bg-gray-200 h-2 rounded-full"><div className="bg-[#10b981] h-2 rounded-full" style={{width: '85%'}}></div></div>
-                             
-                             <div className="flex justify-between items-center pt-2">
-                                <span className="text-xs font-bold text-gray-500">Direct</span>
-                                <span className="text-xs font-bold text-gray-900">15%</span>
-                             </div>
-                             <div className="w-full bg-gray-200 h-2 rounded-full"><div className="bg-[#FF6B00] h-2 rounded-full" style={{width: '15%'}}></div></div>
-                          </div>
+                    {/* Metrics Checklist */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-2xl bg-white p-4 rounded-2xl border border-gray-100 shadow-sm text-center">
+                       <div>
+                          <p className="text-[10px] font-bold text-gray-400 uppercase">First Contentful Paint</p>
+                          <p className="text-sm font-black text-emerald-600">0.5s</p>
+                       </div>
+                       <div>
+                          <p className="text-[10px] font-bold text-gray-400 uppercase">Speed Index</p>
+                          <p className="text-sm font-black text-emerald-600">0.8s</p>
+                       </div>
+                       <div>
+                          <p className="text-[10px] font-bold text-gray-400 uppercase">Largest Contentful Paint</p>
+                          <p className="text-sm font-black text-emerald-600">0.9s</p>
+                       </div>
+                       <div>
+                          <p className="text-[10px] font-bold text-gray-400 uppercase">Total Blocking Time</p>
+                          <p className="text-sm font-black text-emerald-600">0ms</p>
                        </div>
                     </div>
                  </div>
