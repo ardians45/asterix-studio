@@ -8,15 +8,15 @@ export default function B2BProblem() {
     <section id="problem" className="py-20 md:py-32 bg-white relative">
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         
-        {/* ROW 1: Text Left, Visual Right */}
-        <div className="flex flex-col lg:flex-row items-center gap-10 md:gap-16 mb-20 md:mb-40">
+        {/* ROW 1: Centered Text (Opsi A) */}
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-20 md:mb-40">
           {/* Text Content */}
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex-1 space-y-4 md:space-y-6"
+            className="space-y-4 md:space-y-6"
           >
             <div className="inline-flex items-center gap-2 text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">
                Masalah
@@ -25,59 +25,9 @@ export default function B2BProblem() {
               Website Anda Mungkin <span className="text-red-500 italic">Kehilangan</span> <br className="hidden md:block" />
               Calon Pelanggan <span className="text-[#FF6B00]">Setiap Hari</span>
             </h2>
-            <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 md:mt-6 text-balance">
+            <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 md:mt-6 text-balance max-w-2xl mx-auto">
               Kami merancang website dengan struktur yang memudahkan pengunjung memahami bisnis Anda, membangun kepercayaan, dan mendorong mereka untuk segera menghubungi Anda.
             </p>
-          </motion.div>
-
-          {/* Visual Content */}
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex-1 w-full relative flex justify-center lg:justify-end"
-          >
-            <div className="bg-white rounded-2xl md:rounded-[24px] border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.04)] md:shadow-[0_20px_40px_rgba(0,0,0,0.06)] p-6 md:p-8 max-w-[320px] md:max-w-sm w-full relative z-20">
-               <div className="flex justify-between items-center mb-6 md:mb-8 pb-4">
-                  <div>
-                    <p className="text-[#1A1A2E] font-bold text-lg md:text-xl mb-1">Weekly Visitors</p>
-                    <p className="text-[10px] md:text-sm text-gray-500 font-medium">vs Inquiry generated</p>
-                  </div>
-                  <div className="flex text-lg font-black text-gray-300">
-                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="md:w-6 md:h-6">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M6 12C6 13.1046 5.10457 14 4 14C2.89543 14 2 13.1046 2 12C2 10.8954 2.89543 10 4 10C5.10457 10 6 10.8954 6 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12ZM20 14C21.1046 14 22 13.1046 22 12C22 10.8954 21.1046 10 20 10C18.8954 10 18 10.8954 18 12C18 13.1046 18.8954 14 20 14Z" fill="#CBD5E1"/>
-                     </svg>
-                  </div>
-               </div>
-               
-               <div className="flex items-end justify-between h-32 md:h-48 gap-2 md:gap-4 mt-8 md:mt-12 mb-6 md:mb-8 px-1 md:px-2">
-                  {[40, 60, 50, 80, 65, 45].map((h, i) => (
-                    <div key={i} className="flex-1 flex flex-col justify-end items-center gap-2 h-full">
-                       <div className="w-full rounded-t-lg bg-[#F8F9FB]" style={{ height: `${h}%` }}></div>
-                       <span className="text-[9px] md:text-[11px] text-gray-300 font-bold mb-1 md:mb-2 uppercase">{h}k</span>
-                    </div>
-                  ))}
-                  {/* The contrasting drop bar */}
-                  <div className="flex-1 flex flex-col justify-end items-center gap-2 relative h-full">
-                     <div className="w-full rounded-t-lg bg-[#FF6B00]" style={{ height: `10%` }}></div>
-                     <span className="text-[9px] md:text-[11px] text-[#FF6B00] font-bold mb-1 md:mb-2">0</span>
-                  </div>
-               </div>
-
-               <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-50/80">
-                  <div className="flex justify-between items-center">
-                     <div className="flex items-center gap-2 md:gap-3">
-                        <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-[#FF6B00]"></div>
-                        <span className="text-xs md:text-[15px] font-bold text-[#4B5563]">Inquiry Drop</span>
-                     </div>
-                     <span className="text-sm md:text-base font-black text-[#1A1A2E]">-98.5%</span>
-                  </div>
-               </div>
-            </div>
-
-            {/* Decorative background blur */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-50/50 rounded-full blur-[60px] md:blur-[80px] -z-10" />
           </motion.div>
         </div>
 
