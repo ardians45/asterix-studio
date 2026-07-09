@@ -38,13 +38,13 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
             {/* Overlapping Avatars */}
             <div className="flex -space-x-2">
                <div className="relative w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-white/80 overflow-hidden">
-                  <Image fill src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80" alt="User 1" className="object-cover" sizes="(max-width: 768px) 24px, 32px" />
+                  <Image fill src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256" alt="User 1" className="object-cover" sizes="(max-width: 768px) 24px, 32px" />
                </div>
                <div className="relative w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-white/80 overflow-hidden">
-                  <Image fill src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80" alt="User 2" className="object-cover" sizes="(max-width: 768px) 24px, 32px" />
+                  <Image fill src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256" alt="User 2" className="object-cover" sizes="(max-width: 768px) 24px, 32px" />
                </div>
                <div className="relative w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-white/80 overflow-hidden">
-                  <Image fill src="https://images.unsplash.com/photo-1582213723385-dce61a6671a1?auto=format&fit=crop&q=80" alt="User 3" className="object-cover" sizes="(max-width: 768px) 24px, 32px" />
+                  <Image fill src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=256" alt="User 3" className="object-cover" sizes="(max-width: 768px) 24px, 32px" />
                </div>
             </div>
             <div className="flex flex-col items-start gap-0 md:gap-0.5 mt-1">
