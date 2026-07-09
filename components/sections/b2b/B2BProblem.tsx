@@ -22,11 +22,11 @@ export default function B2BProblem() {
                Masalah
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-[1.1] tracking-tight">
-              Mengapa Kebanyakan Website Perusahaan <span className="text-red-500 italic">Gagal</span> <br className="hidden md:block" />
-              Menghasilkan <span className="text-emerald-600">Inquiry?</span>
+              Website Anda Mungkin <span className="text-red-500 italic">Kehilangan</span> <br className="hidden md:block" />
+              Calon Pelanggan <span className="text-[#FF6B00]">Setiap Hari</span>
             </h2>
             <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 md:mt-6 text-balance">
-              Percuma membakar uang untuk iklan jika website Anda tidak mampu mengikat pengunjung. Setiap detik yang terbuang adalah potensi profit yang hilang karena desain yang tidak menjual.
+              Kami merancang website dengan struktur yang memudahkan pengunjung memahami bisnis Anda, membangun kepercayaan, dan mendorong mereka untuk segera menghubungi Anda.
             </p>
           </motion.div>
 
