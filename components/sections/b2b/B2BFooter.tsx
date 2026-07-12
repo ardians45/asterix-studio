@@ -19,7 +19,7 @@ export default function B2BFooter() {
               <a href="https://wa.me/6285129488941" target="_blank" className="text-gray-400 hover:text-emerald-600 transition-colors text-lg" aria-label="WhatsApp">
                 <FaWhatsapp />
               </a>
-              <a href="mailto:hello@asterixstudio.site" className="text-gray-400 hover:text-emerald-600 transition-colors text-lg" aria-label="Email">
+              <a href="mailto:asterixstudio7@gmail.com" className="text-gray-400 hover:text-emerald-600 transition-colors text-lg" aria-label="Email">
                 <FaEnvelope />
               </a>
               <a href="#" className="text-gray-400 hover:text-emerald-600 transition-colors text-lg" aria-label="Instagram">
@@ -63,11 +63,11 @@ export default function B2BFooter() {
             <div className="space-y-3 text-xs font-medium text-gray-500">
               <div className="flex items-start gap-2">
                 <FaMapMarkerAlt className="text-emerald-600 mt-0.5 flex-shrink-0" />
-                <span>Sleman, D.I. Yogyakarta, Indonesia</span>
+                <span>Tangerang Selatan, Banten, Indonesia</span>
               </div>
               <div className="flex items-center gap-2">
                 <FaEnvelope className="text-emerald-600 flex-shrink-0" />
-                <span>hello@asterixstudio.site</span>
+                <span>asterixstudio7@gmail.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <FaWhatsapp className="text-emerald-600 flex-shrink-0" />

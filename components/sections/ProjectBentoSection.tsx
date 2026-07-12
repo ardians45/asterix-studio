@@ -47,10 +47,10 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
       </div>
 
       {/* The Bento Grid Cluster - Grouped for ONE project */}
-      <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-auto md:grid-rows-2 gap-4 h-auto md:h-[800px]">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto lg:h-[720px]">
         
         {/* 1. MAIN LARGE CARD: The Final Result (After) */}
-        <div className="md:col-span-2 md:row-span-2 bg-white rounded-[32px] md:rounded-[40px] border border-gray-100 shadow-sm overflow-hidden relative group cursor-ns-resize h-[450px] md:h-full">
+        <div className="lg:col-span-2 bg-white rounded-[32px] md:rounded-[40px] border border-gray-100 shadow-sm overflow-hidden relative group cursor-ns-resize h-[450px] lg:h-full">
            <AnimatePresence mode="wait">
               <motion.div 
                 key={showAfter ? "after" : "before"}
@@ -67,7 +67,7 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
                      width={1000}
                      height={2000}
                      priority={true}
-                     className="w-full h-auto absolute top-0 left-0 transition-transform duration-[8s] ease-in-out group-hover:translate-y-[calc(-100%+400px)] md:group-hover:translate-y-[calc(-100%+700px)]" 
+                     className="w-full h-auto absolute top-0 left-0 transition-transform duration-[8s] ease-in-out group-hover:translate-y-[calc(-100%+400px)] lg:group-hover:translate-y-[calc(-100%+620px)]" 
                      sizes="(max-width: 768px) 100vw, 800px"
                      style={{ height: 'auto' }}
                     />
@@ -102,52 +102,46 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
            </div>
         </div>
 
-        {/* 2. TALL CARD: Mobile Version */}
-        <div className="md:col-span-1 md:row-span-2 bg-[#1A1A2E] rounded-[32px] md:rounded-[40px] overflow-hidden relative group h-[400px] md:h-full">
-           <div className="absolute inset-0 w-full h-[85%] p-6 md:p-8">
-               <Image 
-                 src={project.mockupMobile} 
-                 alt={`${project.title} mobile`}
-                 fill
-                 className="w-full h-full object-contain object-center drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-700" 
-                 sizes="(max-width: 768px) 100vw, 400px"
-               />
-           </div>
-           <div className="absolute bottom-0 left-0 w-full p-6 md:p-8 bg-gradient-to-t from-[#1A1A2E] via-[#1A1A2E]/80 to-transparent pt-12">
-              <h3 className="text-xl md:text-2xl font-black text-white mb-2">Mobile Ready</h3>
-              <p className="text-white/50 text-[10px] md:text-xs font-medium leading-relaxed">Responsif di semua perangkat untuk menjangkau pengguna di mana saja.</p>
-           </div>
-        </div>
-
-        {/* 3. SMALL CARD: Palette & Metrics */}
-        <div className="md:col-span-1 md:row-span-1 bg-white rounded-[32px] md:rounded-[40px] border border-gray-100 p-6 md:p-8 flex flex-col justify-between h-[180px] md:h-auto">
-           <div>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Color Palette</p>
-              <div className="flex gap-2">
-                 {project.palette.map(color => (
-                    <div key={color} className="w-8 h-8 rounded-full border border-gray-100 shadow-sm" style={{ backgroundColor: color }} />
-                 ))}
+        {/* 2. MERGED CARD: Mobile, Palette & View Live */}
+        <div className="lg:col-span-1 bg-[#1A1A2E] rounded-[32px] md:rounded-[40px] overflow-hidden relative group flex flex-col justify-between p-6 md:p-8 h-[500px] lg:h-full">
+           {/* Color Palette & Live Site header */}
+           <div className="flex justify-between items-center z-20">
+              <div>
+                 <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">Color Palette</p>
+                 <div className="flex gap-1.5">
+                    {project.palette.map(color => (
+                       <div key={color} className="w-5 h-5 rounded-full border border-white/10 shadow-sm" style={{ backgroundColor: color }} />
+                    ))}
+                 </div>
               </div>
+              {project.liveUrl && (
+                 <a 
+                   href={project.liveUrl} 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   className="flex items-center gap-1.5 text-white font-black group text-xs bg-white/10 hover:bg-[#10b981] hover:text-white px-4 py-2 rounded-full transition-all duration-300"
+                 >
+                    <span>View Live</span>
+                    <FaArrowRight className="group-hover:translate-x-0.5 transition-transform text-[10px]" />
+                 </a>
+              )}
            </div>
-           
-           <div className="flex items-center gap-2 text-[#10b981] font-black group cursor-pointer text-xs md:text-sm">
-              <span>View Live</span>
-              <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-           </div>
-        </div>
 
-        {/* 4. RESULTS CARD */}
-        <div className="md:col-span-1 md:row-span-1 bg-gray-50 rounded-[32px] md:rounded-[40px] border border-gray-100 p-6 md:p-8 flex flex-col justify-center h-[180px] md:h-auto">
-           <div className="space-y-4 md:space-y-6">
-              {project.results.map(res => (
-                <div key={res.label}>
-                   <div className="flex items-baseline gap-2">
-                      <span className="text-2xl md:text-3xl font-black text-gray-900 leading-none">{res.value}</span>
-                      <span className="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-widest">{res.label}</span>
-                   </div>
-                   <p className="text-[10px] md:text-[11px] text-[#10b981] font-bold mt-1">{res.detail}</p>
-                </div>
-              ))}
+           {/* Mobile screen mock container */}
+           <div className="relative w-full h-[280px] lg:h-[380px] mt-4 flex items-end justify-center z-10 overflow-hidden">
+              <Image 
+                src={project.mockupMobile} 
+                alt={`${project.title} mobile`}
+                fill
+                className="w-full h-full object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700" 
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+           </div>
+
+           {/* Title & Description footer */}
+           <div className="z-20 pt-4 border-t border-white/5">
+              <h3 className="text-lg md:text-xl font-black text-white mb-1">Mobile Ready</h3>
+              <p className="text-white/40 text-[10px] md:text-xs font-medium leading-relaxed">Responsif di semua perangkat untuk menjangkau pengguna di mana saja.</p>
            </div>
         </div>
 

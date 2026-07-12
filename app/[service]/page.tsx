@@ -7,12 +7,12 @@ import ProjectBentoSection from "@/components/sections/ProjectBentoSection";
 import { bentoProjects } from "@/data/projects";
 import { Metadata } from 'next';
 
-const B2BStats = dynamic(() => import("@/components/sections/b2b/B2BStats"), { ssr: true });
 const B2BAudience = dynamic(() => import("@/components/sections/b2b/B2BAudience"), { ssr: true });
 const B2BTestimonial = dynamic(() => import("@/components/sections/b2b/B2BTestimonial"), { ssr: true });
 const B2BFAQ = dynamic(() => import("@/components/sections/b2b/B2BFAQ"), { ssr: true });
 const B2BCTA = dynamic(() => import("@/components/sections/b2b/B2BCTA"), { ssr: true });
 const B2BFooter = dynamic(() => import("@/components/sections/b2b/B2BFooter"), { ssr: true });
+const SeoProofsSection = dynamic(() => import("@/components/sections/b2b/SeoProofsSection"), { ssr: true });
 
 function formatSlug(slug: string): string {
   const mapping: { [key: string]: string } = {
@@ -66,8 +66,6 @@ export default async function ServicePage({ params }: PageProps) {
       <B2BHero seoTitle={seoTitle} />
       <ClientLogos />
       <B2BProblem />
-      <WhyChooseUs />
-      <B2BStats />
       
       {/* Portfolio Showcase Section */}
       <section id="projects" className="py-20 md:py-32 bg-white">
@@ -87,7 +85,10 @@ export default async function ServicePage({ params }: PageProps) {
         </div>
       </section>
 
+      <SeoProofsSection />
+
       <B2BAudience />
+      <WhyChooseUs />
       <B2BTestimonial />
       <B2BFAQ />
       <B2BCTA />

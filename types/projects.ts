@@ -10,4 +10,5 @@ export interface BentoProjectDetail {
   logoUrl: string;
   palette: string[];
   results: { label: string; value: string; detail: string }[];
+  liveUrl?: string;
 }

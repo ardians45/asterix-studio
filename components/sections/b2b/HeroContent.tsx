@@ -193,7 +193,7 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
                         <Image fill src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?auto=format&fit=crop&q=80" alt="" className="object-cover" sizes="28px" />
                      </div>
                      <div className="relative w-7 h-7 rounded-full border border-white overflow-hidden">
-                        <Image fill src="https://images.unsplash.com/photo-1582213723385-dce61a6671a1?auto=format&fit=crop&q=80" alt="" className="object-cover" sizes="28px" />
+                        <Image fill src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=256" alt="" className="object-cover" sizes="28px" />
                      </div>
                   </div>
                   <Link href="https://wa.me/6285129488941" target="_blank" className="bg-gray-900 text-white text-xs font-bold px-4 py-2 rounded-full hover:bg-black transition-colors">Hubungi Kami</Link>

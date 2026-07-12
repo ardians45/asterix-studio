@@ -41,15 +41,21 @@ export default function B2BTestimonial() {
                     "{testimonial.quote}"
                   </p>
                 </div>
-                <div className="flex items-center gap-4 pt-5 md:pt-6 border-t border-gray-100">
-                   <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-black text-base md:text-lg border-2 border-white shadow-sm ${testimonial.color}`}>
-                      {testimonial.initial}
-                   </div>
+                 <div className="flex items-center gap-4 pt-5 md:pt-6 border-t border-gray-100">
+                   {testimonial.image ? (
+                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-white shadow-sm overflow-hidden bg-white flex items-center justify-center relative p-1">
+                       <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-contain rounded-full" />
+                     </div>
+                   ) : (
+                     <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-black text-base md:text-lg border-2 border-white shadow-sm ${testimonial.color}`}>
+                        {testimonial.initial}
+                     </div>
+                   )}
                    <div>
                      <p className="font-bold text-gray-900 leading-none mb-1 text-sm md:text-base">{testimonial.name}</p>
                      <p className="text-[10px] md:text-xs text-gray-500 font-medium">{testimonial.role}</p>
                    </div>
-                </div>
+                 </div>
              </motion.div>
           ))}
         </div>

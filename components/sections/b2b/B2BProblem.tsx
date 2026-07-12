@@ -39,23 +39,17 @@ export default function B2BProblem() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex-1 space-y-4 md:space-y-6"
+            className="flex-1 space-y-4 md:space-y-6 text-center flex flex-col items-center justify-center"
           >
             <div className="inline-flex items-center gap-2 text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">
                Solusi
             </div>
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-[1.1] tracking-tight">
-              Website Performa Tinggi yang Fokus pada <span className="text-emerald-600">Kejelasan ROI.</span>
+              Website Secepat Kilat untuk <span className="text-emerald-600">Indexing & Ranking Maksimal.</span>
             </h2>
-            <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 md:mt-6 text-balance">
-              Kami merancang ulang setiap pixel untuk satu tujuan: Memastikan setiap pengunjung yang datang memiliki alasan kuat untuk menghubungi bisnis Anda.
+            <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 md:mt-6 text-balance mx-auto">
+              Kami membangun fondasi digital modern menggunakan Next.js yang menjamin loading cepat di bawah 1.5 detik, menekan bounce rate, dan menempatkan bisnis Anda di halaman pertama Google.
             </p>
-            
-            <div className="pt-2 md:pt-4">
-              <button className="bg-gray-900 text-white px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors shadow-lg text-sm md:text-base">
-                Lihat Solusi
-              </button>
-            </div>
           </motion.div>
 
           {/* Visual Content */}
@@ -82,7 +76,7 @@ export default function B2BProblem() {
                 <motion.div 
                   animate={{ y: [0, -20, 0], x: [0, 10, 0], rotate: [-15, 10, -15] }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-0 left-0 text-emerald-500 drop-shadow-[0_5px_15px_rgba(16,185,129,0.3)]"
+                  className="absolute top-0 left-0 text-emerald-500 drop-shadow-[0_5px_15px_rgba(16,185,129,0.3)] hidden md:block"
                 >
                    <svg width="40" height="40" className="md:w-[80px] md:h-[80px]" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3L3 10.53V11.5L9.84 13.79L12.13 20.63L13.1 21L21 3Z"/></svg>
                 </motion.div>
@@ -90,7 +84,7 @@ export default function B2BProblem() {
                 <motion.div 
                   animate={{ y: [0, 20, 0], x: [0, -10, 0], rotate: [45, 65, 45] }}
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute bottom-0 right-0 text-sky-500 drop-shadow-[0_5px_15px_rgba(14,165,233,0.3)]"
+                  className="absolute bottom-0 right-0 text-sky-500 drop-shadow-[0_5px_15px_rgba(14,165,233,0.3)] hidden md:block"
                 >
                    <svg width="35" height="35" className="md:w-[70px] md:h-[70px]" viewBox="0 0 24 24" fill="currentColor"><path d="M21 3L3 10.53V11.5L9.84 13.79L12.13 20.63L13.1 21L21 3Z"/></svg>
                 </motion.div>

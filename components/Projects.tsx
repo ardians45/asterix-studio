@@ -18,16 +18,6 @@ const projects = [
     link: "/projects/career-connect"
   },
   {
-    title: "Rapor Lamaholot",
-    description: "Custom-built academic grade management system for Sekolah Dasar Lamaholot. Features automated report generation, role-based access control, and student data management.",
-    role: "Fullstack Developer",
-    tech: ["PHP Native", "MySQL", "Tailwind CSS", "FPDF"],
-    impact: "Streamlined report card generation for teachers.",
-    year: "2025",
-    image: "/projects/rapor-lamaholot/rapor1.webp",
-    link: "/projects/rapor-lamaholot"
-  },
-  {
     title: "3D Tetris - Grunge",
     description: "A brutally aesthetic 3D Tetris game built with React, Three.js, and Tailwind CSS. Features touch controls and local persistence.",
     role: "Creative Developer",

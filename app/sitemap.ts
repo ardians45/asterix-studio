@@ -33,7 +33,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/projects',
   ]
 
-  // Project detail pages (based on folder structure)
   const projectRoutes = [
     '/projects/3d-tetris-grunge',
     '/projects/bantu-platform',
@@ -42,7 +41,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/projects/gogo-groceries',
     '/projects/greenify',
     '/projects/link-aja-kas',
-    '/projects/rapor-lamaholot',
   ]
 
   const pages = [...staticRoutes, ...projectRoutes].map((route) => ({

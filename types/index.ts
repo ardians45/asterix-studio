@@ -4,6 +4,7 @@ export interface Testimonial {
   role: string;
   initial: string;
   color: string;
+  image?: string;
 }
 
 export interface Service {
