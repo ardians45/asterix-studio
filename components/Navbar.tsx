@@ -49,6 +49,7 @@ export default function Navbar() {
                width={150}
                height={38}
                className="h-[30px] md:h-[38px] w-auto object-contain transform group-hover:scale-105 transition-transform" 
+               style={{ width: 'auto', height: 'auto' }}
                priority
              />
           </Link>
@@ -93,7 +94,7 @@ export default function Navbar() {
           >
              <div className="flex items-center justify-between px-6 py-6 md:px-12 relative z-50">
                 <Link href="/" onClick={() => setIsOpen(false)}>
-                   <Image src="/logo-white.svg" alt="Asterix Logo" width={120} height={32} className="h-8 w-auto" />
+                   <Image src="/logo-white.svg" alt="Asterix Logo" width={120} height={32} className="h-8 w-auto" style={{ width: 'auto', height: 'auto' }} />
                 </Link>
                 <button
                 onClick={() => setIsOpen(false)}

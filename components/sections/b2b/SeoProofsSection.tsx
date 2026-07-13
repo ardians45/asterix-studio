@@ -25,42 +25,42 @@ export default function SeoProofsSection() {
         keyword: "palet plastik serpong",
         location: "Serpong, Tangerang Selatan",
         position: "Peringkat #1 Organik",
-        image: "/seo-google/palet plastik serpong.png",
+        image: "/seo-google/paletindo/palet plastik serpong.png",
         snippet: "Dominasi total untuk pencarian area Serpong, mengarahkan pembeli industri langsung ke kontak sales."
       },
       {
         keyword: "palet plastik bsd city",
         location: "BSD City",
         position: "Halaman 1 Google",
-        image: "/seo-google/palet plastik bsd city.png",
+        image: "/seo-google/paletindo/palet plastik bsd city.png",
         snippet: "Menjaring traffic premium dari kawasan industri dan komersial BSD City."
       },
       {
         keyword: "palet plastik ciputat",
         location: "Ciputat",
         position: "Halaman 1 Google",
-        image: "/seo-google/palet plastik ciputat.png",
+        image: "/seo-google/paletindo/palet plastik ciputat.png",
         snippet: "Mengoptimalkan pencarian lokal area Ciputat dengan optimasi on-page yang presisi."
       },
       {
         keyword: "palet plastik pamulang",
         location: "Pamulang",
         position: "Halaman 1 Google",
-        image: "/seo-google/palet plastik pamulang.png",
+        image: "/seo-google/paletindo/palet plastik pamulang.png",
         snippet: "Target kata kunci wilayah Pamulang terindeks sempurna di posisi teratas hasil pencarian."
       },
       {
         keyword: "palet plastik pondok aren",
         location: "Pondok Aren",
         position: "Halaman 1 Google",
-        image: "/seo-google/palet plastik pondok aren.png",
+        image: "/seo-google/paletindo/palet plastik pondok aren.png",
         snippet: "Menghubungkan bisnis palet dengan pembeli potensial di wilayah Pondok Aren secara langsung."
       },
       {
         keyword: "palet plastik serpong utara",
         location: "Serpong Utara",
         position: "Halaman 1 Google",
-        image: "/seo-google/palet plastik serpong utara.png",
+        image: "/seo-google/paletindo/palet plastik serpong utara.png",
         snippet: "Hasil SEO lokal yang konsisten dan stabil untuk kawasan Serpong Utara."
       }
     ],
@@ -69,8 +69,43 @@ export default function SeoProofsSection() {
         keyword: "laundry coin ciledug",
         location: "Ciledug, Tangerang",
         position: "Peringkat #1 Organik",
-        image: "/seo-google/laundry coin ciledug.png",
+        image: "/seo-google/srlaundry/laundry coin ciledug.png",
         snippet: "Mendominasi pasar retail local laundry coin di Ciledug dengan menduduki ranking teratas di Google."
+      },
+      {
+        keyword: "laundry coin kecamatan ciledug",
+        location: "Kecamatan Ciledug",
+        position: "Halaman 1 Google",
+        image: "/seo-google/srlaundry/laundry coin kecamatan ciledug.png",
+        snippet: "Optimasi kata kunci lokal tingkat kecamatan untuk menjangkau target pasar yang lebih spesifik."
+      },
+      {
+        keyword: "laundry coin larangan",
+        location: "Larangan, Tangerang",
+        position: "Halaman 1 Google",
+        image: "/seo-google/srlaundry/laundry coin larangan.png",
+        snippet: "Menempatkan jasa laundry coin di jajaran teratas hasil pencarian wilayah Larangan."
+      },
+      {
+        keyword: "laundry express paninggilan",
+        location: "Paninggilan, Tangerang",
+        position: "Halaman 1 Google",
+        image: "/seo-google/srlaundry/laundry express paninggilan.png",
+        snippet: "Menjaring pencarian untuk layanan laundry express cepat di wilayah Paninggilan."
+      },
+      {
+        keyword: "laundry kiloan parung serab",
+        location: "Parung Serab, Tangerang",
+        position: "Halaman 1 Google",
+        image: "/seo-google/srlaundry/laundry kiloan parung serab.png",
+        snippet: "Meningkatkan visibilitas pencarian lokal untuk kata kunci laundry kiloan di Parung Serab."
+      },
+      {
+        keyword: "cuci kering parung serab",
+        location: "Parung Serab, Tangerang",
+        position: "Halaman 1 Google",
+        image: "/seo-google/srlaundry/cuci kering parung serab.png",
+        snippet: "Optimasi kata kunci penunjang cuci kering di wilayah Parung Serab dengan hasil maksimal."
       }
     ]
   };
