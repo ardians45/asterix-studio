@@ -269,5 +269,95 @@ export const servicesSEOMeta: Record<string, ServiceSEOMeta> = {
     faqs: [
       { q: "Apakah bisa diintegrasikan dengan sistem backend buatan tim kami?", a: "Sangat bisa. Kami merancang front-end web yang dinamis sehingga dapat dengan mudah terhubung ke database API atau backend eksternal tim startup Anda." }
     ]
+  },
+  "website-untuk-arsitek": {
+    slug: "website-untuk-arsitek",
+    title: "Website untuk Arsitek & Interior",
+    keyword: "website untuk arsitek",
+    seoTitle: "Jasa Pembuatan Website Arsitek & Desain Interior | Asterix Studio",
+    metaDesc: "Jasa pembuatan website arsitek & studio desain interior. Tampilkan portofolio 3D, galeri proyek resolusi tinggi, & kelola leads klien premium.",
+    h1: "Website Premium Khusus Studio Arsitek & Desain Interior",
+    targetPersona: "Arsitek, Interior Designer, Principal Studio",
+    estimatedConversion: "7.2%",
+    snippets: [
+      "Tampilan minimalis elegan berstandar internasional untuk memamerkan estetika karya Anda.",
+      "Optimasi pemuatan gambar portofolio resolusi tinggi tanpa membuat website terasa lambat.",
+      "Halaman detail studi kasus interaktif untuk menceritakan proses kreatif di balik setiap proyek."
+    ],
+    faqs: [
+      { q: "Mengapa studio arsitek membutuhkan website khusus?", a: "Klien arsitektur kelas atas mencari kualitas estetika dan detail. Website portfolio premium bertindak sebagai representasi langsung dari standar desain studio Anda." }
+    ]
+  },
+  "website-untuk-logistik": {
+    slug: "website-untuk-logistik",
+    title: "Website untuk Logistik & Ekspedisi",
+    keyword: "website untuk logistik",
+    seoTitle: "Jasa Pembuatan Website Logistik & Cargo Cargo | Asterix Studio",
+    metaDesc: "Buat website perusahaan logistik, ekspedisi & cargo profesional. Dukung integrasi pelacakan resi, tarif ongkir, & form penawaran korporat.",
+    h1: "Website Perusahaan Transportasi, Logistik & Ekspedisi",
+    targetPersona: "Direktur Logistik, Owner Supply Chain",
+    estimatedConversion: "8.5%",
+    snippets: [
+      "Layout terstruktur untuk memaparkan jangkauan armada, rute pengiriman, dan layanan gudang.",
+      "Formulir permintaan penawaran harga (RFQ) khusus untuk klien B2B skala korporasi.",
+      "Desain profesional yang meningkatkan rasa aman & terpercaya bagi calon pengirim barang."
+    ],
+    faqs: [
+      { q: "Apakah bisa diintegrasikan dengan sistem pelacakan resi kami?", a: "Sangat bisa. Kami dapat menghubungkan halaman pelacakan resi di website ke sistem API kargo internal yang sudah Anda gunakan." }
+    ]
+  },
+  "website-untuk-klinik-gigi": {
+    slug: "website-untuk-klinik-gigi",
+    title: "Website untuk Klinik Gigi & Medis",
+    keyword: "website untuk klinik gigi",
+    seoTitle: "Jasa Pembuatan Website Klinik Gigi & Dokter | Asterix Studio",
+    metaDesc: "Jasa pembuatan website klinik gigi, klinik kecantikan & praktek dokter. Integrasikan form janji temu pasien (booking), profil dokter, & info layanan.",
+    h1: "Website Profesional Klinik Gigi, Medis & Kecantikan",
+    targetPersona: "Owner Klinik, Dokter Spesialis, Manajemen Rumah Sakit",
+    estimatedConversion: "9.5%",
+    snippets: [
+      "Fitur booking jadwal janji temu online yang mempermudah pasien melakukan registrasi.",
+      "Halaman profil dokter dan staf medis lengkap dengan jadwal praktik yang mudah diperbarui.",
+      "Edukasi pasien lewat blog kesehatan terintegrasi guna mendominasi kata kunci pencarian medis lokal."
+    ],
+    faqs: [
+      { q: "Apakah pasien bisa memilih jadwal dokter langsung dari website?", a: "Ya. Sistem formulir booking kami rancang agar pasien dapat melihat slot hari dan jam praktek dokter secara realtime." }
+    ]
+  },
+  "jasa-migrasi-wordpress-ke-nextjs": {
+    slug: "jasa-migrasi-wordpress-ke-nextjs",
+    title: "Jasa Migrasi WordPress ke Next.js",
+    keyword: "jasa migrasi wordpress ke nextjs",
+    seoTitle: "Jasa Migrasi WordPress ke Next.js & React | Asterix Studio",
+    metaDesc: "Pindahkan website WordPress Anda yang lambat ke teknologi Next.js. Peningkatan kecepatan ekstrim, bebas malware, & tingkatkan peringkat SEO Google.",
+    h1: "Layanan Migrasi Website WordPress ke Next.js (Headless CMS)",
+    targetPersona: "Business Owner, IT Manager, SEO Specialist",
+    estimatedConversion: "11.0%",
+    snippets: [
+      "Transformasi performa dari lambat (WordPress) menjadi instan di bawah 1 detik (Next.js).",
+      "Keamanan mutlak dari ancaman malware dan serangan hacker karena tidak memakai plugin rentan.",
+      "Redirection 301 menyeluruh untuk memastikan peringkat SEO lama Anda tidak turun."
+    ],
+    faqs: [
+      { q: "Apakah saya masih bisa mengupdate konten setelah migrasi?", a: "Tentu. Kami akan menghubungkan Next.js sebagai front-end ke headless CMS yang ramah pengguna, sehingga Anda tetap dapat mengedit konten dengan mudah." }
+    ]
+  },
+  "jasa-optimasi-pagespeed": {
+    slug: "jasa-optimasi-pagespeed",
+    title: "Jasa Optimasi PageSpeed",
+    keyword: "jasa optimasi pagespeed",
+    seoTitle: "Jasa Optimasi Kecepatan Website & Core Web Vitals | Asterix Studio",
+    metaDesc: "Jasa mempercepat loading website bisnis Anda. Optimasi skor Google Lighthouse (95+), perbaiki LCP & CLS, serta tingkatkan conversion rate.",
+    h1: "Jasa Optimasi PageSpeed & Core Web Vitals Google",
+    targetPersona: "E-commerce Owner, Digital Marketer, Corporate",
+    estimatedConversion: "10.5%",
+    snippets: [
+      "Perbaikan skor performa Google Lighthouse hingga menyentuh angka 95-100.",
+      "Kompresi aset otomatis, optimasi loading javascript, & implementasi server cache modern.",
+      "Menekan bounce rate iklan berbayar (Google Ads) dengan memastikan halaman terbuka instan."
+    ],
+    faqs: [
+      { q: "Mengapa kecepatan website mempengaruhi penjualan?", a: "Riset Google membuktikan lebih dari 53% pengunjung meninggalkan situs yang memuat lebih dari 3 detik. Mempercepat web langsung menyelamatkan separuh dari calon pembeli Anda." }
+    ]
   }
 };

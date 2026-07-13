@@ -96,5 +96,19 @@ export const locationData: CityGroup[] = [
     areas: [
       { name: "Indonesia", slug: "indonesia" }
     ]
+  },
+  {
+    name: "Karawang",
+    slug: "karawang",
+    areas: [
+      { name: "Karawang", slug: "karawang" }
+    ]
+  },
+  {
+    name: "Cilegon",
+    slug: "cilegon",
+    areas: [
+      { name: "Cilegon", slug: "cilegon" }
+    ]
   }
 ];
