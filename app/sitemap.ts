@@ -33,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/pricing',
     '/services',
     '/projects',
+    '/tools/website-roi-calculator',
   ]
 
   const projectRoutes = [
