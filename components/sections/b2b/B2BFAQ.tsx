@@ -3,10 +3,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function B2BFAQ() {
+export default function B2BFAQ({ customFaqs }: { customFaqs?: { q: string; a: string }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const faqs = [
+  const defaultFaqs = [
     {
       q: "Apakah website saya nanti bisa ranking di Google?",
       a: "Tentu. Setiap website yang kami buat sudah dilengkapi dengan arsitektur SEO-ready, optimasi meta tags, Google Search Console setup, dan struktur HTML yang ramah mesin pencari untuk mempercepat proses indexing dan meningkatkan peluang ranking halaman pertama."
@@ -40,6 +40,8 @@ export default function B2BFAQ() {
       a: "Tidak ada. Semua rincian biaya (domain, hosting tahunan, lisensi tools) akan kami paparkan secara transparan di awal kontrak. Kami juga menyertakan garansi support teknis gratis selama 3 bulan pertama."
     }
   ];
+
+  const faqs = customFaqs && customFaqs.length > 0 ? customFaqs : defaultFaqs;
 
   return (
     <section className="py-20 md:py-24 bg-[#f8fafc]">

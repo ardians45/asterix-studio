@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next'
 import prisma from '@/lib/prisma'
+import { servicesSEOMeta } from '@/data/seo/services'
+import { locationData } from '@/data/seo/locations'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.asterixstudio.site'
@@ -43,6 +45,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/projects/link-aja-kas',
   ]
 
+  const serviceRoutes = Object.keys(servicesSEOMeta).map((slug) => `/${slug}`)
+
+  const localRoutes: string[] = []
+  locationData.forEach(group => {
+    localRoutes.push(`/jasa-website-${group.slug}`)
+    group.areas.forEach(area => {
+      if (area.slug !== group.slug) {
+        localRoutes.push(`/jasa-website-${area.slug}`)
+      }
+    });
+  });
+
   const pages = [...staticRoutes, ...projectRoutes].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -50,5 +64,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '' ? 1.0 : 0.8,
   }))
 
-  return [...pages, ...postEntries]
+  const seoPages = [...serviceRoutes, ...localRoutes].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.9,
+  }))
+
+  return [...pages, ...seoPages, ...postEntries]
 }

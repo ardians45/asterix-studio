@@ -19,6 +19,8 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
+import { getOrganizationSchema } from "@/lib/schema";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://asterixstudio.site"),
   title: "Asterix Studio | Jasa Pembuatan Website & Creative Agency",
@@ -69,10 +71,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgSchema = getOrganizationSchema();
+  
   return (
     <html lang="id">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
       </head>
       <body
         className={`${syne.variable} ${inter.variable} ${montserrat.variable} antialiased bg-black text-white`}
