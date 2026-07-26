@@ -758,7 +758,7 @@ export default function DomeGallery({
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at center, transparent 30%, #060010 85%);
+      background: radial-gradient(circle at center, transparent 30%, var(--overlay-blur-color, #F5F4F0) 85%);
       z-index: 20;
     }
     

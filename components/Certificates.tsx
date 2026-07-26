@@ -29,13 +29,13 @@ const certificates = [
   {
     src: '/certificates/dicoding-placeholder.webp',
     link: 'https://www.dicoding.com/certificates/98XW5GDVLPM3',
-    title: 'Fundamental Aplikasi Web (React)',
+    title: 'Web Application Fundamentals (React)',
     description: 'Dicoding • Sep 2024'
   },
   {
     src: '/certificates/dicoding-placeholder.webp',
     link: 'https://www.dicoding.com/certificates/07Z64VO8RPQR',
-    title: 'Membuat Aplikasi Web (React)',
+    title: 'Building Web Applications (React)',
     description: 'Dicoding • Aug 2024'
   },
   {
@@ -47,7 +47,7 @@ const certificates = [
   {
     src: '/certificates/dicoding-placeholder.webp',
     link: 'https://www.dicoding.com/certificates/L4PQ5GNGQZO1',
-    title: 'Tools Front-End Web Intermediate',
+    title: 'Intermediate Front-End Web Tools',
     description: 'Dicoding • Jul 2024'
   },
   {
@@ -59,19 +59,19 @@ const certificates = [
   {
     src: '/certificates/dicoding-placeholder.webp',
     link: 'https://www.dicoding.com/certificates/JLX14DMGJX72',
-    title: 'Dasar Pemrograman JavaScript',
+    title: 'Basic JavaScript Programming',
     description: 'Dicoding • Apr 2024'
   },
   {
     src: '/certificates/dicoding-placeholder.webp',
     link: 'https://www.dicoding.com/certificates/6RPNYWQ64Z2M',
-    title: 'Front-End Web Pemula',
+    title: 'Beginner Front-End Web',
     description: 'Dicoding • Apr 2024'
   },
   {
     src: '/certificates/dicoding-placeholder.webp',
     link: 'https://www.dicoding.com/certificates/NVP77M9KVPR0',
-    title: 'Dasar Pemrograman Web',
+    title: 'Basic Web Programming',
     description: 'Dicoding • Mar 2024'
   },
   {
@@ -114,13 +114,13 @@ const certificates = [
 
 export default function Certificates() {
   return (
-    <section id="certificates" className="py-20 h-screen relative bg-[#060010] overflow-hidden flex flex-col items-center justify-center">
+    <section id="certificates" className="py-20 h-screen relative bg-[#F5F4F0] overflow-hidden flex flex-col items-center justify-center">
        {/* Ambient Background Depth */}
-       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(40,20,80,0.15)_0%,transparent_70%)]" />
+       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(232,112,42,0.08)_0%,transparent_70%)]" />
        
        {/* Section Header */}
        <div className="absolute top-16 left-6 md:left-12 z-10 pointer-events-none">
-            <h2 className="text-sm text-gray-400 uppercase tracking-[0.3em] font-mono border-l-2 border-purple-500/50 pl-4">
+            <h2 className="text-sm text-[#e8702a] uppercase tracking-[0.3em] font-cinzel border-l-2 border-[#e8702a] pl-4">
               Certifications
             </h2>
        </div>
@@ -131,7 +131,7 @@ export default function Certificates() {
                 fit={1.2} 
                 minRadius={1200} // Larger radius = less dramatic curve, more elegant
                 dragSensitivity={15}
-                overlayBlurColor="#060010"
+                overlayBlurColor="#F5F4F0"
                 openedImageWidth="85vw"
                 openedImageHeight="65vh"
                 grayscale={false} 

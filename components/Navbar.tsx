@@ -23,6 +23,8 @@ export default function Navbar() {
 
   const isPortfolio = pathname?.startsWith("/portfolio");
 
+  if (isPortfolio) return null;
+
   const navItems = [
     { link: "/services", text: "Layanan", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" },
     { link: "/projects", text: "Project", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop" },

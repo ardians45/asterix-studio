@@ -48,15 +48,15 @@ export default function Achievement() {
   ];
 
   return (
-    <section className="w-full bg-black py-32 relative overflow-hidden text-white font-serif" id="achievement">
+    <section className="w-full bg-[#F5F4F0] py-32 relative overflow-hidden text-gray-900 font-serif" id="achievement">
       <div className="container mx-auto px-4 md:px-12 max-w-6xl">
         
         {/* Section Header */}
         <div className="mb-24 relative z-10 flex flex-col items-center text-center">
-            <h2 className="text-5xl md:text-7xl font-bold text-white italic tracking-tight border-b border-white/20 pb-6 inline-block">
+            <h2 className="text-4xl md:text-6xl font-cinzel text-gray-900 tracking-wider border-b border-[#e8702a]/40 pb-6 inline-block">
                 Achievements
             </h2>
-            <p className="mt-6 text-sm md:text-base text-gray-400 max-w-2xl font-sans leading-relaxed">
+            <p className="mt-6 text-sm md:text-base text-gray-600 max-w-2xl font-sans leading-relaxed">
                 A chronological overview of technical milestones, competitive design awards, and industry recognition. Documenting the ongoing journey of crafting high-end digital experiences and scaling technical foundations.
             </p>
         </div>
@@ -70,32 +70,32 @@ export default function Achievement() {
                     className={`flex flex-col ${index % 2 !== 0 ? 'md:mt-32' : ''}`} 
                 >
                     {/* Year Header */}
-                    <div className="border-b border-gray-800 pb-2 mb-6">
-                        <span className="text-5xl md:text-6xl font-bold italic text-white tracking-tighter">
+                    <div className="border-b border-gray-300 pb-2 mb-6">
+                        <span className="text-5xl md:text-6xl font-bold italic text-gray-900 tracking-tighter">
                             {item.year}
                         </span>
                     </div>
 
                     {/* Image Block */}
-                    <div className="relative aspect-[4/3] w-full mb-6 bg-[#050505] overflow-hidden group rounded-sm border border-white/5">
+                    <div className="relative aspect-[4/3] w-full mb-6 bg-white overflow-hidden group rounded-sm border border-gray-200 shadow-sm">
                         <Image 
                             src={item.image}
                             alt={item.title}
                             fill
-                            className={`object-cover ${item.objectPosition || 'object-center'} lg:grayscale lg:group-hover:grayscale-0 transition-all duration-700 opacity-90 group-hover:opacity-100`}
+                            className={`object-cover ${item.objectPosition || 'object-center'} transition-all duration-500 group-hover:scale-105`}
                         />
                     </div>
 
                     {/* Content Block */}
                     <div className="font-sans">
-                        <h3 className="text-xl font-display font-medium text-white mb-2">{item.title}</h3>
-                        <span className="block text-sm font-mono tracking-widest uppercase text-gray-500 mb-4">{item.subtitle}</span>
-                        <p className="text-sm text-gray-400 leading-relaxed mb-6">
+                        <h3 className="text-xl font-display font-medium text-gray-900 mb-2">{item.title}</h3>
+                        <span className="block text-sm font-mono tracking-widest uppercase text-[#e8702a] mb-4">{item.subtitle}</span>
+                        <p className="text-sm text-gray-600 leading-relaxed mb-6">
                             {item.description}
                         </p>
                         <div className="flex flex-wrap gap-2">
                              {item.tags.map(tag => (
-                                 <span key={tag} className="text-[10px] uppercase tracking-wider border border-gray-800 text-gray-400 px-3 py-1.5 rounded-full">
+                                 <span key={tag} className="text-[10px] uppercase tracking-wider border border-gray-300 bg-white/80 text-gray-700 px-3 py-1.5 rounded-full">
                                      {tag}
                                  </span>
                              ))}

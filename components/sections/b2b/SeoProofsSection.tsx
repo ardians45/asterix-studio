@@ -13,7 +13,15 @@ interface KeywordProof {
   snippet: string;
 }
 
-export default function SeoProofsSection() {
+interface SeoProofsSectionProps {
+  theme?: "default" | "portfolio";
+  lang?: "id" | "en";
+}
+
+export default function SeoProofsSection({ theme = "default", lang = "id" }: SeoProofsSectionProps) {
+  const isPortfolio = theme === "portfolio";
+  const isEn = lang === "en" || isPortfolio;
+
   const categories = [
     { id: "paletindo", label: "Paletindo" },
     { id: "srlaundry", label: "SR Laundry" }
@@ -24,88 +32,112 @@ export default function SeoProofsSection() {
       {
         keyword: "palet plastik serpong",
         location: "Serpong, Tangerang Selatan",
-        position: "Peringkat #1 Organik",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
         image: "/seo-google/paletindo/palet plastik serpong.png",
-        snippet: "Dominasi total untuk pencarian area Serpong, mengarahkan pembeli industri langsung ke kontak sales."
+        snippet: isEn
+          ? "Total dominance for Serpong area searches, driving industrial buyers directly to sales contacts."
+          : "Dominasi total untuk pencarian area Serpong, mengarahkan pembeli industri langsung ke kontak sales."
       },
       {
         keyword: "palet plastik bsd city",
         location: "BSD City",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/paletindo/palet plastik bsd city.png",
-        snippet: "Menjaring traffic premium dari kawasan industri dan komersial BSD City."
+        snippet: isEn
+          ? "Capturing premium traffic from BSD City's industrial and commercial zones."
+          : "Menjaring traffic premium dari kawasan industri dan komersial BSD City."
       },
       {
         keyword: "palet plastik ciputat",
         location: "Ciputat",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/paletindo/palet plastik ciputat.png",
-        snippet: "Mengoptimalkan pencarian lokal area Ciputat dengan optimasi on-page yang presisi."
+        snippet: isEn
+          ? "Optimizing local search queries for Ciputat area with precise on-page SEO."
+          : "Mengoptimalkan pencarian lokal area Ciputat dengan optimasi on-page yang presisi."
       },
       {
         keyword: "palet plastik pamulang",
         location: "Pamulang",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/paletindo/palet plastik pamulang.png",
-        snippet: "Target kata kunci wilayah Pamulang terindeks sempurna di posisi teratas hasil pencarian."
+        snippet: isEn
+          ? "Pamulang regional target keywords perfectly indexed at top search positions."
+          : "Target kata kunci wilayah Pamulang terindeks sempurna di posisi teratas hasil pencarian."
       },
       {
         keyword: "palet plastik pondok aren",
         location: "Pondok Aren",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/paletindo/palet plastik pondok aren.png",
-        snippet: "Menghubungkan bisnis palet dengan pembeli potensial di wilayah Pondok Aren secara langsung."
+        snippet: isEn
+          ? "Directly connecting pallet business with potential buyers in Pondok Aren region."
+          : "Menghubungkan bisnis palet dengan pembeli potensial di wilayah Pondok Aren secara langsung."
       },
       {
         keyword: "palet plastik serpong utara",
         location: "Serpong Utara",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/paletindo/palet plastik serpong utara.png",
-        snippet: "Hasil SEO lokal yang konsisten dan stabil untuk kawasan Serpong Utara."
+        snippet: isEn
+          ? "Consistent and stable local SEO results for North Serpong area."
+          : "Hasil SEO lokal yang konsisten dan stabil untuk kawasan Serpong Utara."
       }
     ],
     srlaundry: [
       {
         keyword: "laundry coin ciledug",
         location: "Ciledug, Tangerang",
-        position: "Peringkat #1 Organik",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
         image: "/seo-google/srlaundry/laundry coin ciledug.png",
-        snippet: "Mendominasi pasar retail local laundry coin di Ciledug dengan menduduki ranking teratas di Google."
+        snippet: isEn
+          ? "Dominating local coin laundry retail market in Ciledug with top Google rankings."
+          : "Mendominasi pasar retail local laundry coin di Ciledug dengan menduduki ranking teratas di Google."
       },
       {
         keyword: "laundry coin kecamatan ciledug",
         location: "Kecamatan Ciledug",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/srlaundry/laundry coin kecamatan ciledug.png",
-        snippet: "Optimasi kata kunci lokal tingkat kecamatan untuk menjangkau target pasar yang lebih spesifik."
+        snippet: isEn
+          ? "District-level local keyword optimization to reach specific target markets."
+          : "Optimasi kata kunci lokal tingkat kecamatan untuk menjangkau target pasar yang lebih spesifik."
       },
       {
         keyword: "laundry coin larangan",
         location: "Larangan, Tangerang",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/srlaundry/laundry coin larangan.png",
-        snippet: "Menempatkan jasa laundry coin di jajaran teratas hasil pencarian wilayah Larangan."
+        snippet: isEn
+          ? "Placing coin laundry services at top of Larangan area search results."
+          : "Menempatkan jasa laundry coin di jajaran teratas hasil pencarian wilayah Larangan."
       },
       {
         keyword: "laundry express paninggilan",
         location: "Paninggilan, Tangerang",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/srlaundry/laundry express paninggilan.png",
-        snippet: "Menjaring pencarian untuk layanan laundry express cepat di wilayah Paninggilan."
+        snippet: isEn
+          ? "Capturing searches for fast express laundry services in Paninggilan area."
+          : "Menjaring pencarian untuk layanan laundry express cepat di wilayah Paninggilan."
       },
       {
         keyword: "laundry kiloan parung serab",
         location: "Parung Serab, Tangerang",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/srlaundry/laundry kiloan parung serab.png",
-        snippet: "Meningkatkan visibilitas pencarian lokal untuk kata kunci laundry kiloan di Parung Serab."
+        snippet: isEn
+          ? "Increasing local search visibility for laundry by weight keywords in Parung Serab."
+          : "Meningkatkan visibilitas pencarian lokal untuk kata kunci laundry kiloan di Parung Serab."
       },
       {
         keyword: "cuci kering parung serab",
         location: "Parung Serab, Tangerang",
-        position: "Halaman 1 Google",
+        position: isEn ? "Page 1 Google" : "Halaman 1 Google",
         image: "/seo-google/srlaundry/cuci kering parung serab.png",
-        snippet: "Optimasi kata kunci penunjang cuci kering di wilayah Parung Serab dengan hasil maksimal."
+        snippet: isEn
+          ? "Dry cleaning supporting keyword optimization in Parung Serab with maximum results."
+          : "Optimasi kata kunci penunjang cuci kering di wilayah Parung Serab dengan hasil maksimal."
       }
     ]
   };
@@ -122,20 +154,31 @@ export default function SeoProofsSection() {
   };
 
   return (
-    <section className="py-20 bg-gray-50 border-t border-gray-100/60">
+    <section className={`py-20 border-t ${isPortfolio ? "bg-[#F5F4F0] border-gray-300/60" : "bg-gray-50 border-gray-100/60"}`}>
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="inline-flex items-center gap-2 py-1.5 px-4 bg-emerald-50 border border-emerald-100 rounded-full text-[10px] font-black tracking-[0.2em] text-[#10b981] uppercase mb-6 shadow-sm">
+          <span className={`inline-flex items-center gap-2 py-1.5 px-4 rounded-full text-[10px] font-black tracking-[0.2em] uppercase mb-6 shadow-sm ${
+            isPortfolio
+              ? "bg-[#e8702a]/10 border border-[#e8702a]/20 text-[#e8702a]"
+              : "bg-emerald-50 border border-emerald-100 text-[#10b981]"
+          }`}>
             <FaGoogle className="text-xs" />
             SEO Google Rank Proof
           </span>
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">
-            Mendominasi Halaman #1 <span className="text-emerald-600">Google.</span>
+            {isEn ? (
+              <>Dominating Page #1 on <span className={isPortfolio ? "text-[#e8702a]" : "text-emerald-600"}>Google.</span></>
+            ) : (
+              <>Mendominasi Halaman #1 <span className={isPortfolio ? "text-[#e8702a]" : "text-emerald-600"}>Google.</span></>
+            )}
           </h2>
           <p className="text-sm md:text-lg text-gray-500 mt-4 max-w-2xl mx-auto font-medium leading-relaxed">
-            Struktur arsitektur informasi dan optimasi SEO lokal yang kami rancang terbukti menempatkan bisnis klien di posisi teratas Google secara organik.
+            {isEn
+              ? "Our information architecture and local SEO strategy consistently rank our clients' businesses at the top of Google organic search results."
+              : "Struktur arsitektur informasi dan optimasi SEO lokal yang kami rancang terbukti menempatkan bisnis klien di posisi teratas Google secara organik."
+            }
           </p>
         </div>
 
@@ -147,7 +190,9 @@ export default function SeoProofsSection() {
               onClick={() => handleCategoryChange(cat.id)}
               className={`px-5 py-2.5 rounded-full text-xs md:text-sm font-black uppercase tracking-wider transition-all border ${
                 activeCategory === cat.id
-                  ? "bg-emerald-600 border-emerald-600 text-white shadow-lg shadow-emerald-600/20"
+                  ? isPortfolio
+                    ? "bg-[#e8702a] border-[#e8702a] text-white shadow-lg shadow-[#e8702a]/20"
+                    : "bg-emerald-600 border-emerald-600 text-white shadow-lg shadow-emerald-600/20"
                   : "bg-white border-gray-200 text-gray-500 hover:text-gray-900"
               }`}
             >
@@ -162,13 +207,15 @@ export default function SeoProofsSection() {
           {/* Mobile view: custom dropdown select menu */}
           <div className="lg:hidden col-span-1 w-full mb-4">
             <label className="block text-[10px] font-black uppercase tracking-wider text-gray-400 mb-2">
-              Pilih Kata Kunci Target
+              {isEn ? "Select Target Keyword" : "Pilih Kata Kunci Target"}
             </label>
             <div className="relative">
               <select
                 value={selectedProofIndex}
                 onChange={(e) => setSelectedProofIndex(Number(e.target.value))}
-                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-xs font-black uppercase tracking-wider text-slate-800 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 appearance-none shadow-sm cursor-pointer"
+                className={`w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-xs font-black uppercase tracking-wider text-slate-800 focus:outline-none appearance-none shadow-sm cursor-pointer ${
+                  isPortfolio ? "focus:border-[#e8702a] focus:ring-1 focus:ring-[#e8702a]" : "focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                }`}
               >
                 {currentProofs.map((proof, idx) => (
                   <option key={idx} value={idx}>
@@ -194,24 +241,30 @@ export default function SeoProofsSection() {
                   onClick={() => setSelectedProofIndex(idx)}
                   className={`w-full text-left p-5 rounded-2xl border transition-all flex flex-col justify-between items-start gap-2 relative overflow-hidden group ${
                     isSelected
-                      ? "bg-white border-emerald-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
+                      ? isPortfolio
+                        ? "bg-white border-[#e8702a]/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
+                        : "bg-white border-emerald-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
                       : "bg-white/50 border-gray-100 hover:bg-white hover:border-gray-200"
                   }`}
                 >
                   {isSelected && (
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500" />
+                    <div className={`absolute left-0 top-0 bottom-0 w-1 ${isPortfolio ? "bg-[#e8702a]" : "bg-emerald-500"}`} />
                   )}
                   <div className="flex justify-between items-center w-full">
                     <span className="font-mono text-[10px] text-gray-400 uppercase tracking-wider">
                       {proof.location}
                     </span>
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                    <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      isPortfolio ? "text-[#e8702a] bg-[#e8702a]/10" : "text-emerald-600 bg-emerald-50"
+                    }`}>
                       <FaCheckCircle className="text-xs" />
                       {proof.position}
                     </span>
                   </div>
                   <h3 className={`text-lg font-black transition-colors ${
-                    isSelected ? "text-emerald-700" : "text-slate-800 group-hover:text-slate-900"
+                    isSelected
+                      ? isPortfolio ? "text-[#e8702a]" : "text-emerald-700"
+                      : "text-slate-800 group-hover:text-slate-900"
                   }`}>
                     "{proof.keyword}"
                   </h3>
@@ -256,7 +309,7 @@ export default function SeoProofsSection() {
                     >
                       <Image
                         src={selectedProof.image}
-                        alt={`Bukti Ranking Google ${selectedProof.keyword}`}
+                        alt={`Google Rank Proof ${selectedProof.keyword}`}
                         fill
                         className="object-contain"
                         sizes="(max-width: 768px) 100vw, 800px"
@@ -270,10 +323,14 @@ export default function SeoProofsSection() {
                 <div className="absolute bottom-8 left-8 right-8 bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-4 z-20 shadow-xl pointer-events-none">
                   <div className="flex justify-between items-center">
                     <div>
-                      <p className="text-[10px] font-black tracking-widest text-[#10b981] uppercase">Keyword Target</p>
+                      <p className={`text-[10px] font-black tracking-widest uppercase ${isPortfolio ? "text-[#e8702a]" : "text-[#10b981]"}`}>
+                        {isEn ? "Target Keyword" : "Keyword Target"}
+                      </p>
                       <h4 className="text-white font-bold text-sm md:text-base">"{selectedProof.keyword}"</h4>
                     </div>
-                    <div className="flex items-center gap-1 bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full text-xs font-black">
+                    <div className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black ${
+                      isPortfolio ? "bg-[#e8702a]/20 text-[#e8702a]" : "bg-emerald-500/20 text-emerald-400"
+                    }`}>
                       Page 1
                     </div>
                   </div>
