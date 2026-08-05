@@ -26,8 +26,8 @@ export default function FloatingWhatsApp() {
         aria-label="Chat WhatsApp Asterix Studio"
         onClick={() => {
           if (typeof window !== "undefined" && (window as any).fbq) {
-            (window as any).fbq("track", "ClickWhatsApp");
-            (window as any).fbq("track", "Lead");
+            (window as any).fbq("track", "ClickWhatsApp", { location: "Floating Button" });
+            (window as any).fbq("track", "Lead", { channel: "WhatsApp" });
           }
         }}
         className="relative flex items-center justify-center w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full shadow-2xl shadow-emerald-500/40 transition-all duration-300 hover:scale-110 active:scale-95 group"

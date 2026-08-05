@@ -1,24 +1,45 @@
 "use client";
 
 import Script from "next/script";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
-export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || "";
+export const FB_PIXEL_ID = "1065837659310085";
 
-export const pageview = () => {
-  if (typeof window !== "undefined" && (window as any).fbq && FB_PIXEL_ID) {
-    (window as any).fbq("track", "PageView");
-  }
-};
-
-// Custom event tracking helper
+// Helper to trigger custom pixel events manually
 export const trackPixelEvent = (name: string, options = {}) => {
-  if (typeof window !== "undefined" && (window as any).fbq && FB_PIXEL_ID) {
+  if (typeof window !== "undefined" && (window as any).fbq) {
     (window as any).fbq("track", name, options);
   }
 };
 
-export default function FacebookPixel() {
-  if (!FB_PIXEL_ID) return null;
+export default function MetaPixel() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Track PageView on route change
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "PageView");
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    // Scroll 50% Tracker
+    let hasTrackedScroll = false;
+    const handleScroll = () => {
+      if (hasTrackedScroll) return;
+      const scrollDepth = window.scrollY + window.innerHeight;
+      const totalHeight = document.documentElement.scrollHeight;
+
+      if (scrollDepth >= totalHeight * 0.5) {
+        trackPixelEvent("Scroll50Percent");
+        hasTrackedScroll = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [pathname]);
 
   return (
     <>
@@ -46,7 +67,7 @@ export default function FacebookPixel() {
           width="1"
           style={{ display: "none" }}
           src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
-          alt="facebook pixel"
+          alt="meta pixel"
         />
       </noscript>
     </>
