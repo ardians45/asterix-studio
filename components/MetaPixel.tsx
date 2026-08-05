@@ -4,7 +4,7 @@ import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-export const FB_PIXEL_ID = "1773097447160733";
+export const FB_PIXEL_ID = "4422552327987552";
 
 // Helper to trigger custom pixel events manually
 export const trackPixelEvent = (name: string, options = {}) => {
