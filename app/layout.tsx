@@ -21,6 +21,7 @@ const montserrat = Montserrat({
 
 import { getOrganizationSchema } from "@/lib/schema";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import FacebookPixel from "@/lib/fpixel";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://asterixstudio.site"),
@@ -87,6 +88,7 @@ export default function RootLayout({
         className={`${syne.variable} ${inter.variable} ${montserrat.variable} antialiased bg-black text-white`}
         suppressHydrationWarning
       >
+        <FacebookPixel />
         <SmoothScroll>
           <Navbar />
           {children}
