@@ -83,12 +83,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
+        <MetaPixel />
       </head>
       <body
         className={`${syne.variable} ${inter.variable} ${montserrat.variable} antialiased bg-black text-white`}
         suppressHydrationWarning
       >
-        <MetaPixel />
         <SmoothScroll>
           <Navbar />
           {children}
