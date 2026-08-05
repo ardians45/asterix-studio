@@ -117,17 +117,21 @@ export default function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <span className="inline-block py-1.5 px-4 bg-emerald-50 border border-emerald-100 rounded-full text-[10px] font-black tracking-[0.2em] text-emerald-600 uppercase mb-6 shadow-sm">
-            Promo {currentMonth}
-          </span>
+          <div className="inline-flex items-center gap-2 py-2 px-5 bg-slate-900 border border-emerald-500/30 rounded-full mb-6 shadow-xl shadow-emerald-950/20">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <span className="text-[11px] md:text-xs font-black tracking-[0.2em] text-emerald-400 uppercase">
+              HANYA TERSEDIA UNTUK 3 SLOT BULAN INI
+            </span>
+          </div>
+
           <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-[0.95] tracking-tighter mb-6 italic">
             PAKET HEMAT <br/> 
             <span className="text-emerald-500">& JELAS</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed">
-            Investasi sekali, manfaat seumur hidup untuk bisnis Anda. Penawaran terbatas Promo {currentMonth}!
+            Investasi sekali, manfaat seumur hidup untuk bisnis Anda. Dapatkan kualitas website kustom performa tinggi sebelum kuota slot promo terisi penuh!
           </p>
         </motion.div>
 
@@ -136,13 +140,13 @@ export default function PricingSection() {
            initial={{ opacity: 0, scale: 0.95 }}
            whileInView={{ opacity: 1, scale: 1 }}
            viewport={{ once: true }}
-           className="mb-16 bg-gray-900 rounded-[32px] md:rounded-[48px] p-6 md:p-10 text-center relative overflow-hidden shadow-2xl shadow-emerald-900/10"
+           className="mb-16 bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 rounded-[32px] md:rounded-[48px] p-6 md:p-10 text-center relative overflow-hidden shadow-2xl shadow-emerald-900/20 border border-emerald-500/20"
         >
            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 to-transparent"></div>
            <div className="relative z-10">
               <div className="flex items-center justify-center gap-3 text-emerald-400 font-black text-xs uppercase tracking-[0.3em] mb-6">
                  <FaClock className="animate-pulse" />
-                 Promo {currentMonth} Selesai Dalam
+                 Harga Promo Spasial {currentMonth} Berakhir Dalam
               </div>
               
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-10">
@@ -153,14 +157,26 @@ export default function PricingSection() {
                    { label: "Detik", value: timeLeft.seconds },
                  ].map((item, i) => (
                    <div key={i} className="flex flex-col items-center">
-                      <div className="text-4xl md:text-7xl font-black text-white tabular-nums tracking-tighter">
+                      <div className="text-4xl md:text-7xl font-black text-white tabular-nums tracking-tighter drop-shadow-md">
                          {String(item.value).padStart(2, '0')}
                       </div>
-                      <div className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest mt-1">
+                      <div className="text-[10px] md:text-xs font-black text-emerald-400/80 uppercase tracking-widest mt-1">
                          {item.label}
                       </div>
                    </div>
                  ))}
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300 font-semibold">
+                <span className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span> Garansi 100% Bebas Kendala
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span> Pengerjaan Cepat & Tepat Waktu
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span> Konsultasi Gratis Langsung ke Web Developer
+                </span>
               </div>
            </div>
         </motion.div>
