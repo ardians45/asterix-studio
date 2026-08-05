@@ -20,6 +20,7 @@ const montserrat = Montserrat({
 });
 
 import { getOrganizationSchema } from "@/lib/schema";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://asterixstudio.site"),
@@ -89,6 +90,7 @@ export default function RootLayout({
         <SmoothScroll>
           <Navbar />
           {children}
+          <FloatingWhatsApp />
         </SmoothScroll>
       </body>
     </html>
