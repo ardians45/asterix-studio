@@ -10,6 +10,7 @@ import { bentoProjects } from "@/data/projects";
 const B2BAudience = dynamic(() => import("@/components/sections/b2b/B2BAudience"), { ssr: true });
 const B2BTestimonial = dynamic(() => import("@/components/sections/b2b/B2BTestimonial"), { ssr: true });
 const B2BFAQ = dynamic(() => import("@/components/sections/b2b/B2BFAQ"), { ssr: true });
+const PricingSection = dynamic(() => import("@/components/sections/b2b/PricingSection"), { ssr: true });
 const B2BCTA = dynamic(() => import("@/components/sections/b2b/B2BCTA"), { ssr: true });
 const B2BFooter = dynamic(() => import("@/components/sections/b2b/B2BFooter"), { ssr: true });
 const SeoProofsSection = dynamic(() => import("@/components/sections/b2b/SeoProofsSection"), { ssr: true });
@@ -44,6 +45,7 @@ export default function Home() {
       <B2BAudience />
       <WhyChooseUs />
       <B2BTestimonial />
+      <PricingSection />
       <B2BFAQ />
       <B2BCTA />
       <B2BFooter />

@@ -23,7 +23,7 @@ export default function WhyChooseUs() {
     {
       icon: <FaBolt className="w-6 h-6 text-emerald-600" />,
       title: "Next.js Performance",
-      desc: "Teknologi website modern dengan kecepatan loading di bawah 1.5 detik. Memastikan calon client tidak bosan menunggu."
+      desc: "Setiap baris kode kami tulis secara teliti dan presisi demi performa maksimal, sehingga website loading sangat cepat di bawah 1.5 detik."
     },
     {
       icon: <FaFolderOpen className="w-6 h-6 text-emerald-600" />,
@@ -33,7 +33,7 @@ export default function WhyChooseUs() {
     {
       icon: <FaHeadset className="w-6 h-6 text-emerald-600" />,
       title: "Support Setelah Launch",
-      desc: "Dukungan penuh pemeliharaan sistem, server, serta update data selama 3 bulan gratis untuk kelancaran bisnis Anda."
+      desc: "Dukungan penuh pemeliharaan sistem dan server selama 3 bulan gratis untuk kelancaran bisnis Anda."
     }
   ];
 
