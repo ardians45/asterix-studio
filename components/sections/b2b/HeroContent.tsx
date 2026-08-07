@@ -67,14 +67,14 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.1 }}
       >
-        <h1 className="text-3xl md:text-[4.5rem] font-bold text-gray-900 tracking-tighter leading-[1.1] mb-6 md:mb-8 max-w-5xl mx-auto px-2">
+        <h1 className="text-3xl md:text-[4rem] font-bold text-gray-900 tracking-tighter leading-[1.15] mb-6 md:mb-8 max-w-5xl mx-auto px-2">
           {seoTitle ? (
             <>
-              {seoTitle} yang <span className="text-emerald-600 italic">akan Membantu</span> Bisnis Anda Mendapatkan Lebih Banyak Client.
+              {seoTitle} — Calon Pelanggan Mencari Bisnis Anda. Tapi, <span className="text-emerald-600 italic">Kenapa Malah Menemukan Kompetitor?</span>
             </>
           ) : (
             <>
-              Website yang <span className="text-emerald-600 italic">akan Membantu</span> Bisnis Anda Mendapatkan Lebih Banyak Client, Bukan Sekadar Cantik.
+              Calon Pelanggan Mencari Bisnis Anda. Tapi, <span className="text-emerald-600 italic">Kenapa Malah Menemukan Kompetitor?</span>
             </>
           )}
         </h1>
@@ -82,14 +82,19 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
       </motion.div>
 
       {/* Subheading */}
-      <motion.p
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="text-sm md:text-xl text-gray-600 mb-8 md:mb-12 max-w-2xl md:max-w-3xl leading-relaxed font-medium mx-auto px-4"
+        className="text-sm md:text-lg text-gray-600 mb-8 md:mb-12 max-w-2xl md:max-w-3xl leading-relaxed font-medium mx-auto px-4 space-y-3"
       >
-        Kami merancang website cepat, SEO-ready, dan berorientasi konversi sehingga setiap pengunjung memiliki alasan kuat untuk menghubungi bisnis Anda.
-      </motion.p>
+        <p>
+          Bisa jadi bukan bisnis Anda yang kurang bagus. Mereka hanya belum menemukan bisnis Anda dengan mudah.
+        </p>
+        <p className="text-gray-900 font-semibold">
+          Hadirkan bisnis Anda secara profesional dengan website yang membantu calon pelanggan menemukan, mengenal, dan menghubungi Anda.
+        </p>
+      </motion.div>
 
       {/* CTA Buttons - Matching Image Style (One dark, one light pill) */}
       <motion.div
