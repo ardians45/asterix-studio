@@ -46,12 +46,12 @@ export default function B2BFooter() {
           {/* Column 3: Jam Operasional */}
           <div className="space-y-4 text-left">
             <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Jam Operasional</h4>
-            <div className="space-y-3 text-xs font-medium text-gray-500">
+            <div className="space-y-3 text-xs font-medium text-gray-600">
               <div className="flex items-center gap-2">
                 <FaClock className="text-emerald-600" />
                 <span>Senin - Sabtu: 09:00 - 18:00 WIB</span>
               </div>
-              <p className="text-[11px] text-gray-400 italic">
+              <p className="text-[11px] text-gray-500 italic">
                 *Konsultasi online via WhatsApp tersedia di luar jam operasional.
               </p>
             </div>
@@ -60,7 +60,7 @@ export default function B2BFooter() {
           {/* Column 4: Kontak & Alamat */}
           <div className="space-y-4 text-left">
             <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Kontak & Lokasi</h4>
-            <div className="space-y-3 text-xs font-medium text-gray-500">
+            <div className="space-y-3 text-xs font-medium text-gray-600">
               <div className="flex items-start gap-2">
                 <FaMapMarkerAlt className="text-emerald-600 mt-0.5 flex-shrink-0" />
                 <span>Tangerang Selatan, Banten, Indonesia</span>
@@ -79,10 +79,10 @@ export default function B2BFooter() {
 
         {/* Decorative Brand Text */}
         <div className="flex flex-col items-center border-t border-gray-200/60 pt-10">
-          <div className="text-[8vw] font-black text-gray-200/50 tracking-tighter uppercase leading-none select-none pointer-events-none mb-8">
+          <div className="text-[8vw] font-black text-gray-300/40 tracking-tighter uppercase leading-none select-none pointer-events-none mb-8">
             Asterix Studio
           </div>
-          <div className="flex flex-col sm:flex-row justify-between w-full text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+          <div className="flex flex-col sm:flex-row justify-between w-full text-[10px] font-bold text-gray-600 uppercase tracking-widest">
             <span>&copy; {new Date().getFullYear()} Asterix Studio. All Rights Reserved.</span>
             <div className="flex gap-8 mt-4 sm:mt-0">
               <a href="#" className="hover:text-emerald-500 transition-colors">Privacy Policy</a>

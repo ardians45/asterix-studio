@@ -18,19 +18,19 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
       {/* Project Info Header */}
       <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="max-w-2xl">
-           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#10b981] bg-[#10b981]/10 px-4 py-1.5 rounded-full mb-4 inline-block">
+           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-800 bg-emerald-100 px-4 py-1.5 rounded-full mb-4 inline-block">
               {project.category}
            </span>
            <h2 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter mb-4 leading-none">
               {project.title}
            </h2>
-           <p className="text-gray-500 font-medium text-lg max-w-xl">
+           <p className="text-gray-600 font-medium text-lg max-w-xl">
               {project.description}
            </p>
         </div>
         <div className="flex items-center gap-4 border-t border-gray-100 pt-6 md:pt-0 md:border-t-0">
            <div className="text-right">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Client</p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Client</p>
               <p className="text-lg font-bold text-gray-900">{project.client}</p>
            </div>
            <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center p-2">
@@ -107,7 +107,7 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
            {/* Color Palette & Live Site header */}
            <div className="flex justify-between items-center z-20">
               <div>
-                 <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest mb-2">Color Palette</p>
+                 <p className="text-[10px] font-bold text-gray-300 uppercase tracking-widest mb-2">Color Palette</p>
                  <div className="flex gap-1.5">
                     {project.palette.map(color => (
                        <div key={color} className="w-5 h-5 rounded-full border border-white/10 shadow-sm" style={{ backgroundColor: color }} />
@@ -141,7 +141,7 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
            {/* Title & Description footer */}
            <div className="z-20 pt-4 border-t border-white/5">
               <h3 className="text-lg md:text-xl font-black text-white mb-1">Mobile Ready</h3>
-              <p className="text-white/40 text-[10px] md:text-xs font-medium leading-relaxed">Responsif di semua perangkat untuk menjangkau pengguna di mana saja.</p>
+              <p className="text-gray-300 text-[10px] md:text-xs font-medium leading-relaxed">Responsif di semua perangkat untuk menjangkau pengguna di mana saja.</p>
            </div>
         </div>
 

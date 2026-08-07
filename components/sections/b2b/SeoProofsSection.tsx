@@ -206,11 +206,13 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
           
           {/* Mobile view: custom dropdown select menu */}
           <div className="lg:hidden col-span-1 w-full mb-4">
-            <label className="block text-[10px] font-black uppercase tracking-wider text-gray-400 mb-2">
+            <label htmlFor="seo-keyword-select" className="block text-[10px] font-black uppercase tracking-wider text-gray-500 mb-2">
               {isEn ? "Select Target Keyword" : "Pilih Kata Kunci Target"}
             </label>
             <div className="relative">
               <select
+                id="seo-keyword-select"
+                aria-label={isEn ? "Select Target Keyword" : "Pilih Kata Kunci Target"}
                 value={selectedProofIndex}
                 onChange={(e) => setSelectedProofIndex(Number(e.target.value))}
                 className={`w-full bg-white border border-gray-200 rounded-xl px-4 py-3.5 text-xs font-black uppercase tracking-wider text-slate-800 focus:outline-none appearance-none shadow-sm cursor-pointer ${
@@ -312,7 +314,7 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
                         alt={`Google Rank Proof ${selectedProof.keyword}`}
                         fill
                         className="object-contain"
-                        sizes="(max-width: 768px) 100vw, 800px"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 650px"
                         priority
                       />
                     </motion.div>
@@ -326,7 +328,7 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
                       <p className={`text-[10px] font-black tracking-widest uppercase ${isPortfolio ? "text-[#e8702a]" : "text-[#10b981]"}`}>
                         {isEn ? "Target Keyword" : "Keyword Target"}
                       </p>
-                      <h4 className="text-white font-bold text-sm md:text-base">"{selectedProof.keyword}"</h4>
+                      <h3 className="text-white font-bold text-sm md:text-base">"{selectedProof.keyword}"</h3>
                     </div>
                     <div className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black ${
                       isPortfolio ? "bg-[#e8702a]/20 text-[#e8702a]" : "bg-emerald-500/20 text-emerald-400"

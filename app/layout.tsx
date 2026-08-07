@@ -78,7 +78,6 @@ export default function RootLayout({
   return (
     <html lang="id">
       <head>
-        <link rel="preconnect" href="https://images.unsplash.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}

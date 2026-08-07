@@ -146,6 +146,7 @@ export default function SeoProof() {
                 src={item.image} 
                 alt={`${item.client} SEO Proof`} 
                 fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/20 text-white text-xs font-mono flex items-center justify-between">

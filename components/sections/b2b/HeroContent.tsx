@@ -260,6 +260,7 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
                       src="/projects/showcase/paletindo/after.png" 
                       alt="Paletindo E-Catalog Preview"
                       fill
+                      sizes="(max-width: 768px) 100vw, 800px"
                       className="object-cover object-top"
                     />
                     <div className="absolute bottom-4 left-4 bg-gray-900/90 backdrop-blur-md text-white text-xs px-4 py-2 rounded-xl border border-white/10 flex items-center gap-3">
@@ -276,6 +277,7 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
                       src="/projects/showcase/srlaundry/after.png" 
                       alt="SR Laundry Landing Page Preview"
                       fill
+                      sizes="(max-width: 768px) 100vw, 800px"
                       className="object-cover object-top"
                     />
                     <div className="absolute bottom-4 left-4 bg-gray-900/90 backdrop-blur-md text-white text-xs px-4 py-2 rounded-xl border border-white/10 flex items-center gap-3">
