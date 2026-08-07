@@ -7,7 +7,6 @@ import ProjectBentoSection from "@/components/sections/ProjectBentoSection";
 import { bentoProjects } from "@/data/projects";
 
 // Deferring heavy client-side sections to reduce initial main-thread work
-const B2BAudience = dynamic(() => import("@/components/sections/b2b/B2BAudience"), { ssr: true });
 const B2BTestimonial = dynamic(() => import("@/components/sections/b2b/B2BTestimonial"), { ssr: true });
 const B2BFAQ = dynamic(() => import("@/components/sections/b2b/B2BFAQ"), { ssr: true });
 const PricingSection = dynamic(() => import("@/components/sections/b2b/PricingSection"), { ssr: true });
@@ -42,7 +41,6 @@ export default function Home() {
 
       <SeoProofsSection />
 
-      <B2BAudience />
       <WhyChooseUs />
       <B2BTestimonial />
       <PricingSection />
