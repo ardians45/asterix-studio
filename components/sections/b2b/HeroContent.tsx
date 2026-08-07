@@ -89,10 +89,10 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
         className="text-sm md:text-lg text-gray-600 mb-8 md:mb-12 max-w-2xl md:max-w-3xl leading-relaxed font-medium mx-auto px-4 space-y-3"
       >
         <p>
-          Bisa jadi bukan bisnis Anda yang kurang bagus. Mereka hanya belum menemukan bisnis Anda dengan mudah.
+          Bisa jadi bukan bisnis Anda yang kurang bagus. Mereka hanya belum menemukan Anda dengan mudah atau belum cukup yakin untuk memilih Anda.
         </p>
         <p className="text-gray-900 font-semibold">
-          Hadirkan bisnis Anda secara profesional dengan website yang membantu calon pelanggan menemukan, mengenal, dan menghubungi Anda.
+          Bangun website yang membuat bisnis Anda lebih mudah ditemukan, terlihat lebih profesional, dan mendorong calon pelanggan untuk menghubungi Anda.
         </p>
       </motion.div>
 
