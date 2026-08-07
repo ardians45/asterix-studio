@@ -314,7 +314,7 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
                         alt={`Google Rank Proof ${selectedProof.keyword}`}
                         fill
                         className="object-contain"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 60vw, 650px"
+                        sizes="(max-width: 640px) 340px, (max-width: 1024px) 550px, 650px"
                         priority
                       />
                     </motion.div>

@@ -68,7 +68,7 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
                      height={2000}
                      priority={true}
                      className="w-full h-auto absolute top-0 left-0 transition-transform duration-[8s] ease-in-out group-hover:translate-y-[calc(-100%+400px)] lg:group-hover:translate-y-[calc(-100%+620px)]" 
-                     sizes="(max-width: 768px) 100vw, 800px"
+                     sizes="(max-width: 640px) 360px, (max-width: 1024px) 640px, 800px"
                      style={{ height: 'auto' }}
                     />
                    
@@ -134,7 +134,7 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
                 alt={`${project.title} mobile`}
                 fill
                 className="w-full h-full object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700" 
-                sizes="(max-width: 768px) 100vw, 400px"
+                sizes="(max-width: 640px) 160px, (max-width: 768px) 250px, 400px"
               />
            </div>
 

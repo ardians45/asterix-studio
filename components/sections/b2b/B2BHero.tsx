@@ -13,8 +13,7 @@ export default function B2BHero({ seoTitle }: { seoTitle?: string }) {
             src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&q=80"
             alt="Asterix Studio Office background"
             fill
-            priority
-            fetchPriority="high"
+            loading="lazy"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1280px"
             className="object-cover object-center"
           />
