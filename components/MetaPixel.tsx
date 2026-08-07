@@ -1,8 +1,7 @@
 "use client";
 
-import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const FB_PIXEL_ID = "4422552327987552";
 
@@ -15,13 +14,61 @@ export const trackPixelEvent = (name: string, options = {}) => {
 
 export default function MetaPixel() {
   const pathname = usePathname();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Track PageView on route change
-    if (typeof window !== "undefined" && (window as any).fbq) {
+    // Delay script injection until user interaction or 4s fallback
+    let loaded = false;
+    const loadPixel = () => {
+      if (loaded) return;
+      loaded = true;
+      setIsLoaded(true);
+
+      // Inject Meta Pixel Script dynamically
+      if (typeof window !== "undefined" && !(window as any).fbq) {
+        (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+          if (f.fbq) return;
+          n = f.fbq = function () {
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+          };
+          if (!f._fbq) f._fbq = n;
+          n.push = n;
+          n.loaded = !0;
+          n.version = "2.0";
+          n.queue = [];
+          t = b.createElement(e);
+          t.async = !0;
+          t.src = v;
+          s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s);
+        })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+
+        (window as any).fbq("init", FB_PIXEL_ID);
+        (window as any).fbq("track", "PageView");
+      }
+    };
+
+    const triggerEvents = ["scroll", "touchstart", "mousemove", "click", "keydown"];
+    const handleInteraction = () => {
+      loadPixel();
+      triggerEvents.forEach((event) => window.removeEventListener(event, handleInteraction));
+    };
+
+    triggerEvents.forEach((event) => window.addEventListener(event, handleInteraction, { passive: true }));
+    const timer = setTimeout(loadPixel, 4000);
+
+    return () => {
+      clearTimeout(timer);
+      triggerEvents.forEach((event) => window.removeEventListener(event, handleInteraction));
+    };
+  }, []);
+
+  useEffect(() => {
+    // Track PageView on route change if pixel is already initialized
+    if (isLoaded && typeof window !== "undefined" && (window as any).fbq) {
       (window as any).fbq("track", "PageView");
     }
-  }, [pathname]);
+  }, [pathname, isLoaded]);
 
   useEffect(() => {
     // Scroll 50% Tracker
@@ -41,35 +88,5 @@ export default function MetaPixel() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [pathname]);
 
-  return (
-    <>
-      <Script
-        id="fb-pixel"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${FB_PIXEL_ID}');
-            fbq('track', 'PageView');
-          `,
-        }}
-      />
-      <noscript>
-        <img
-          height="1"
-          width="1"
-          style={{ display: "none" }}
-          src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
-          alt="meta pixel"
-        />
-      </noscript>
-    </>
-  );
+  return null;
 }
