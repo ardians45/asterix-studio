@@ -1,0 +1,16 @@
+# Asterix Studio
+
+> Asterix Studio adalah creative digital agency yang berfokus pada Jasa Pembuatan Website Profesional, Web Design B2B, Company Profile, Landing Page Konversi Tinggi, dan Optimasi SEO.
+
+## Informasi Utama & Layanan
+
+- [Tentang Kami](https://asterixstudio.site/): Penyedia layanan pembuatan website profesional, cepat, dan teroptimasi SEO untuk bisnis digital & UMKM.
+- [Layanan Web Development](https://asterixstudio.site/services): Pembuatan website company profile, landing page, e-catalog, dan web aplikasi kustom.
+- [Portofolio & Studi Kasus](https://asterixstudio.site/projects): Lihat transformasi website sebelum vs sesudah dan hasil optimasi performa SEO klien kami.
+- [Paket & Harga](https://asterixstudio.site/pricing): Informasi transparansi harga paket pembuatan website untuk berbagai kebutuhan bisnis.
+- [Hubungi Kami](https://asterixstudio.site/contact): Konsultasi gratis via WhatsApp atau form kontak langsung dengan tim Asterix Studio.
+
+## Optional & Resources
+
+- [Kalkulator ROI Website](https://asterixstudio.site/tools/website-roi-calculator): Tool gratis untuk menghitung estimasi return on investment pembuatan website bisnis Anda.
+- [Blog & Insight Digital](https://asterixstudio.site/blog): Artikel dan panduan seputar web design, strategi SEO, dan pertumbuhan bisnis digital.
