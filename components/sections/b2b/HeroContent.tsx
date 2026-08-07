@@ -67,34 +67,20 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.1 }}
       >
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-extrabold text-slate-900 tracking-tight leading-[1.2] mb-6 md:mb-8 max-w-4xl mx-auto px-2">
+        <h1 className="text-3xl md:text-[4rem] font-bold text-gray-900 tracking-tighter leading-[1.15] mb-6 md:mb-8 max-w-5xl mx-auto px-2">
           {seoTitle ? (
             <>
-              {seoTitle} — Calon Pelanggan Mencari Bisnis Anda. Tapi, <span className="text-emerald-600 italic font-bold">Kenapa Malah Menemukan Kompetitor?</span>
+              {seoTitle} — Calon Pelanggan Mencari Bisnis Anda. Tapi, <span className="text-emerald-600 italic">Kenapa Malah Menemukan Kompetitor?</span>
             </>
           ) : (
             <>
-              Calon Pelanggan Mencari Bisnis Anda. Tapi, <span className="text-emerald-600 italic font-bold">Kenapa Malah Menemukan Kompetitor?</span>
+              Calon Pelanggan Mencari Bisnis Anda. Tapi, <span className="text-emerald-600 italic">Kenapa Malah Menemukan Kompetitor?</span>
             </>
           )}
         </h1>
         <p className="sr-only">Jasa Web Design Bisnis & Pembuatan Website Company Profile — Asterix Studio</p>
       </motion.div>
 
-      {/* Subheading */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="text-base sm:text-lg md:text-xl text-slate-700 mb-8 md:mb-12 max-w-2xl md:max-w-3xl leading-relaxed font-normal mx-auto px-4 space-y-4"
-      >
-        <p className="text-slate-600 font-medium">
-          Bisa jadi bukan bisnis Anda yang kurang bagus. Mereka hanya belum menemukan Anda dengan mudah atau belum cukup yakin untuk memilih Anda.
-        </p>
-        <p className="text-slate-900 font-bold text-base md:text-lg">
-          Bangun website yang membuat bisnis Anda lebih mudah ditemukan, terlihat lebih profesional, dan mendorong calon pelanggan untuk menghubungi Anda.
-        </p>
-      </motion.div>
 
       {/* CTA Buttons - Matching Image Style (One dark, one light pill) */}
       <motion.div
