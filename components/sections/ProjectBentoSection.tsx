@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import Image from "next/image";
 import { BentoProjectDetail } from "@/types/projects";
@@ -52,7 +52,7 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
         {/* 1. MAIN LARGE CARD: The Final Result (After) */}
         <div className="lg:col-span-2 bg-white rounded-[32px] md:rounded-[40px] border border-gray-100 shadow-sm overflow-hidden relative group cursor-ns-resize h-[450px] lg:h-full">
            <AnimatePresence mode="wait">
-              <motion.div 
+              <m.div 
                 key={showAfter ? "after" : "before"}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -80,7 +80,7 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
                       </div>
                    </div>
                 </div>
-              </motion.div>
+              </m.div>
            </AnimatePresence>
            
            {/* Slider / Toggle UI */}
@@ -149,3 +149,4 @@ export default function ProjectBentoSection({ project }: ProjectBentoSectionProp
     </section>
   );
 }
+

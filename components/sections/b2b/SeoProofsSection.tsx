@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { FaGoogle, FaCheckCircle } from "react-icons/fa";
 
@@ -301,7 +301,7 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
                 
                 <div className="relative w-full h-[360px] md:h-[420px] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 flex items-center justify-center">
                   <AnimatePresence mode="wait">
-                    <motion.div
+                    <m.div
                       key={selectedProof.keyword}
                       initial={{ opacity: 0, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -317,7 +317,7 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
                         sizes="(max-width: 640px) 340px, (max-width: 1024px) 550px, 650px"
                         priority
                       />
-                    </motion.div>
+                    </m.div>
                   </AnimatePresence>
                 </div>
 
@@ -371,3 +371,4 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
     </section>
   );
 }
+

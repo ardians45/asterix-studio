@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 
 export default function B2BFAQ({ customFaqs }: { customFaqs?: { q: string; a: string }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -70,7 +70,7 @@ export default function B2BFAQ({ customFaqs }: { customFaqs?: { q: string; a: st
                 </button>
                 <AnimatePresence>
                   {isOpen && (
-                    <motion.div
+                    <m.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -79,7 +79,7 @@ export default function B2BFAQ({ customFaqs }: { customFaqs?: { q: string; a: st
                       <div className="px-5 md:px-6 pb-5 md:pb-6 pt-0 text-gray-500 text-[13px] md:text-sm font-medium leading-relaxed">
                         {faq.a}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -90,3 +90,4 @@ export default function B2BFAQ({ customFaqs }: { customFaqs?: { q: string; a: st
     </section>
   );
 }
+

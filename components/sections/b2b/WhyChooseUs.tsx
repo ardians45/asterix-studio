@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FaSearchDollar, FaBullseye, FaDraftingCompass, FaBolt, FaFolderOpen, FaHeadset } from "react-icons/fa";
 
 export default function WhyChooseUs() {
@@ -52,7 +52,7 @@ export default function WhyChooseUs() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {reasons.map((reason, idx) => (
-            <motion.div
+            <m.div
               key={idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -69,10 +69,11 @@ export default function WhyChooseUs() {
               <p className="text-sm text-gray-500 leading-relaxed font-medium">
                 {reason.desc}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+

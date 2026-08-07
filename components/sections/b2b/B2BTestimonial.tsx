@@ -1,7 +1,7 @@
 "use client";
 
 import { FaStar } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { testimonials } from "@/data/testimonials";
 
 export default function B2BTestimonial() {
@@ -25,7 +25,7 @@ export default function B2BTestimonial() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {testimonials
           .map((testimonial, idx) => (
-             <motion.div 
+             <m.div 
                key={idx}
                initial={{ opacity: 0, y: 20 }}
                whileInView={{ opacity: 1, y: 0 }}
@@ -56,10 +56,11 @@ export default function B2BTestimonial() {
                      <p className="text-[10px] md:text-xs text-gray-500 font-medium">{testimonial.role}</p>
                    </div>
                  </div>
-             </motion.div>
+             </m.div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+

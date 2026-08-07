@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -44,7 +44,7 @@ export default function B2BAudience() {
           {/* Image Display */}
           <div className="flex-1 w-full relative h-[300px] md:h-[600px] rounded-[24px] overflow-hidden shadow-2xl">
             {audiences.map((audience, idx) => (
-              <motion.div
+              <m.div
                 key={idx}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: activeIndex === idx ? 1 : 0 }}
@@ -58,7 +58,7 @@ export default function B2BAudience() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 576px"
                   className="object-cover object-top"
                 />
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
@@ -84,7 +84,7 @@ export default function B2BAudience() {
                        </div>
                     </div>
                     {/* Expandable Content */}
-                    <motion.div 
+                    <m.div 
                       initial={false}
                       animate={{ height: isActive ? 'auto' : 0, opacity: isActive ? 1 : 0, marginTop: isActive ? 12 : 0 }}
                       className="overflow-hidden"
@@ -92,7 +92,7 @@ export default function B2BAudience() {
                        <p className="text-sm md:text-lg text-gray-600 leading-relaxed max-w-xl font-medium">
                          {audience.desc}
                        </p>
-                    </motion.div>
+                    </m.div>
                  </div>
                )
              })}
@@ -102,3 +102,4 @@ export default function B2BAudience() {
     </section>
   );
 }
+

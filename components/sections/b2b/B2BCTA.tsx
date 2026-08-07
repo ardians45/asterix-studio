@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 
 export default function B2BCTA() {
@@ -10,7 +10,7 @@ export default function B2BCTA() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4/5 h-[200px] md:h-[300px] bg-[#10b981] opacity-5 blur-[100px] md:blur-[150px] pointer-events-none rounded-full" />
       
       <div className="container relative z-10 mx-auto px-4 md:px-6 max-w-4xl flex flex-col items-center">
-        <motion.div
+        <m.div
            initial={{ opacity: 0, y: 30 }}
            whileInView={{ opacity: 1, y: 0 }}
            viewport={{ once: true }}
@@ -45,7 +45,7 @@ export default function B2BCTA() {
               Lihat Portofolio Kami
             </Link>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
 
@@ -56,3 +56,4 @@ export default function B2BCTA() {
     </section>
   );
 }
+

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useTransform, useMotionValueEvent, motion, useInView } from "framer-motion";
+import { useScroll, useTransform, useMotionValueEvent, m, useInView } from "framer-motion";
 
 export default function Hero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -211,7 +211,7 @@ export default function Hero() {
         {!isLoaded && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#050505] text-white z-50">
                  <div className="w-48 h-[2px] bg-white/10 mb-6 relative overflow-hidden">
-                    <motion.div 
+                    <m.div 
                         className="h-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]" 
                         initial={{ width: 0 }}
                         animate={{ width: `${(loadingProgress / Math.min(15, frameCount)) * 100}%` }}
@@ -223,12 +223,12 @@ export default function Hero() {
             </div>
         )}
         
-        <motion.div 
+        <m.div 
             style={{ scaleX: scrollYProgress }}
             className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent z-40 origin-center opacity-30"
         />
 
-        <motion.div 
+        <m.div 
             style={{ opacity: opacityTitle, y: yTitle, filter: `blur(${blurTitle})`, scale: scaleTitle }} 
             className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 pointer-events-none px-4"
         >
@@ -244,58 +244,58 @@ export default function Hero() {
                  Creative engineering & Digital Arts
              </p>
              
-             <motion.div 
+             <m.div 
                 animate={{ y: [0, 8, 0] }}
                 transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
                 className="absolute bottom-12 flex flex-col items-center gap-4"
              >
                 <div className="w-[1px] h-16 bg-gradient-to-b from-[#BFA36A]/0 via-[#BFA36A] to-[#BFA36A]/0" />
                 <span className="text-[9px] uppercase tracking-[0.4em] text-[#BFA36A] font-mono">Execute Scroll</span>
-             </motion.div>
-        </motion.div>
+             </m.div>
+        </m.div>
 
         {/* Slogan 1: Staggered */}
         <div className="absolute inset-0 flex items-center justify-start px-6 md:px-32 z-10 pointer-events-none">
              <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-start gap-2 md:gap-4">
-                 <motion.span style={{ opacity: opacityS1_L1, y: yS1_L1, filter: `blur(${blurS1_L1})` }} className="block">
+                 <m.span style={{ opacity: opacityS1_L1, y: yS1_L1, filter: `blur(${blurS1_L1})` }} className="block">
                     CRAFTING
-                 </motion.span>
-                 <motion.span style={{ opacity: opacityS1_L2, y: yS1_L2, filter: `blur(${blurS1_L2})` }} className="block">
+                 </m.span>
+                 <m.span style={{ opacity: opacityS1_L2, y: yS1_L2, filter: `blur(${blurS1_L2})` }} className="block">
                     <span className="italic font-light text-white/50 tracking-tight">IMMERSIVE</span>
-                 </motion.span>
-                 <motion.span style={{ opacity: opacityS1_L3, y: yS1_L3, filter: `blur(${blurS1_L3})` }} className="block">
+                 </m.span>
+                 <m.span style={{ opacity: opacityS1_L3, y: yS1_L3, filter: `blur(${blurS1_L3})` }} className="block">
                     DIGITAL REALMS.
-                 </motion.span>
+                 </m.span>
              </h2>
         </div>
 
         {/* Slogan 2: Staggered */}
         <div className="absolute inset-0 flex items-center justify-start px-6 md:px-32 z-10 pointer-events-none">
              <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-start gap-2 md:gap-4">
-                 <motion.span style={{ opacity: opacityS2_L1, y: yS2_L1, filter: `blur(${blurS2_L1})` }} className="block">
+                 <m.span style={{ opacity: opacityS2_L1, y: yS2_L1, filter: `blur(${blurS2_L1})` }} className="block">
                     ENGINEERED
-                 </motion.span>
-                 <motion.span style={{ opacity: opacityS2_L2, y: yS2_L2, filter: `blur(${blurS2_L2})` }} className="block">
+                 </m.span>
+                 <m.span style={{ opacity: opacityS2_L2, y: yS2_L2, filter: `blur(${blurS2_L2})` }} className="block">
                     FOR <span className="italic font-light text-white/50 tracking-tight">LIMITLESS</span>
-                 </motion.span>
-                 <motion.span style={{ opacity: opacityS2_L3, y: yS2_L3, filter: `blur(${blurS2_L3})` }} className="block">
+                 </m.span>
+                 <m.span style={{ opacity: opacityS2_L3, y: yS2_L3, filter: `blur(${blurS2_L3})` }} className="block">
                     PERFORMANCE
-                 </motion.span>
+                 </m.span>
              </h2>
         </div>
 
         {/* Slogan 3: Staggered */}
         <div className="absolute inset-0 flex items-center justify-start px-6 md:px-32 z-10 pointer-events-none">
              <h2 className="text-white text-5xl md:text-8xl lg:text-9xl font-display font-black leading-[0.9] md:leading-[0.85] max-w-5xl mix-blend-difference flex flex-col items-start gap-2 md:gap-4">
-                 <motion.span style={{ opacity: opacityS3_L1, y: yS3_L1, filter: `blur(${blurS3_L1})` }} className="block">
+                 <m.span style={{ opacity: opacityS3_L1, y: yS3_L1, filter: `blur(${blurS3_L1})` }} className="block">
                     SCULPTING
-                 </motion.span>
-                 <motion.span style={{ opacity: opacityS3_L2, y: yS3_L2, filter: `blur(${blurS3_L2})` }} className="block">
+                 </m.span>
+                 <m.span style={{ opacity: opacityS3_L2, y: yS3_L2, filter: `blur(${blurS3_L2})` }} className="block">
                     <span className="italic font-light text-white/50 tracking-tight">VISIONARY</span>
-                 </motion.span>
-                 <motion.span style={{ opacity: opacityS3_L3, y: yS3_L3, filter: `blur(${blurS3_L3})` }} className="block">
+                 </m.span>
+                 <m.span style={{ opacity: opacityS3_L3, y: yS3_L3, filter: `blur(${blurS3_L3})` }} className="block">
                     FUTURES.
-                 </motion.span>
+                 </m.span>
              </h2>
         </div>
 
@@ -303,3 +303,5 @@ export default function Hero() {
     </div>
   );
 }
+
+

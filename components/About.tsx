@@ -1,6 +1,6 @@
 "use client";
 
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, m } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 
@@ -21,7 +21,7 @@ export default function About() {
       <div className="flex flex-col md:flex-row gap-16 md:gap-24 items-center md:items-start" ref={container}>
         
         {/* Profile Image Column */}
-        <motion.div 
+        <m.div 
             initial={{ opacity: 0, y: 50, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             whileHover={{ y: -6, scale: 1.01 }}
@@ -42,7 +42,7 @@ export default function About() {
             </div>
             
             {/* Decorative Label */}
-             <motion.div 
+             <m.div 
                 whileHover={{ scale: 1.1, rotate: 180 }}
                 transition={{ duration: 0.5 }}
                 className="absolute -bottom-6 -right-6 w-24 h-24 bg-[#e8702a] rounded-full flex items-center justify-center animate-[spin_12s_linear_infinite] hidden md:flex shadow-lg shadow-[#e8702a]/30"
@@ -59,12 +59,12 @@ export default function About() {
                         </textPath>
                     </text>
                 </svg>
-             </motion.div>
-        </motion.div>
+             </m.div>
+        </m.div>
 
         {/* Text Content Column */}
         <div className="md:w-2/3 pt-8 md:pt-12">
-           <motion.div 
+           <m.div 
              initial={{ opacity: 0, x: -20 }}
              whileInView={{ opacity: 1, x: 0 }}
              viewport={{ once: true }}
@@ -74,13 +74,13 @@ export default function About() {
                 <h2 className="text-sm md:text-base text-[#e8702a] uppercase tracking-[0.3em] font-cinzel border-l-2 border-[#e8702a] pl-4 mb-8">
                     Who I Am
                 </h2>
-           </motion.div>
+           </m.div>
 
-          <motion.p 
+          <m.p 
             className="text-xl md:text-3xl lg:text-4xl font-display font-medium leading-tight mb-8"
           >
            {text.split(" ").map((word, i) => (
-               <motion.span 
+               <m.span 
                    key={i} 
                    initial={{ opacity: 0, y: 15 }}
                    whileInView={{ opacity: 1, y: 0 }}
@@ -89,9 +89,9 @@ export default function About() {
                    className="inline-block mr-2 md:mr-3 text-gray-900"
                >
                    {word}
-               </motion.span>
+               </m.span>
            ))}
-           <motion.span 
+           <m.span 
                initial={{ opacity: 0 }}
                whileInView={{ opacity: 1 }}
                viewport={{ once: true }}
@@ -99,27 +99,29 @@ export default function About() {
                className="text-gray-500 block mt-3 text-lg md:text-2xl"
            >
                Skilled in translating user needs and business objectives into intuitive, visually consistent, and developer-ready interfaces.
-           </motion.span>
-          </motion.p>
+           </m.span>
+          </m.p>
           
-           <motion.div 
+           <m.div 
                initial={{ opacity: 0, y: 30 }}
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true }}
                transition={{ duration: 0.6, delay: 0.3 }}
                className="grid grid-cols-2 gap-8 border-t border-gray-300 pt-8"
            >
-               <motion.div whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 300 }}>
+               <m.div whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 300 }}>
                    <h3 className="text-gray-900 text-xl font-display mb-2">Location</h3>
                    <p className="text-gray-600 font-mono text-sm">Indonesia, Remote</p>
-               </motion.div>
-               <motion.div whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 300 }}>
+               </m.div>
+               <m.div whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 300 }}>
                    <h3 className="text-gray-900 text-xl font-display mb-2">Experience</h3>
                    <p className="text-gray-600 font-mono text-sm">3+ Years in Field</p>
-               </motion.div>
-           </motion.div>
+               </m.div>
+           </m.div>
         </div>
       </div>
     </section>
   );
 }
+
+

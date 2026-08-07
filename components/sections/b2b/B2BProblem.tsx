@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { m } from "framer-motion";
 
 export default function B2BProblem() {
   return (
@@ -10,7 +9,7 @@ export default function B2BProblem() {
         
         {/* ROW 1: Centered Problem Section */}
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto mb-16 md:mb-24">
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -27,7 +26,7 @@ export default function B2BProblem() {
             <p className="text-base md:text-lg text-gray-600 leading-relaxed font-medium mt-4 text-balance max-w-3xl mx-auto">
               Calon pelanggan bisa saja sedang mencari produk atau layanan seperti yang Anda tawarkan. Tapi tanpa kehadiran digital yang kuat, perhatian mereka bisa jatuh ke bisnis lain yang lebih mudah ditemukan dan dipercaya.
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* ROW 2: Solution Title & 3 Key Pillars */}
@@ -43,7 +42,7 @@ export default function B2BProblem() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {/* Pillar 1 */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -59,10 +58,10 @@ export default function B2BProblem() {
                   Struktur website yang siap untuk mesin pencari dan membantu calon pelanggan menemukan bisnis Anda.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Pillar 2 */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -78,10 +77,10 @@ export default function B2BProblem() {
                   Informasi bisnis, layanan, produk, dan keunggulan disusun agar pengunjung langsung memahami apa yang Anda tawarkan.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Pillar 3 */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -97,7 +96,7 @@ export default function B2BProblem() {
                   Alur halaman dan CTA dirancang untuk mengarahkan pengunjung menjadi inquiry tanpa terasa memaksa.
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 

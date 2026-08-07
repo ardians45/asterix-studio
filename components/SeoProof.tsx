@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FaGoogle, FaExternalLinkAlt, FaChartLine, FaCheckCircle, FaRocket } from "react-icons/fa";
@@ -48,7 +48,7 @@ export default function SeoProof() {
       {/* Section Header */}
       <div className="flex flex-col md:flex-row gap-8 md:gap-16 mb-20">
         <div className="md:w-1/3">
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -57,11 +57,11 @@ export default function SeoProof() {
             <h2 className="text-xl text-[#e8702a] uppercase tracking-widest font-cinzel border-l-2 border-[#e8702a] pl-4">
               SEO Google Rank Proof
             </h2>
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="md:w-2/3">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -76,14 +76,14 @@ export default function SeoProof() {
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed font-sans max-w-3xl">
               Struktur arsitektur informasi dan optimasi SEO lokal yang kami rancang terbukti menempatkan bisnis klien di posisi teratas Google secara organik.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </div>
 
       {/* Proof Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {seoCases.map((item, idx) => (
-          <motion.div
+          <m.div
             key={item.id}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -154,9 +154,10 @@ export default function SeoProof() {
                 <span className="text-[#10b981] font-bold shrink-0 ml-2">#1 Google</span>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>
   );
 }
+

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
@@ -23,7 +23,7 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
   return (
     <div className="relative z-10 flex flex-col items-center text-center pt-16 md:pt-24 px-4 md:px-6 w-full">
       {/* Top Badge matching "3K+ Already Joined" */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -59,10 +59,10 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-400 md:w-6 md:h-6 transform scale-x-[-1]">
             <path d="M7 19C7 19 3 15 3 10C3 5 7 3 7 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
          </svg>
-      </motion.div>
+      </m.div>
 
       {/* Heading */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.1 }}
@@ -79,11 +79,11 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
           )}
         </h1>
         <p className="sr-only">Jasa Web Design Bisnis & Pembuatan Website Company Profile — Asterix Studio</p>
-      </motion.div>
+      </m.div>
 
 
       {/* CTA Buttons - Matching Image Style (One dark, one light pill) */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3 }}
@@ -102,18 +102,18 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
         >
           Lihat Studi Kasus
         </Link>
-      </motion.div>
+      </m.div>
 
       {/* Elaborate CSS Mockup inserted cleanly */}
       {showMockup && (
-        <motion.div
+        <m.div
            initial={{ opacity: 0, y: 40 }}
            animate={{ opacity: 1, y: 0 }}
            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
            className="relative mx-auto w-full max-w-[1100px] mt-4 z-10 hidden sm:block"
         >
           {/* Floating Hook Cards */}
-          <motion.div 
+          <m.div 
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-10 -left-6 md:-left-20 bg-white p-4 rounded-2xl shadow-xl border border-emerald-100 z-30 hidden md:block"
@@ -127,9 +127,9 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
                 <p className="text-lg font-black text-gray-900">+180% Leads</p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div 
+          <m.div 
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
             className="absolute top-20 -right-6 md:-right-16 bg-white p-4 rounded-2xl shadow-xl border border-blue-100 z-30 hidden md:block"
@@ -143,7 +143,7 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
                 <p className="text-lg font-black text-gray-900">PageSpeed 95+</p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           <div className="bg-white/95 backdrop-blur-3xl rounded-t-[32px] md:rounded-t-[40px] shadow-[0_-20px_60px_rgba(0,0,0,0.08)] border border-white/50 overflow-hidden flex flex-col relative translate-y-8">
             {/* Top Bar matching image */}
@@ -280,8 +280,9 @@ export default function HeroContent({ seoTitle }: { seoTitle?: string }) {
                )}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );
 }
+

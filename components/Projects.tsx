@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence, useSpring } from "framer-motion";
+import { m, AnimatePresence, useSpring } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
@@ -75,7 +75,7 @@ export default function Projects() {
       {/* Floating Image Preview */}
       <AnimatePresence>
         {activeProject !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
@@ -108,7 +108,7 @@ export default function Projects() {
                 priority
               />
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -344,3 +344,4 @@ export default function Projects() {
     </section>
   );
 }
+

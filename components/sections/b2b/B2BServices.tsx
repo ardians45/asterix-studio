@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FaWrench, FaArrowRight } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
@@ -61,7 +61,7 @@ export default function B2BServices() {
             const theme = themes[idx % themes.length];
 
             return (
-              <motion.div
+              <m.div
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -104,7 +104,7 @@ export default function B2BServices() {
                 <div className={`absolute bottom-6 md:bottom-10 right-6 md:right-10 w-10 md:w-12 h-10 md:h-12 rounded-full border border-black/5 bg-white flex items-center justify-center text-lg md:text-xl transition-all duration-300 opacity-0 md:group-hover:opacity-100 ${theme.text}`}>
                    <FiArrowUpRight />
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
@@ -112,3 +112,4 @@ export default function B2BServices() {
     </section>
   );
 }
+

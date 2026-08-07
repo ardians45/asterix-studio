@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { 
   SiNextdotjs, SiReact, SiTailwindcss, SiTypescript, SiThreedotjs, SiFramer, 
   SiFigma, SiGit, SiHtml5, SiCss3, SiJavascript, SiVuedotjs, SiPython, SiDocker, SiCanva, SiGithub,
@@ -65,7 +65,7 @@ export default function Skills() {
         </div>
         <div className="md:w-2/3 flex flex-col gap-16">
             {skills.map((group, index) => (
-                <motion.div 
+                <m.div 
                     key={index}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function Skills() {
                     </h3>
                     <ul className="flex flex-wrap gap-3">
                         {group.items.map((skill, idx) => (
-                            <motion.li 
+                            <m.li 
                                 key={idx}
                                 initial={{ opacity: 0, scale: 0.9, y: 15 }}
                                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -92,13 +92,14 @@ export default function Skills() {
                                 <span className="text-gray-700 text-sm font-medium group-hover:text-gray-900 transition-colors tracking-wide">
                                     {skill.name}
                                 </span>
-                            </motion.li>
+                            </m.li>
                         ))}
                     </ul>
-                </motion.div>
+                </m.div>
             ))}
         </div>
       </div>
     </section>
   );
 }
+

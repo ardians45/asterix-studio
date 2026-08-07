@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 
@@ -421,7 +421,7 @@ export default function LithosHero() {
           <div className="absolute top-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-b from-[#F5F4F0] via-[#F5F4F0]/70 to-transparent pointer-events-none z-30" />
 
           {/* Layer 1: Background Sky & Sea (z-10) */}
-          <motion.div
+          <m.div
             className="absolute inset-0 bg-cover bg-center z-10"
             style={{
               backgroundImage: `url(${BG_PARALLAX_SKY})`,
@@ -431,7 +431,7 @@ export default function LithosHero() {
           />
 
           {/* Layer 1.5: Top Clouds Layer (z-15) */}
-          <motion.div
+          <m.div
             className="absolute -top-12 sm:-top-20 left-0 right-0 h-[90vh] sm:h-[100vh] bg-cover bg-top bg-no-repeat pointer-events-none z-15"
             style={{
               backgroundImage: `url(${PNG_CLOUDS_TOP})`,
@@ -441,7 +441,7 @@ export default function LithosHero() {
           />
 
           {/* Layer 2: Ship Layer (z-20) */}
-          <motion.div
+          <m.div
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
             style={{
               scale: shipScale,
@@ -454,10 +454,10 @@ export default function LithosHero() {
               alt="Lithos Voyage Vessel"
               className="max-h-[70vh] object-contain drop-shadow-2xl"
             />
-          </motion.div>
+          </m.div>
 
           {/* Layer 3: Foreground Waves Layer (z-30) */}
-          <motion.div
+          <m.div
             className="absolute bottom-0 left-0 right-0 h-[55vh] sm:h-[65vh] bg-cover bg-top pointer-events-none z-30 drop-shadow-2xl"
             style={{
               backgroundImage: `url(${JPG_WAVES_FG})`,
@@ -467,7 +467,7 @@ export default function LithosHero() {
           />
 
           {/* Layer 4: Complete Floating About Card Overlay over Ship (z-45) */}
-          <motion.div
+          <m.div
             id="about"
             className="absolute z-45 w-[94%] sm:w-[88%] max-w-5xl px-6 py-6 sm:px-10 sm:py-10 bg-[#18181b]/55 backdrop-blur-3xl border border-white/30 border-t-white/50 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] pointer-events-auto overflow-hidden group"
             style={{
@@ -535,7 +535,7 @@ export default function LithosHero() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Bottom Fade to Alabaster Transition (z-50) */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-[#F5F4F0]/60 to-[#F5F4F0] pointer-events-none z-50" />
@@ -544,3 +544,5 @@ export default function LithosHero() {
     </div>
   );
 }
+
+

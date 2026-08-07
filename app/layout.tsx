@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Inter, Montserrat } from "next/font/google";
+import { Syne, Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
@@ -7,21 +7,19 @@ import Navbar from "@/components/Navbar";
 const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 import { getOrganizationSchema } from "@/lib/schema";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import MetaPixel from "@/components/MetaPixel";
+import LazyMotionProvider from "@/components/LazyMotionProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://asterixstudio.site"),
@@ -85,14 +83,16 @@ export default function RootLayout({
         <MetaPixel />
       </head>
       <body
-        className={`${syne.variable} ${inter.variable} ${montserrat.variable} antialiased bg-black text-white`}
+        className={`${syne.variable} ${inter.variable} antialiased bg-black text-white`}
         suppressHydrationWarning
       >
-        <SmoothScroll>
-          <Navbar />
-          {children}
-          <FloatingWhatsApp />
-        </SmoothScroll>
+        <LazyMotionProvider>
+          <SmoothScroll>
+            <Navbar />
+            {children}
+            <FloatingWhatsApp />
+          </SmoothScroll>
+        </LazyMotionProvider>
       </body>
     </html>
   );

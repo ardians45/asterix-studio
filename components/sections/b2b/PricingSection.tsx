@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState, useEffect } from "react";
 import { FaCheck, FaCrown, FaStar, FaGem, FaRocket, FaClock } from "react-icons/fa";
 import Link from "next/link";
@@ -112,7 +112,7 @@ export default function PricingSection() {
     <section id="pricing" className="py-20 md:py-24 bg-[#F8F9FA] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         {/* Header section */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -133,10 +133,10 @@ export default function PricingSection() {
           <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed">
             Investasi sekali, manfaat seumur hidup untuk bisnis Anda. Dapatkan kualitas website kustom performa tinggi sebelum kuota slot promo terisi penuh!
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Big Countdown Section */}
-        <motion.div
+        <m.div
            initial={{ opacity: 0, scale: 0.95 }}
            whileInView={{ opacity: 1, scale: 1 }}
            viewport={{ once: true }}
@@ -179,12 +179,12 @@ export default function PricingSection() {
                 </span>
               </div>
            </div>
-        </motion.div>
+        </m.div>
 
         {/* Pricing Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
           {pricingData.map((pkg, idx) => (
-            <motion.div
+            <m.div
               key={pkg.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -272,12 +272,12 @@ export default function PricingSection() {
               >
                 {pkg.cta}
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
         {/* Footer info */}
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -295,8 +295,9 @@ export default function PricingSection() {
             Konsultasi gratis tanpa biaya!
             <span className="group-hover:translate-x-1 transition-transform">→</span>
           </Link>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
 }
+
