@@ -88,7 +88,7 @@ export default async function LocalSeoPage({ params }: PageProps) {
     },
     {
       q: `Berapa biaya pembuatan website di ${locationName}?`,
-      a: `Biaya pembuatan website bervariasi mulai dari Rp 1.350.000 untuk paket Landing Page hingga paket Professional & Custom yang disesuaikan dengan kebutuhan kompleksitas bisnis Anda.`
+      a: `Biaya pembuatan website bervariasi mulai dari Rp 500.000 untuk paket Starter hingga paket Pro, Max & Custom yang disesuaikan dengan kebutuhan kompleksitas bisnis Anda.`
     },
     {
       q: `Apakah website kami nantinya dioptimasi untuk pencarian lokal di ${locationName}?`,
