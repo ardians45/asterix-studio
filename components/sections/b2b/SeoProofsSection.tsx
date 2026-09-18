@@ -24,7 +24,8 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
 
   const categories = [
     { id: "paletindo", label: "Paletindo" },
-    { id: "srlaundry", label: "SR Laundry" }
+    { id: "srlaundry", label: "SR Laundry" },
+    { id: "dokternamira", label: "Dokter Namira" }
   ];
 
   const proofsData: Record<string, KeywordProof[]> = {
@@ -138,6 +139,62 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
         snippet: isEn
           ? "Dry cleaning supporting keyword optimization in Parung Serab with maximum results."
           : "Optimasi kata kunci penunjang cuci kering di wilayah Parung Serab dengan hasil maksimal."
+      }
+    ],
+    dokternamira: [
+      {
+        keyword: "Dokter Umum & Homecare Malang",
+        location: "Malang & Batu, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/dokternamira/dokter-umum-homecare-malang.png",
+        snippet: isEn
+          ? "Rank #1 organic on Google search for doctor homecare services across Malang and Batu."
+          : "Menduduki peringkat #1 organik Google untuk layanan dokter umum & homecare medis langsung ke rumah di Malang."
+      },
+      {
+        keyword: "Bekam Sunnah & Terapi Fashdu Malang",
+        location: "Malang, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/dokternamira/bekam-sunnah-terapi-fashdu-malang.png",
+        snippet: isEn
+          ? "Dominating search results for sterile sunnah cupping & fashdu therapy by a licensed medical doctor."
+          : "Dominasi hasil pencarian untuk terapi bekam sunnah medis steril dan fashdu di wilayah Malang."
+      },
+      {
+        keyword: "Layanan Infus Vitamin Malang",
+        location: "Malang, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/dokternamira/layanan-infus-vitamin-malang.png",
+        snippet: isEn
+          ? "Capturing top search positions for home and clinic vitamin booster infusion services in Malang."
+          : "Peringkat teratas pencarian layanan infus vitamin booster & imun tubuh di lokasi praktek maupun homecare."
+      },
+      {
+        keyword: "Layanan Infus Immune Booster Malang",
+        location: "Malang, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/dokternamira/layanan-infus-immune-booster-malang.png",
+        snippet: isEn
+          ? "Dominating high-intent search queries for medical immune booster services in Malang."
+          : "Menempati peringkat teratas untuk kata kunci pencarian infus immune booster steril di Kota Malang."
+      },
+      {
+        keyword: "konsultasi dan terapi ims malang",
+        location: "Malang, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/dokternamira/konsultasi-dan-terapi-ims-malang.png",
+        snippet: isEn
+          ? "Page 1 Google rank for private and confidential medical consultation & STI therapy."
+          : "Peringkat #1 Google untuk konsultasi dan penanganan medis IMS dengan jaminan privasi dan profesional."
+      },
+      {
+        keyword: "Jadwal Praktek Dokter Namira Malang",
+        location: "Malang, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/dokternamira/jadwal-praktek-dokter-namira-malang.png",
+        snippet: isEn
+          ? "Perfect indexing for direct branded queries and clinic schedule information."
+          : "Terindeks sempurna di posisi teratas untuk pencarian jadwal operasional praktek dokter dan petunjuk arah."
       }
     ]
   };
