@@ -25,7 +25,8 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
   const categories = [
     { id: "paletindo", label: "Paletindo" },
     { id: "srlaundry", label: "SR Laundry" },
-    { id: "dokternamira", label: "Dokter Namira" }
+    { id: "dokternamira", label: "Dokter Namira" },
+    { id: "kscontractor", label: "KS Contractor" }
   ];
 
   const proofsData: Record<string, KeywordProof[]> = {
@@ -195,6 +196,35 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
         snippet: isEn
           ? "Perfect indexing for direct branded queries and clinic schedule information."
           : "Terindeks sempurna di posisi teratas untuk pencarian jadwal operasional praktek dokter dan petunjuk arah."
+      }
+    ],
+    kscontractor: [
+      {
+        keyword: "KS Contractor Malang",
+        location: "Malang Raya, Jawa Timur",
+        position: isEn ? "Rank #1 Organic (Sitelinks)" : "Peringkat #1 Organik (Sitelinks)",
+        image: "/seo-google/ks%20contrator/ks-contractor-malang.png",
+        snippet: isEn
+          ? "Dominating brand search with dual organic results for contractor and reliable home building services in Malang."
+          : "Mendominasi pencarian brand dengan posisi ganda teratas untuk kontraktor terpercaya dan jasa bangun rumah di Malang."
+      },
+      {
+        keyword: "Portofolio Proyek KS Contractor Malang",
+        location: "Malang, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/ks%20contrator/portofolio-proyek-ks-contractor-malang.png",
+        snippet: isEn
+          ? "Rank #1 organic for contractor portfolio showcases, outranking competing regional contractors."
+          : "Peringkat #1 Google untuk portofolio proyek kontraktor hunian & komersial, mengungguli kompetitor sejenis."
+      },
+      {
+        keyword: "Kontraktor Ruko Malang & Bangun Ruang Usaha",
+        location: "Malang, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/ks%20contrator/kontraktor-ruko-malang-bangun-ruang-usaha.png",
+        snippet: isEn
+          ? "Securing top Google spot for commercial space & shophouse (ruko) construction in Malang."
+          : "Menempati peringkat #1 organik untuk jasa kontraktor bangun ruko dan ruang usaha komersial berstandar SNI di Malang."
       }
     ]
   };
