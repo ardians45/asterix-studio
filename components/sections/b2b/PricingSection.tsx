@@ -8,7 +8,7 @@ import Link from "next/link";
 const pricingData = [
   {
     name: "Starter",
-    price: "500.000",
+    price: "989.000",
     originalPrice: "",
     discount: "",
     icon: <FaRocket className="text-emerald-500" />,
@@ -28,7 +28,7 @@ const pricingData = [
   },
   {
     name: "Pro",
-    price: "990.000",
+    price: "2.500.000",
     originalPrice: "",
     discount: "POPULER",
     popular: true,
@@ -50,7 +50,7 @@ const pricingData = [
   },
   {
     name: "Max",
-    price: "2.500.000",
+    price: "4.900.000",
     originalPrice: "",
     discount: "",
     icon: <FaCrown className="text-amber-500" />,
