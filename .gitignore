@@ -52,3 +52,6 @@ next-env.d.ts
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# local archive for unused assets & components
+/archive/
