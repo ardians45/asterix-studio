@@ -209,7 +209,7 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
           : "Mendominasi pencarian brand dengan posisi ganda teratas untuk kontraktor terpercaya dan jasa bangun rumah di Malang."
       },
       {
-        keyword: "Jasa Bangun Rumah Malang",
+        keyword: "Jasa Bangun Rumah Malang 3.5jt/m",
         location: "Malang Raya, Jawa Timur",
         position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
         image: "/seo-google/ks%20contrator/jasa-bangun-rumah-malang.png",
