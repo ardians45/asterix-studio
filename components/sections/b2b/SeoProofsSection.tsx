@@ -209,6 +209,33 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
           : "Mendominasi pencarian brand dengan posisi ganda teratas untuk kontraktor terpercaya dan jasa bangun rumah di Malang."
       },
       {
+        keyword: "Jasa Bangun Rumah Malang",
+        location: "Malang Raya, Jawa Timur",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/ks%20contrator/jasa-bangun-rumah-malang.png",
+        snippet: isEn
+          ? "Rank #1 organic for high-intent home building service search in Malang starting from 3.5jt/m²."
+          : "Peringkat #1 organik Google untuk kata kunci utama jasa bangun rumah di Malang mulai 3.5jt/m² dengan spesifikasi SNI."
+      },
+      {
+        keyword: "Jasa Bangun Rumah Klojen Malang",
+        location: "Klojen, Kota Malang",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/ks%20contrator/jasa-bangun-rumah-klojen-malang.png",
+        snippet: isEn
+          ? "Top #1 organic spot for residential and luxury heritage home construction & renovation in Klojen."
+          : "Menduduki peringkat #1 organik untuk jasa bangun & renovasi rumah, interior mewah, dan hunian heritage di Klojen Malang."
+      },
+      {
+        keyword: "Jasa Bangun Rumah Sukun Malang",
+        location: "Sukun, Kota Malang",
+        position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
+        image: "/seo-google/ks%20contrator/jasa-bangun-rumah-sukun-malang.png",
+        snippet: isEn
+          ? "Securing rank #1 search result for family home building & commercial property construction in Sukun Malang."
+          : "Peringkat #1 Google untuk jasa bangun dan renovasi rumah keluarga serta ruko di wilayah Sukun Malang dengan garansi retensi."
+      },
+      {
         keyword: "Portofolio Proyek KS Contractor Malang",
         location: "Malang, Jawa Timur",
         position: isEn ? "Rank #1 Organic" : "Peringkat #1 Organik",
