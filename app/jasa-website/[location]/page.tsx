@@ -4,7 +4,7 @@ import B2BHero from "@/components/sections/b2b/B2BHero";
 import B2BProblem from "@/components/sections/b2b/B2BProblem";
 import ClientLogos from "@/components/sections/b2b/ClientLogos";
 import WhyChooseUs from "@/components/sections/b2b/WhyChooseUs";
-import ProjectBentoSection from "@/components/sections/ProjectBentoSection";
+import ProjectPortfolioCarousel from "@/components/sections/ProjectPortfolioCarousel";
 import { bentoProjects } from "@/data/projects";
 import { locationData } from "@/data/seo/locations";
 import { getLocalBusinessSchema, getFAQSchema, getBreadcrumbSchema } from "@/lib/schema";
@@ -150,9 +150,7 @@ export default async function LocalSeoPage({ params }: PageProps) {
               Lihat bagaimana kami mentransformasi website klien kami dari berkinerja buruk menjadi penghasil inquiry konversi tinggi.
             </p>
           </div>
-          {bentoProjects.map((project) => (
-            <ProjectBentoSection key={project.id} project={project} />
-          ))}
+          <ProjectPortfolioCarousel projects={bentoProjects} />
         </div>
       </section>
 

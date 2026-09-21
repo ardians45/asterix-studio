@@ -3,7 +3,7 @@ import B2BHero from "@/components/sections/b2b/B2BHero";
 import B2BProblem from "@/components/sections/b2b/B2BProblem";
 import ClientLogos from "@/components/sections/b2b/ClientLogos";
 import WhyChooseUs from "@/components/sections/b2b/WhyChooseUs";
-import ProjectBentoSection from "@/components/sections/ProjectBentoSection";
+import ProjectPortfolioCarousel from "@/components/sections/ProjectPortfolioCarousel";
 import { bentoProjects } from "@/data/projects";
 
 // Deferring heavy client-side sections to reduce initial main-thread work
@@ -24,7 +24,7 @@ export default function Home() {
       {/* Portfolio Showcase Section */}
       <section id="projects" className="py-20 md:py-32 bg-white">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
-          <div className="text-center mb-16 md:mb-24">
+          <div className="text-center mb-16 md:mb-20">
             <p className="text-[10px] md:text-sm font-semibold text-gray-500 uppercase tracking-widest mb-2">Portofolio Kami</p>
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
               Studi Kasus & <span className="text-emerald-600">Sebelum vs Sesudah.</span>
@@ -33,9 +33,7 @@ export default function Home() {
               Lihat bagaimana kami mentransformasi website klien kami dari berkinerja buruk menjadi penghasil inquiry konversi tinggi.
             </p>
           </div>
-          {bentoProjects.map((project) => (
-            <ProjectBentoSection key={project.id} project={project} />
-          ))}
+          <ProjectPortfolioCarousel projects={bentoProjects} />
         </div>
       </section>
 
