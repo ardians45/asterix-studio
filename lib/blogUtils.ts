@@ -121,3 +121,4 @@ export function getCategoryTheme(category: string) {
       };
   }
 }
+

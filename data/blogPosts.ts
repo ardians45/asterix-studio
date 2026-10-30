@@ -152,8 +152,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Sebagian besar kebocoran data terjadi bukan karena kelemahan sistem enkripsi, melainkan manipulasi psikologis manusia. Bagaimana cara mengenali dan mencegah social engineering?",
     "coverImage": "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop",
     "category": "Cyber Security",
-    "author": "Ardian Setiawan",
-    "authorRole": "Cyber Security Enthusiast & Tech Contributor",
+    "author": "Asterix Security Lab",
+    "authorRole": "Cybersecurity Analyst Asterix",
     "publishedAt": "2024-02-14T09:15:00.000Z",
     "readTime": "6 menit",
     "tags": [
@@ -206,8 +206,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Dari era monolitik LAMP stack hingga arsitektur modern berbasis React Server Components. Apa keunggulan arsitektur web modern bagi kecepatan dan keamanan bisnis Anda?",
     "coverImage": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop",
     "category": "Teknologi & IT",
-    "author": "Ardian Setiawan",
-    "authorRole": "Mahasiswa Teknik Informatika, Universitas Pamulang",
+    "author": "Asterix Tech Team",
+    "authorRole": "Frontend Architecture Division",
     "publishedAt": "2024-11-08T08:45:00.000Z",
     "readTime": "8 menit",
     "tags": [
@@ -224,8 +224,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Membentangkan kabel serat optik dan menara BTS belum cukup jika tidak diimbangi dengan edukasi literasi digital bagi masyarakat di pelosok nusantara.",
     "coverImage": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070&auto=format&fit=crop",
     "category": "Etika Digital",
-    "author": "Ardian Setiawan",
-    "authorRole": "Pegiat Literasi Digital & Mahasiswa TI",
+    "author": "Tim Editorial Asterix",
+    "authorRole": "Digital Literacy & Community Advocate",
     "publishedAt": "2025-01-15T13:20:00.000Z",
     "readTime": "6 menit",
     "tags": [
@@ -242,8 +242,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Pernahkah Anda merasa linimasa media sosial Anda hanya berisi orang-orang yang sependapat dengan Anda? Ini bukan kebetulan, melainkan hasil rekayasa algoritma engagement.",
     "coverImage": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop",
     "category": "Etika Digital",
-    "author": "Ardian Setiawan",
-    "authorRole": "Mahasiswa Teknik Informatika, Universitas Pamulang",
+    "author": "Asterix Research",
+    "authorRole": "Data & Society Research Division",
     "publishedAt": "2025-03-03T16:10:00.000Z",
     "readTime": "7 menit",
     "tags": [
@@ -278,8 +278,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Dari kernel Linux yang menggerakkan server dunia hingga library React yang menjadi fondasi web modern, open source membuktikan bahwa kolaborasi melampaui kompetisi.",
     "coverImage": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop",
     "category": "Teknologi & IT",
-    "author": "Ardian Setiawan",
-    "authorRole": "Mahasiswa Teknik Informatika, Universitas Pamulang",
+    "author": "Asterix Tech Team",
+    "authorRole": "Open Source Contributor & Dev",
     "publishedAt": "2025-06-18T14:40:00.000Z",
     "readTime": "6 menit",
     "tags": [
@@ -332,8 +332,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Internet menyumbang sekitar 3.7% dari emisi gas rumah kaca global — setara dengan industri penerbangan dunia. Bagaimana developer dapat berkontribusi pada kelestarian bumi?",
     "coverImage": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2013&auto=format&fit=crop",
     "category": "Fun Fact",
-    "author": "Ardian Setiawan",
-    "authorRole": "Mahasiswa Teknik Informatika, Universitas Pamulang",
+    "author": "Asterix Studio",
+    "authorRole": "Sustainable Web Engineering",
     "publishedAt": "2025-11-17T11:15:00.000Z",
     "readTime": "5 menit",
     "tags": [
@@ -350,8 +350,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Dilema antara efisiensi pengerjaan tugas dan orisinalitas pemikiran. Bagaimana mahasiswa masa kini menyikapi kehadiran AI secara bermartabat?",
     "coverImage": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop",
     "category": "Etika Digital",
-    "author": "Ardian Setiawan",
-    "authorRole": "Mahasiswa Teknik Informatika, Universitas Pamulang",
+    "author": "Tim Editorial Asterix",
+    "authorRole": "Education & AI Policy Analyst",
     "publishedAt": "2026-01-12T08:50:00.000Z",
     "readTime": "7 menit",
     "tags": [
@@ -360,7 +360,7 @@ export const blogPosts: BlogPost[] = [
       "Dunia Perkuliahan",
       "Integritas"
     ],
-    "content": "\n      <p class=\"lead\">Perdebatan seputar kecerdasan buatan generatif di lingkungan perguruan tinggi kian memanas. Sebagian institusi merespons dengan larangan keras karena kekhawatiran plagiarisme instan, sementara sebagian lainnya justru mengintegrasikannya ke dalam proses pembelajaran.</p>\n\n      <h2>AI sebagai Asisten Diskusi, Bukan Pengganti Daya Pikir</h2>\n      <p>Sebagai mahasiswa teknik informatika, saya memandang AI sebagai katalis belajar yang sangat berdaya guna. AI sangat brilian ketika digunakan untuk menjelaskan konsep algoritma yang rumit, memberikan analogi sederhana, mencari referensi sudut pandang awal, atau mengoreksi kesalahan sintaks koding.</p>\n\n      <p>Namun, batas etika menjadi sangat jelas: <strong>AI tidak boleh menggantikan proses berpikir kritis Anda</strong>. Menyalin mentah-mentah esai, makalah, atau laporan skripsi yang dihasilkan oleh AI tanpa pemahaman dan verifikasi data adalah bentuk pengkhianatan terhadap tujuan hakiki dari pendidikan tinggi itu sendiri.</p>\n\n      <h2>Prinsip Integritas Mahasiswa Modern</h2>\n      <ul>\n        <li><strong>Transparansi Akademik:</strong> Nyatakan secara jujur jika Anda menggunakan perkakas AI dalam membantu merumuskan outline atau proofreading naskah.</li>\n        <li><strong>Verifikasi Sumber Primer:</strong> AI kerap mengarang sitasi fiktif. Selalu lacak jurnal asli di Google Scholar, IEEE, atau Scopus.</li>\n        <li><strong>Asah Keterampilan yang Tak Dimiliki Mesin:</strong> Empati, kreativitas intuitif, kearifan etis, dan kepemimpinan sosial adalah kualitas manusiawi yang tidak akan pernah bisa diotomatisasi oleh algoritma komputasi apa pun.</li>\n      </ul>\n    "
+    "content": "\n      <p class=\"lead\">Perdebatan seputar kecerdasan buatan generatif di lingkungan perguruan tinggi kian memanas. Sebagian institusi merespons dengan larangan keras karena kekhawatiran plagiarisme instan, sementara sebagian lainnya justru mengintegrasikannya ke dalam proses pembelajaran.</p>\n\n      <h2>AI sebagai Asisten Diskusi, Bukan Pengganti Daya Pikir</h2>\n      <p>Dalam ekosistem akademik dan teknologi informasi modern, AI dipandang sebagai katalis belajar yang sangat berdaya guna. AI sangat brilian ketika digunakan untuk menjelaskan konsep algoritma yang rumit, memberikan analogi sederhana, mencari referensi sudut pandang awal, atau mengoreksi kesalahan sintaks koding.</p>\n\n      <p>Namun, batas etika menjadi sangat jelas: <strong>AI tidak boleh menggantikan proses berpikir kritis Anda</strong>. Menyalin mentah-mentah esai, makalah, atau laporan skripsi yang dihasilkan oleh AI tanpa pemahaman dan verifikasi data adalah bentuk pengkhianatan terhadap tujuan hakiki dari pendidikan tinggi itu sendiri.</p>\n\n      <h2>Prinsip Integritas Mahasiswa Modern</h2>\n      <ul>\n        <li><strong>Transparansi Akademik:</strong> Nyatakan secara jujur jika Anda menggunakan perkakas AI dalam membantu merumuskan outline atau proofreading naskah.</li>\n        <li><strong>Verifikasi Sumber Primer:</strong> AI kerap mengarang sitasi fiktif. Selalu lacak jurnal asli di Google Scholar, IEEE, atau Scopus.</li>\n        <li><strong>Asah Keterampilan yang Tak Dimiliki Mesin:</strong> Empati, kreativitas intuitif, kearifan etis, dan kepemimpinan sosial adalah kualitas manusiawi yang tidak akan pernah bisa diotomatisasi oleh algoritma komputasi apa pun.</li>\n      </ul>\n    "
   },
   {
     "slug": "panduan-aksesibilitas-web-wcag-inklusif",
@@ -404,8 +404,8 @@ export const blogPosts: BlogPost[] = [
     "excerpt": "Mengapa kita sulit berhenti men-scroll kabar buruk di malam hari? Pelajari dampak biologis dopamine loop dan langkah praktis memulihkan kedamaian pikiran.",
     "coverImage": "https://images.unsplash.com/photo-1508847154043-be5407fcaa5a?q=80&w=2070&auto=format&fit=crop",
     "category": "Etika Digital",
-    "author": "Ardian Setiawan",
-    "authorRole": "Mahasiswa Teknik Informatika, Universitas Pamulang",
+    "author": "Asterix Studio",
+    "authorRole": "Digital Wellbeing & Culture",
     "publishedAt": "2026-04-01T16:00:00.000Z",
     "readTime": "6 menit",
     "tags": [
