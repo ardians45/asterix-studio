@@ -4,12 +4,23 @@ import { blogPosts } from "../data/blogPosts";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("Seeding blog posts...");
+  console.log("Syncing all 22 blog posts to SQLite database...");
 
   for (const post of blogPosts) {
+    const pubDate = new Date(post.publishedAt);
     await prisma.post.upsert({
       where: { slug: post.slug },
-      update: {},
+      update: {
+        title: post.title,
+        excerpt: post.excerpt,
+        content: post.content,
+        coverImage: post.coverImage,
+        category: post.category,
+        author: post.author,
+        readTime: post.readTime,
+        publishedAt: isNaN(pubDate.getTime()) ? new Date() : pubDate,
+        isPublished: true,
+      },
       create: {
         slug: post.slug,
         title: post.title,
@@ -19,13 +30,14 @@ async function main() {
         category: post.category,
         author: post.author,
         readTime: post.readTime,
-        publishedAt: new Date(),
+        publishedAt: isNaN(pubDate.getTime()) ? new Date() : pubDate,
         isPublished: true,
       },
     });
   }
 
-  console.log("Seed finished!");
+  const count = await prisma.post.count();
+  console.log(`Sync complete! Total posts in database: ${count}`);
 }
 
 main()

@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import prisma from '@/lib/prisma'
 import { servicesSEOMeta } from '@/data/seo/services'
 import { locationData } from '@/data/seo/locations'
+import { blogPosts } from '@/data/blogPosts'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.asterixstudio.site'
@@ -14,14 +15,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       select: { slug: true, publishedAt: true }
     })
 
-    postEntries = posts.map((post) => ({
+    if (posts.length > 0) {
+      postEntries = posts.map((post) => ({
+        url: `${baseUrl}/blog/${post.slug}`,
+        lastModified: post.publishedAt,
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }))
+    }
+  } catch (error) {
+    console.error('Sitemap: Error fetching posts from DB, using fallback', error)
+  }
+
+  // Fallback to static blogPosts if DB returned empty or failed
+  if (postEntries.length === 0) {
+    postEntries = blogPosts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: post.publishedAt,
+      lastModified: new Date(post.publishedAt),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }))
-  } catch (error) {
-    console.error('Sitemap: Error fetching posts', error)
   }
 
   // Static routes

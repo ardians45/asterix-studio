@@ -12,15 +12,26 @@ export async function GET(
     
     // 1. Check local data first for guaranteed starter content
     const localPost = blogPosts.find(p => p.slug.toLowerCase() === slug);
-    if (localPost) return NextResponse.json(localPost);
+    if (localPost) {
+      return NextResponse.json({
+        ...localPost,
+        authorRole: localPost.authorRole || (localPost.author === "Ardian Setiawan" ? "Mahasiswa Teknik Informatika, Universitas Pamulang" : "Asterix Studio Agency")
+      });
+    }
 
     // 2. Fallback to DB for user-generated content
     try {
       if (prisma && (prisma as any).post) {
         const dbPost = await prisma.post.findUnique({
-          where: { slug: resolvedParams.slug }, // Use original case for DB
+          where: { slug: resolvedParams.slug },
         });
-        if (dbPost) return NextResponse.json(dbPost);
+        if (dbPost) {
+          return NextResponse.json({
+            ...dbPost,
+            authorRole: dbPost.author === "Ardian Setiawan" ? "Mahasiswa Teknik Informatika, Universitas Pamulang" : "Asterix Studio Agency",
+            tags: [],
+          });
+        }
       }
     } catch (dbError) {
       console.warn("Database matching failed, continuing with local fallback logic.");

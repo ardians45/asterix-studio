@@ -12,17 +12,38 @@ export async function GET() {
         orderBy: { publishedAt: "desc" },
       });
 
-      // If DB is empty, auto-seed with professional posts
-      if (dbPosts.length === 0) {
-        console.log("Seeding starter posts to DB...");
-        const seedData = blogPosts.map(post => ({
-          ...post,
-          publishedAt: new Date(), // Convert string to Date for Prisma
-        }));
-        
-        await prisma.post.createMany({
-          data: seedData as any
-        });
+      // If DB has fewer posts than static blogPosts, sync with blogPosts
+      if (dbPosts.length < blogPosts.length) {
+        console.log("Syncing database with starter posts...");
+        for (const post of blogPosts) {
+          const pubDate = new Date(post.publishedAt);
+          await prisma.post.upsert({
+            where: { slug: post.slug },
+            update: {
+              title: post.title,
+              excerpt: post.excerpt,
+              content: post.content,
+              coverImage: post.coverImage,
+              category: post.category,
+              author: post.author,
+              readTime: post.readTime,
+              publishedAt: isNaN(pubDate.getTime()) ? new Date() : pubDate,
+              isPublished: true,
+            },
+            create: {
+              slug: post.slug,
+              title: post.title,
+              excerpt: post.excerpt,
+              content: post.content,
+              coverImage: post.coverImage,
+              category: post.category,
+              author: post.author,
+              readTime: post.readTime,
+              publishedAt: isNaN(pubDate.getTime()) ? new Date() : pubDate,
+              isPublished: true,
+            },
+          });
+        }
 
         dbPosts = await prisma.post.findMany({
           orderBy: { publishedAt: "desc" },
@@ -31,11 +52,24 @@ export async function GET() {
     }
   } catch (error) {
     console.error("Prisma error, falling back to local data:", error);
-    // Fallback to local data if DB fails completely
-    return NextResponse.json(blogPosts.map(p => ({ ...p, id: p.slug })));
+    // Sort local data descending by date
+    const sortedLocal = [...blogPosts].sort(
+      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    );
+    return NextResponse.json(sortedLocal.map(p => ({ ...p, id: p.slug })));
   }
 
-  return NextResponse.json(dbPosts);
+  // Merge extra metadata (tags, authorRole) from static data
+  const enrichedPosts = (dbPosts.length > 0 ? dbPosts : blogPosts).map((p: any) => {
+    const local = blogPosts.find(lp => lp.slug === p.slug);
+    return {
+      ...p,
+      tags: local?.tags || [],
+      authorRole: local?.authorRole || (p.author === "Ardian Setiawan" ? "Mahasiswa Teknik Informatika, Universitas Pamulang" : "Asterix Studio Agency"),
+    };
+  });
+
+  return NextResponse.json(enrichedPosts);
 }
 
 export async function POST(req: Request) {
