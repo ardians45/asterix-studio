@@ -852,6 +852,8 @@ export default function DomeGallery({
                     <img
                       src={it.src}
                       draggable={false}
+                      loading="lazy"
+                      decoding="async"
                       alt={it.alt}
                       className="w-full h-full object-cover pointer-events-none"
                       style={{
@@ -877,7 +879,10 @@ export default function DomeGallery({
             style={{
               WebkitMaskImage: `radial-gradient(rgba(235, 235, 235, 0) 70%, var(--overlay-blur-color, ${overlayBlurColor}) 90%)`,
               maskImage: `radial-gradient(rgba(235, 235, 235, 0) 70%, var(--overlay-blur-color, ${overlayBlurColor}) 90%)`,
-              backdropFilter: 'blur(3px)'
+              // A full-screen backdrop blur over 175 3D tiles is re-rasterised on every drag/scroll
+              // frame; a soft tint gives the same edge falloff for a fraction of the cost.
+              background: `var(--overlay-blur-color, ${overlayBlurColor})`,
+              opacity: 0.35
             }}
           />
 

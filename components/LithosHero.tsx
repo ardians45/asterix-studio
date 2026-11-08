@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useScroll, useTransform, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
+// Hero artwork is served through next/image so it gets resized + converted to AVIF/WebP
+// (the raw files are ~5.5 MB of JPG/PNG when loaded as CSS backgrounds).
 const BG_IMAGE_1 = "/kapal-mural-1.jpg";
 const BG_IMAGE_2 = "/kapal-mural-1-metalix.jpeg";
 const BG_PARALLAX_SKY = "/sky-dan-ombak-bawah.jpeg";
@@ -14,128 +17,67 @@ const PNG_CLOUDS_TOP = "/sky-atas-no-bg.png";
 
 const SPOTLIGHT_R = 260;
 
-interface RevealLayerProps {
-  image: string;
-  cursorX: number;
-  cursorY: number;
-}
+// Same falloff as the old canvas gradient, but done natively by the compositor via a CSS mask.
+// Cursor position is pushed through CSS variables, so moving the mouse never re-renders React.
+const SPOTLIGHT_MASK = `radial-gradient(circle ${SPOTLIGHT_R}px at var(--spot-x, -999px) var(--spot-y, -999px), #000 0%, #000 40%, rgba(0,0,0,0.75) 60%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0.12) 88%, transparent 100%)`;
 
-function RevealLayer({ image, cursorX, cursorY }: RevealLayerProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const revealDivRef = useRef<HTMLDivElement | null>(null);
+const REVEAL_QUERY = "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)";
+const subscribeReveal = (cb: () => void) => {
+  const mq = window.matchMedia(REVEAL_QUERY);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const getRevealSnapshot = () => window.matchMedia(REVEAL_QUERY).matches;
+const getRevealServerSnapshot = () => false;
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const revealDiv = revealDivRef.current;
-    if (!canvas || !revealDiv) return;
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    ctx.clearRect(0, 0, width, height);
-
-    if (cursorX >= 0 && cursorY >= 0) {
-      const grad = ctx.createRadialGradient(
-        cursorX,
-        cursorY,
-        0,
-        cursorX,
-        cursorY,
-        SPOTLIGHT_R
-      );
-      grad.addColorStop(0, "rgba(255, 255, 255, 1)");
-      grad.addColorStop(0.4, "rgba(255, 255, 255, 1)");
-      grad.addColorStop(0.6, "rgba(255, 255, 255, 0.75)");
-      grad.addColorStop(0.75, "rgba(255, 255, 255, 0.4)");
-      grad.addColorStop(0.88, "rgba(255, 255, 255, 0.12)");
-      grad.addColorStop(1, "rgba(255, 255, 255, 0)");
-
-      ctx.beginPath();
-      ctx.arc(cursorX, cursorY, SPOTLIGHT_R, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      const maskDataUrl = canvas.toDataURL();
-      revealDiv.style.maskImage = `url("${maskDataUrl}")`;
-      revealDiv.style.webkitMaskImage = `url("${maskDataUrl}")`;
-      revealDiv.style.maskSize = "100% 100%";
-      revealDiv.style.webkitMaskSize = "100% 100%";
-    }
-  }, [cursorX, cursorY]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (canvasRef.current) {
-        canvasRef.current.width = window.innerWidth;
-        canvasRef.current.height = window.innerHeight;
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return (
-    <>
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none"
-        style={{ display: "none" }}
-      />
-      <div
-        ref={revealDivRef}
-        className="absolute inset-0 bg-center bg-cover bg-no-repeat z-30 pointer-events-none"
-        style={{ backgroundImage: `url(${image})` }}
-      />
-    </>
-  );
-}
+const NAV_ITEMS = [
+  { name: "About", id: "about", href: "#about" },
+  { name: "Skills", id: "skills", href: "#skills" },
+  { name: "Certificates", id: "certificates", href: "#certificates" },
+  { name: "Projects", id: "projects", href: "#projects" },
+  { name: "Achievements", id: "achievement", href: "#achievement" },
+];
 
 export default function LithosHero() {
-  // Mouse tracking & smooth lerp
-  const mouse = useRef({ x: -999, y: -999 });
-  const smooth = useRef({ x: -999, y: -999 });
-  const rafRef = useRef<number | null>(null);
-  const [cursorPos, setCursorPos] = useState({ x: -999, y: -999 });
+  const heroRef = useRef<HTMLElement | null>(null);
+  const revealRef = useRef<HTMLDivElement | null>(null);
+  // Spotlight only makes sense with a real mouse (and is skipped for reduced-motion users)
+  const enableReveal = useSyncExternalStore(subscribeReveal, getRevealSnapshot, getRevealServerSnapshot);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [isLightHeader, setIsLightHeader] = useState(false);
 
   useEffect(() => {
-    const handleScrollObserver = () => {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
       const triggerPoint = window.innerHeight * 0.45;
       const sectionIds = ["achievement", "projects", "certificates", "skills", "about"];
-      
+
       for (const id of sectionIds) {
         const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= triggerPoint) {
-            setActiveSection(id);
-            break;
-          }
+        if (element && element.getBoundingClientRect().top <= triggerPoint) {
+          setActiveSection(id);
+          break;
         }
       }
 
-      // Check header light mode threshold (when scrolled past hero voyage to #skills)
-      const skillsElem = document.getElementById("skills");
-      if (skillsElem) {
-        const top = skillsElem.getBoundingClientRect().top;
-        if (top <= 120) {
-          setIsLightHeader(true);
-        } else {
-          setIsLightHeader(false);
-        }
+      // Everything after the hero (cloud voyage + alabaster sections) is light, so switch the
+      // header to light mode as soon as the hero has scrolled out from under it.
+      const hero = heroRef.current;
+      if (hero) {
+        setIsLightHeader(hero.getBoundingClientRect().bottom <= 80);
       }
     };
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
 
-    window.addEventListener("scroll", handleScrollObserver, { passive: true });
-    handleScrollObserver();
-    return () => window.removeEventListener("scroll", handleScrollObserver);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Section 2 Parallax Scroll Target
@@ -144,6 +86,18 @@ export default function LithosHero() {
     target: targetRef,
     offset: ["start start", "end end"],
   });
+
+  // "About" lives inside the sticky parallax stage (fully shown between ~68% and ~92% progress),
+  // so a plain anchor jump lands on an invisible card. Scroll to where it is fully shown instead.
+  const scrollToSection = (id: string) => {
+    if (id === "about" && targetRef.current) {
+      const section = targetRef.current;
+      const top = section.offsetTop + (section.offsetHeight - window.innerHeight) * 0.78;
+      window.scrollTo({ top, behavior: "smooth" });
+      return;
+    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   // Parallax Layer Transformations (Ship voyage completes first: 0.0 -> 0.55)
   const skyScale = useTransform(scrollYProgress, [0, 0.55], [1, 1.15]);
@@ -163,33 +117,66 @@ export default function LithosHero() {
   const textOpacity = useTransform(scrollYProgress, [0.55, 0.68, 0.92, 0.98], [0, 1, 1, 0]);
   const textY = useTransform(scrollYProgress, [0.55, 0.68], [60, 0]);
 
+  // Spotlight reveal: only on devices with a real mouse, and only while the hero is on screen.
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.current = { x: e.clientX, y: e.clientY };
-    };
-    window.addEventListener("mousemove", handleMouseMove);
+    if (!enableReveal) return;
 
-    const animate = () => {
-      if (mouse.current.x !== -999 && mouse.current.y !== -999) {
-        if (smooth.current.x === -999) {
-          smooth.current.x = mouse.current.x;
-          smooth.current.y = mouse.current.y;
-        } else {
-          smooth.current.x += (mouse.current.x - smooth.current.x) * 0.1;
-          smooth.current.y += (mouse.current.y - smooth.current.y) * 0.1;
-        }
-        setCursorPos({ x: smooth.current.x, y: smooth.current.y });
+    const hero = heroRef.current;
+    if (!hero) return;
+
+    const target = { x: -999, y: -999 };
+    const smooth = { x: -999, y: -999 };
+    let raf: number | null = null;
+    let heroVisible = true;
+
+    const paint = () => {
+      const el = revealRef.current;
+      if (!el) return;
+      el.style.setProperty("--spot-x", `${smooth.x}px`);
+      el.style.setProperty("--spot-y", `${smooth.y}px`);
+    };
+
+    const step = () => {
+      if (smooth.x === -999) {
+        smooth.x = target.x;
+        smooth.y = target.y;
+      } else {
+        smooth.x += (target.x - smooth.x) * 0.1;
+        smooth.y += (target.y - smooth.y) * 0.1;
       }
-      rafRef.current = requestAnimationFrame(animate);
+      paint();
+      // Stop the loop once the spotlight has caught up with the cursor
+      if (Math.abs(target.x - smooth.x) < 0.3 && Math.abs(target.y - smooth.y) < 0.3) {
+        raf = null;
+        return;
+      }
+      raf = requestAnimationFrame(step);
     };
 
-    rafRef.current = requestAnimationFrame(animate);
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!heroVisible) return;
+      const rect = hero.getBoundingClientRect();
+      target.x = e.clientX - rect.left;
+      target.y = e.clientY - rect.top;
+      if (raf === null) raf = requestAnimationFrame(step);
+    };
 
+    const io = new IntersectionObserver(([entry]) => {
+      heroVisible = entry.isIntersecting;
+      if (!heroVisible && raf !== null) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+    });
+    io.observe(hero);
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      io.disconnect();
+      if (raf !== null) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [enableReveal]);
 
   return (
     <div
@@ -202,7 +189,7 @@ export default function LithosHero() {
           ? "bg-[#F5F4F0]/85 backdrop-blur-xl border-b border-gray-300/80 shadow-sm" 
           : "bg-transparent"
       }`}>
-        <a href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <Image 
             src={isLightHeader ? "/logo-black.svg" : "/logo-white.svg"} 
             alt="Asterix Studio Logo" 
@@ -216,7 +203,7 @@ export default function LithosHero() {
           }`}>
             Portfolio
           </span>
-        </a>
+        </Link>
 
         {/* Center Pill */}
         <div className={`hidden md:flex absolute left-1/2 -translate-x-1/2 rounded-full px-2 py-2 items-center gap-1 transition-all duration-300 ${
@@ -224,13 +211,7 @@ export default function LithosHero() {
             ? "bg-gray-200/90 backdrop-blur-md border border-gray-300 shadow-inner"
             : "bg-white/20 backdrop-blur-md border border-white/30"
         }`}>
-          {[
-            { name: "About", id: "about", href: "#about" },
-            { name: "Skills", id: "skills", href: "#skills" },
-            { name: "Certificates", id: "certificates", href: "#certificates" },
-            { name: "Projects", id: "projects", href: "#projects" },
-            { name: "Achievements", id: "achievement", href: "#achievement" },
-          ].map((item) => {
+          {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
@@ -239,15 +220,7 @@ export default function LithosHero() {
                 onClick={(e) => {
                   e.preventDefault();
                   setActiveSection(item.id);
-                  if (item.id === "about" && targetRef.current) {
-                    const top = targetRef.current.offsetTop + targetRef.current.offsetHeight * 0.7;
-                    window.scrollTo({ top, behavior: "smooth" });
-                  } else {
-                    const el = document.getElementById(item.id);
-                    if (el) {
-                      el.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }
+                  scrollToSection(item.id);
                 }}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
                   isActive
@@ -270,8 +243,7 @@ export default function LithosHero() {
           href="#footer"
           onClick={(e) => {
             e.preventDefault();
-            const el = document.getElementById("footer");
-            if (el) el.scrollIntoView({ behavior: "smooth" });
+            scrollToSection("footer");
           }}
           className={`hidden md:block text-sm font-semibold px-6 py-2.5 rounded-full transition-all shadow-sm ${
             isLightHeader 
@@ -300,13 +272,7 @@ export default function LithosHero() {
               ? "bg-[#F5F4F0]/95 border-gray-300 text-gray-900"
               : "bg-black/90 border-white/20 text-white"
           }`}>
-            {[
-              { name: "About", id: "about", href: "#about" },
-              { name: "Skills", id: "skills", href: "#skills" },
-              { name: "Certificates", id: "certificates", href: "#certificates" },
-              { name: "Projects", id: "projects", href: "#projects" },
-              { name: "Achievements", id: "achievement", href: "#achievement" },
-            ].map((item) => (
+            {NAV_ITEMS.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
@@ -314,13 +280,7 @@ export default function LithosHero() {
                   e.preventDefault();
                   setMobileMenuOpen(false);
                   setActiveSection(item.id);
-                  if (item.id === "about" && targetRef.current) {
-                    const top = targetRef.current.offsetTop + targetRef.current.offsetHeight * 0.7;
-                    window.scrollTo({ top, behavior: "smooth" });
-                  } else {
-                    const el = document.getElementById(item.id);
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }
+                  scrollToSection(item.id);
                 }}
                 className={`px-4 py-2 rounded-xl text-sm font-medium text-left transition-colors ${
                   activeSection === item.id
@@ -335,11 +295,17 @@ export default function LithosHero() {
                 {item.name}
               </a>
             ))}
-            <div className="pt-2 border-t border-white/10">
+            <div className={`pt-2 border-t ${isLightHeader ? "border-gray-300" : "border-white/10"}`}>
               <a
                 href="#footer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block text-center w-full bg-white text-gray-900 text-sm font-semibold px-4 py-2.5 rounded-xl hover:bg-gray-100 transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  scrollToSection("footer");
+                }}
+                className={`block text-center w-full text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors ${
+                  isLightHeader ? "bg-gray-900 text-white hover:bg-gray-800" : "bg-white text-gray-900 hover:bg-gray-100"
+                }`}
               >
                 Contact Me
               </a>
@@ -350,21 +316,45 @@ export default function LithosHero() {
 
       {/* SECTION 1: HERO SECTION (Spotlight Reveal) */}
       <section
+        ref={heroRef}
         className="relative w-full overflow-hidden h-screen bg-black"
         style={{ height: "100dvh" }}
       >
-        {/* 1. Base Image (z-10) */}
-        <div
-          className="absolute inset-0 bg-center bg-cover bg-no-repeat hero-zoom z-10"
-          style={{ backgroundImage: `url(${BG_IMAGE_1})` }}
-        />
+        {/* 1. Base Image (z-10) — LCP image, loaded with priority */}
+        <div className="absolute inset-0 hero-zoom z-10">
+          <Image
+            src={BG_IMAGE_1}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+           
+            className="object-cover object-center"
+          />
+        </div>
 
-        {/* 2. Reveal Layer (z-30) */}
-        <RevealLayer
-          image={BG_IMAGE_2}
-          cursorX={cursorPos.x}
-          cursorY={cursorPos.y}
-        />
+        {/* 2. Reveal Layer (z-30) — metallic version shown through a cursor spotlight (desktop only) */}
+        {enableReveal && (
+          <div
+            ref={revealRef}
+            className="absolute inset-0 z-30 pointer-events-none"
+            style={{ maskImage: SPOTLIGHT_MASK, WebkitMaskImage: SPOTLIGHT_MASK }}
+            aria-hidden="true"
+          >
+            <Image
+              src={BG_IMAGE_2}
+              alt=""
+              fill
+              sizes="100vw"
+             
+              className="object-cover object-center"
+            />
+          </div>
+        )}
+
+        {/* Legibility scrims: the light mural made the white copy hard to read */}
+        <div className="absolute inset-x-0 top-0 h-[55%] bg-gradient-to-b from-black/35 via-black/10 to-transparent pointer-events-none z-[35]" />
+        <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black/55 via-black/20 to-transparent pointer-events-none z-[35]" />
 
         {/* 3. Heading (z-50) */}
         <div className="absolute top-[14%] left-0 right-0 flex flex-col items-center text-center px-5 pointer-events-none z-50">
@@ -386,7 +376,7 @@ export default function LithosHero() {
 
         {/* 4. Bottom-left paragraph (z-50) */}
         <div
-          className="hidden sm:block absolute bottom-14 left-10 md:left-14 max-w-[320px] z-50 hero-anim hero-fade"
+          className="hidden sm:block absolute bottom-32 left-10 md:left-14 max-w-[320px] z-50 hero-anim hero-fade"
           style={{ animationDelay: "0.7s" }}
         >
           <p className="text-sm text-white/95 leading-relaxed font-medium" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.7)" }}>
@@ -396,13 +386,19 @@ export default function LithosHero() {
 
         {/* 5. Bottom-right block (z-50) */}
         <div
-          className="absolute bottom-10 sm:bottom-24 left-5 right-5 sm:left-auto sm:right-10 md:right-14 max-w-full sm:max-w-[280px] flex flex-col items-start gap-4 sm:gap-5 z-50 hero-anim hero-fade"
+          className="absolute bottom-20 sm:bottom-32 left-5 right-5 sm:left-auto sm:right-10 md:right-14 max-w-full sm:max-w-[280px] flex flex-col items-start gap-4 sm:gap-5 z-50 hero-anim hero-fade"
           style={{ animationDelay: "0.85s" }}
         >
           <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-medium" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.7)" }}>
             Scroll down to explore my background, technical expertise, and featured works.
           </p>
-          <a href="#about" className="bg-[#e8702a] hover:bg-[#d2611f] text-white text-sm font-semibold px-7 py-3 rounded-full transition-all hover:scale-[1.03] active:scale-95 hover:shadow-lg hover:shadow-[#e8702a]/30">
+          <a
+            href="#about"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("about");
+            }}
+            className="bg-[#e8702a] hover:bg-[#d2611f] text-white text-sm font-semibold px-7 py-3 rounded-full transition-all hover:scale-[1.03] active:scale-95 hover:shadow-lg hover:shadow-[#e8702a]/30">
             Explore Portfolio
           </a>
         </div>
@@ -422,54 +418,52 @@ export default function LithosHero() {
 
           {/* Layer 1: Background Sky & Sea (z-10) */}
           <m.div
-            className="absolute inset-0 bg-cover bg-center z-10"
-            style={{
-              backgroundImage: `url(${BG_PARALLAX_SKY})`,
-              scale: skyScale,
-              opacity: skyOpacity,
-            }}
-          />
+            className="absolute inset-0 z-10 will-change-transform"
+            style={{ scale: skyScale, opacity: skyOpacity }}
+          >
+            <Image src={BG_PARALLAX_SKY} alt="" fill sizes="100vw" className="object-cover object-center" />
+          </m.div>
 
           {/* Layer 1.5: Top Clouds Layer (z-15) */}
           <m.div
-            className="absolute -top-12 sm:-top-20 left-0 right-0 h-[90vh] sm:h-[100vh] bg-cover bg-top bg-no-repeat pointer-events-none z-15"
-            style={{
-              backgroundImage: `url(${PNG_CLOUDS_TOP})`,
-              scale: cloudsScale,
-              y: cloudsY,
-            }}
-          />
+            className="absolute -top-12 sm:-top-20 left-0 right-0 h-[90vh] sm:h-[100vh] pointer-events-none z-15 will-change-transform"
+            style={{ scale: cloudsScale, y: cloudsY }}
+          >
+            <Image src={PNG_CLOUDS_TOP} alt="" fill sizes="100vw" className="object-cover object-top" />
+          </m.div>
 
           {/* Layer 2: Ship Layer (z-20) */}
           <m.div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none z-20 will-change-transform"
             style={{
               scale: shipScale,
               rotate: shipRotate,
               y: shipY,
             }}
           >
-            <img
+            <Image
               src={PNG_SHIP}
-              alt="Lithos Voyage Vessel"
-              className="max-h-[70vh] object-contain drop-shadow-2xl"
+              alt="Sailing ship sculpture"
+              width={1376}
+              height={768}
+              sizes="(min-width: 1024px) 80vw, 100vw"
+             
+              className="w-auto max-h-[70vh] object-contain drop-shadow-2xl"
             />
           </m.div>
 
           {/* Layer 3: Foreground Waves Layer (z-30) */}
           <m.div
-            className="absolute bottom-0 left-0 right-0 h-[55vh] sm:h-[65vh] bg-cover bg-top pointer-events-none z-30 drop-shadow-2xl"
-            style={{
-              backgroundImage: `url(${JPG_WAVES_FG})`,
-              scale: wavesScale,
-              y: wavesY,
-            }}
-          />
+            className="absolute bottom-0 left-0 right-0 h-[55vh] sm:h-[65vh] pointer-events-none z-30 will-change-transform"
+            style={{ scale: wavesScale, y: wavesY }}
+          >
+            <Image src={JPG_WAVES_FG} alt="" fill sizes="100vw" className="object-cover object-top" />
+          </m.div>
 
           {/* Layer 4: Complete Floating About Card Overlay over Ship (z-45) */}
           <m.div
             id="about"
-            className="absolute z-45 w-[94%] sm:w-[88%] max-w-5xl px-6 py-6 sm:px-10 sm:py-10 bg-[#18181b]/55 backdrop-blur-3xl border border-white/30 border-t-white/50 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] pointer-events-auto overflow-hidden group"
+            className="absolute z-45 w-[94%] sm:w-[88%] max-w-5xl px-6 py-6 sm:px-10 sm:py-10 bg-[#18181b]/70 backdrop-blur-lg border border-white/30 border-t-white/50 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] pointer-events-auto overflow-hidden group"
             style={{
               opacity: textOpacity,
               y: textY,
@@ -490,6 +484,7 @@ export default function LithosHero() {
                     src="/profile.webp"
                     alt="Ardian Setiawan"
                     fill
+                    sizes="(min-width: 768px) 300px, 90vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />

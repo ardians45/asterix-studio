@@ -1,10 +1,11 @@
 "use client";
 
 import dynamic from 'next/dynamic';
+import { useEffect, useRef, useState } from 'react';
 
 const DomeGallery = dynamic(() => import('./DomeGallery'), {
   ssr: false,
-  loading: () => <div className="w-full h-full flex items-center justify-center text-white/20 font-mono text-xs uppercase tracking-widest">Loading Gallery Module...</div>
+  loading: () => <div className="w-full h-full flex items-center justify-center text-gray-400 font-mono text-xs uppercase tracking-widest">Loading gallery…</div>
 });
 
 const certificates = [
@@ -113,8 +114,28 @@ const certificates = [
 ];
 
 export default function Certificates() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [shouldMount, setShouldMount] = useState(false);
+
+  // The 3D dome renders ~175 tiles; don't download/build it until the section is close to the viewport.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldMount(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <section id="certificates" className="py-20 h-screen relative bg-[#F5F4F0] overflow-hidden flex flex-col items-center justify-center">
+    <section ref={sectionRef} id="certificates" className="py-20 h-screen relative bg-[#F5F4F0] overflow-hidden flex flex-col items-center justify-center">
        {/* Ambient Background Depth */}
        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(232,112,42,0.08)_0%,transparent_70%)]" />
        
@@ -126,7 +147,7 @@ export default function Certificates() {
        </div>
 
        <div className="w-full h-full relative z-1">
-            <DomeGallery 
+            {shouldMount && <DomeGallery
                 images={certificates} 
                 fit={1.2} 
                 minRadius={1200} // Larger radius = less dramatic curve, more elegant
@@ -134,8 +155,8 @@ export default function Certificates() {
                 overlayBlurColor="#F5F4F0"
                 openedImageWidth="85vw"
                 openedImageHeight="65vh"
-                grayscale={false} 
-            />
+                grayscale={false}
+            />}
        </div>
     </section>
   );

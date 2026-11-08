@@ -84,7 +84,7 @@ export default function Skills() {
                                 whileHover={{ scale: 1.06, y: -4, boxShadow: "0 10px 25px -5px rgba(232, 112, 42, 0.15)" }}
                                 transition={{ type: "spring", stiffness: 350, damping: 20, delay: idx * 0.03 }}
                                 viewport={{ once: true }}
-                                className="group flex items-center gap-3 px-5 py-3 rounded-full border border-gray-200 bg-white shadow-sm hover:border-[#e8702a] hover:bg-[#FAF9F5] transition-all cursor-pointer"
+                                className="group flex items-center gap-3 px-5 py-3 rounded-full border border-gray-200 bg-white shadow-sm hover:border-[#e8702a] hover:bg-[#FAF9F5] transition-colors cursor-default"
                             >
                                 <div className="text-xl transition-transform duration-300 opacity-90 group-hover:opacity-100 group-hover:scale-115">
                                     {skill.icon}

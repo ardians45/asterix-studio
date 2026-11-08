@@ -429,7 +429,6 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
                         fill
                         className="object-contain"
                         sizes="(max-width: 640px) 340px, (max-width: 1024px) 550px, 650px"
-                        priority
                       />
                     </m.div>
                   </AnimatePresence>
