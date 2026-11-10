@@ -86,21 +86,30 @@ export default function LithosHero() {
   // Section 2 Parallax Scroll Target
   const targetRef = useRef<HTMLDivElement | null>(null);
 
-  // The voyage stage sits just below the fold, but Chrome still counted its (lazy) cloud layer
-  // as the Largest Contentful Paint on phones (LCP 3.5s). Keep the stage unpainted until the
-  // section actually enters the viewport; its images are still fetched ahead by native lazy loading.
+  // The voyage stage sits just below the fold, but Chrome counted its (lazy) cloud layer as the
+  // Largest Contentful Paint on phones (the full-screen hero image is treated as a background
+  // and skipped), so LCP waited ~2.5s on a lazy image. Paint the stage only after the first
+  // scroll: LCP stops being recorded at the first user input, and the stage's images are still
+  // fetched ahead by native lazy loading, so nothing pops in.
   const [voyageShown, setVoyageShown] = useState(false);
   useEffect(() => {
-    const el = targetRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setVoyageShown(true);
-        io.disconnect();
-      }
-    });
-    io.observe(el);
-    return () => io.disconnect();
+    const show = () => setVoyageShown(true);
+    if (window.scrollY > 0) {
+      // page opened mid-way (restored scroll / anchor): show on the next frame
+      const id = requestAnimationFrame(show);
+      return () => cancelAnimationFrame(id);
+    }
+    const opts = { once: true, passive: true } as const;
+    window.addEventListener("scroll", show, opts);
+    window.addEventListener("wheel", show, opts);
+    window.addEventListener("touchstart", show, opts);
+    window.addEventListener("keydown", show, { once: true });
+    return () => {
+      window.removeEventListener("scroll", show);
+      window.removeEventListener("wheel", show);
+      window.removeEventListener("touchstart", show);
+      window.removeEventListener("keydown", show);
+    };
   }, []);
   const { scrollYProgress } = useScroll({
     target: targetRef,
