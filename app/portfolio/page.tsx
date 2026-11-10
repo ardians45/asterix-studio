@@ -7,6 +7,7 @@ import Projects from "@/components/Projects";
 import SeoProofsSection from "@/components/sections/b2b/SeoProofsSection";
 import Achievement from "@/components/Achievement";
 import Footer from "@/components/Footer";
+import RevealObserver from "@/components/motion/RevealObserver";
 
 const title = "Portfolio Ardian Setiawan | UI/UX Designer & Web Developer";
 const description =
@@ -29,7 +30,8 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <main className="bg-black text-white selection:bg-[#e8702a] selection:text-white">
+    <main data-portfolio-page className="bg-black text-white selection:bg-[#e8702a] selection:text-white">
+      <RevealObserver />
       <LithosHero />
       <div className="relative z-10 bg-[#F5F4F0] text-gray-900">
         <Skills />

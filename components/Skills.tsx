@@ -1,6 +1,3 @@
-"use client";
-
-import { m } from "framer-motion";
 import { 
   SiNextdotjs, SiReact, SiTailwindcss, SiTypescript, SiThreedotjs, SiFramer, 
   SiFigma, SiGit, SiHtml5, SiCss3, SiJavascript, SiVuedotjs, SiPython, SiDocker, SiCanva, SiGithub,
@@ -58,48 +55,42 @@ const skills = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="pt-12 md:pt-20 pb-32 px-6 md:px-12 max-w-7xl mx-auto mb-20">
-      <div className="flex flex-col md:flex-row gap-12">
+    <section id="skills" className="pt-16 md:pt-24 pb-28 md:pb-32 px-6 md:px-12 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row gap-10 md:gap-12">
         <div className="md:w-1/3">
-          <h2 className="text-xl text-[#e8702a] uppercase tracking-widest font-cinzel sticky top-32">Expertise</h2>
+          <div className="md:sticky md:top-32">
+            <h2 data-reveal="mask" className="text-xl text-[#e8702a] uppercase tracking-widest font-cinzel">
+              <span>Expertise</span>
+            </h2>
+            <div data-reveal="line" style={{ ["--rd" as string]: "150ms" }} className="mt-4 h-px w-24 bg-[#e8702a]/60" />
+          </div>
         </div>
-        <div className="md:w-2/3 flex flex-col gap-16">
-            {skills.map((group, index) => (
-                <m.div 
-                    key={index}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                    <h3 className="text-xl text-gray-900 font-cinzel mb-6 border-l-2 border-[#e8702a] pl-4">
-                        {group.category}
-                    </h3>
-                    <ul className="flex flex-wrap gap-3">
-                        {group.items.map((skill, idx) => (
-                            <m.li 
-                                key={idx}
-                                initial={{ opacity: 0, scale: 0.9, y: 15 }}
-                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                                whileHover={{ scale: 1.06, y: -4, boxShadow: "0 10px 25px -5px rgba(232, 112, 42, 0.15)" }}
-                                transition={{ type: "spring", stiffness: 350, damping: 20, delay: idx * 0.03 }}
-                                viewport={{ once: true }}
-                                className="group flex items-center gap-3 px-5 py-3 rounded-full border border-gray-200 bg-white shadow-sm hover:border-[#e8702a] hover:bg-[#FAF9F5] transition-colors cursor-default"
-                            >
-                                <div className="text-xl transition-transform duration-300 opacity-90 group-hover:opacity-100 group-hover:scale-115">
-                                    {skill.icon}
-                                </div>
-                                <span className="text-gray-700 text-sm font-medium group-hover:text-gray-900 transition-colors tracking-wide">
-                                    {skill.name}
-                                </span>
-                            </m.li>
-                        ))}
-                    </ul>
-                </m.div>
-            ))}
+        <div className="md:w-2/3 flex flex-col gap-14">
+          {skills.map((group) => (
+            <div key={group.category}>
+              <h3 data-reveal="mask" className="text-xl text-gray-900 font-cinzel mb-6 border-l-2 border-[#e8702a] pl-4">
+                <span>{group.category}</span>
+              </h3>
+              <ul data-reveal="stagger" className="flex flex-wrap gap-3">
+                {group.items.map((skill, idx) => (
+                  <li
+                    key={skill.name}
+                    style={{ ["--i" as string]: idx }}
+                    className="group flex items-center gap-3 px-5 py-3 rounded-full border border-gray-200 bg-white shadow-sm transition-[transform,border-color,box-shadow,background-color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:border-[#e8702a] hover:bg-[#FAF9F5] hover:shadow-[0_10px_25px_-8px_rgba(232,112,42,0.25)]"
+                  >
+                    <div className="text-xl transition-transform duration-300 group-hover:scale-110">
+                      {skill.icon}
+                    </div>
+                    <span className="text-gray-700 text-sm font-medium group-hover:text-gray-900 transition-colors tracking-wide">
+                      {skill.name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
-

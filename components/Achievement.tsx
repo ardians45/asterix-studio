@@ -53,10 +53,11 @@ export default function Achievement() {
         
         {/* Section Header */}
         <div className="mb-24 relative z-10 flex flex-col items-center text-center">
-            <h2 className="text-4xl md:text-6xl font-cinzel text-gray-900 tracking-wider border-b border-[#e8702a]/40 pb-6 inline-block">
-                Achievements
+            <h2 data-reveal="mask" className="text-4xl md:text-6xl font-cinzel text-gray-900 tracking-wider pb-6 inline-block">
+                <span>Achievements</span>
             </h2>
-            <p className="mt-6 text-sm md:text-base text-gray-600 max-w-2xl font-sans leading-relaxed">
+            <div data-reveal="line" aria-hidden="true" style={{ ["--rd" as string]: "200ms" }} className="h-px w-full max-w-md bg-[#e8702a]/40" />
+            <p data-reveal="up" style={{ ["--rd" as string]: "250ms" }} className="mt-6 text-sm md:text-base text-gray-600 max-w-2xl font-sans leading-relaxed">
                 A chronological overview of technical milestones, competitive design awards, and industry recognition. Documenting the ongoing journey of crafting high-end digital experiences and scaling technical foundations.
             </p>
         </div>
@@ -70,14 +71,17 @@ export default function Achievement() {
                     className={`flex flex-col ${index % 2 !== 0 ? 'md:mt-32' : ''}`} 
                 >
                     {/* Year Header */}
-                    <div className="border-b border-gray-300 pb-2 mb-6">
-                        <span className="text-5xl md:text-6xl font-bold italic text-gray-900 tracking-tighter">
-                            {item.year}
+                    <div className="relative pb-2 mb-6">
+                        <span data-reveal="mask" className="block">
+                            <span className="text-5xl md:text-6xl font-bold italic text-gray-900 tracking-tighter">
+                                {item.year}
+                            </span>
                         </span>
+                        <div data-reveal="line" aria-hidden="true" className="absolute left-0 right-0 bottom-0 h-px bg-gray-300" />
                     </div>
 
                     {/* Image Block */}
-                    <div className="relative aspect-[4/3] w-full mb-6 bg-white overflow-hidden group rounded-sm border border-gray-200 shadow-sm">
+                    <div data-reveal="clip" className="relative aspect-[4/3] w-full mb-6 bg-white overflow-hidden group rounded-sm border border-gray-200 shadow-sm transition-shadow duration-300 hover:shadow-md">
                         <Image 
                             src={item.image}
                             alt={item.title}

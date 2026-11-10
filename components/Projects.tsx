@@ -224,10 +224,10 @@ export default function Projects() {
 
       <div className="flex flex-col md:flex-row gap-6 md:gap-12 mb-12 md:mb-20">
         <div className="md:w-1/3">
-           <h2 className="text-xl text-[#e8702a] uppercase tracking-widest font-cinzel">Selected Works</h2>
+           <h2 data-reveal="mask" className="text-xl text-[#e8702a] uppercase tracking-widest font-cinzel"><span>Selected Works</span></h2>
         </div>
         <div className="md:w-2/3">
-             <h3 className="text-3xl sm:text-4xl md:text-6xl font-display font-medium md:mb-12 text-gray-900">
+             <h3 data-reveal="up" style={{ ["--rd" as string]: "120ms" }} className="text-3xl sm:text-4xl md:text-6xl font-display font-medium md:mb-12 text-gray-900">
                  Building functional, scalable & high-impact digital experiences.
              </h3>
         </div>
@@ -251,7 +251,7 @@ export default function Projects() {
 
                  {/* Image */}
                  <Link href={project.link} {...linkProps(project.link)} className="block w-full group/mob" aria-label={`View ${project.title}`}>
-                     <div className="relative h-[220px] sm:h-[300px] w-full bg-gray-100 overflow-hidden mb-4 rounded-md border border-gray-200">
+                     <div data-reveal="clip" className="relative h-[220px] sm:h-[300px] w-full bg-gray-100 overflow-hidden mb-4 rounded-md border border-gray-200">
                          <Image
                              src={project.image}
                              alt={project.title}
@@ -282,7 +282,8 @@ export default function Projects() {
              </div>
 
              {/* --- DESKTOP UI --- */}
-             <div className="hidden md:flex gap-12 border-t border-gray-300 pt-12 transition-all duration-300 group-hover:border-[#e8702a]/50">
+             <div data-reveal="up" className="relative hidden md:flex gap-12 pt-12">
+                 <div data-reveal="line" aria-hidden="true" className="absolute left-0 right-0 top-0 h-px bg-gray-300 transition-colors duration-300 group-hover:bg-[#e8702a]/60" />
                  <div className="relative z-10 md:w-1/3 mb-6 md:mb-0">
                      <span className="text-sm font-mono text-gray-500 transition-colors group-hover:text-gray-900">0{index + 1} / {project.year}</span>
                      <h4 className="text-3xl font-bold mt-2 font-display text-gray-900 transition-colors group-hover:text-[#e8702a]">{project.title}</h4>
@@ -328,7 +329,7 @@ export default function Projects() {
       <div className="mt-24 md:mt-32 border-t border-gray-300 pt-16 md:pt-20">
            <div className="flex flex-col md:flex-row gap-8 md:gap-12">
                <div className="md:w-1/3">
-                    <h2 className="text-xl text-[#e8702a] uppercase tracking-widest font-cinzel">UI/UX &amp; Design</h2>
+                    <h2 data-reveal="mask" className="text-xl text-[#e8702a] uppercase tracking-widest font-cinzel"><span>UI/UX &amp; Design</span></h2>
                </div>
                <div className="md:w-2/3">
                     {/* Featured Case Studies Grid */}
@@ -341,7 +342,7 @@ export default function Projects() {
                                     href={work.href}
                                     className={`group relative block rounded-xl transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0 ${wide ? "md:col-span-2" : ""}`}
                                 >
-                                    <div className={`relative ${wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"} w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-900 shadow-sm transition-all duration-500 group-hover:border-[#e8702a]/60 group-hover:shadow-md`}>
+                                    <div data-reveal="clip" className={`relative ${wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"} w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-900 shadow-sm transition-all duration-500 group-hover:border-[#e8702a]/60 group-hover:shadow-md`}>
                                         <Image
                                             src={work.image}
                                             alt={work.title}

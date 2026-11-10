@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useScroll, useTransform, useMotionValueEvent, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { useLenis } from "lenis/react";
 import Image from "next/image";
 import Link from "next/link";
 import Lanyard from "./lanyard/Lanyard";
@@ -91,15 +92,41 @@ export default function LithosHero() {
 
   // "About" lives inside the sticky parallax stage (fully shown between ~68% and ~92% progress),
   // so a plain anchor jump lands on an invisible card. Scroll to where it is fully shown instead.
+  const lenis = useLenis();
   const scrollToSection = (id: string) => {
+    let top: number | null = null;
     if (id === "about" && targetRef.current) {
       const section = targetRef.current;
-      const top = section.offsetTop + (section.offsetHeight - window.innerHeight) * 0.78;
-      window.scrollTo({ top, behavior: "smooth" });
-      return;
+      top = section.offsetTop + (section.offsetHeight - window.innerHeight) * 0.78;
+    } else {
+      const el = document.getElementById(id);
+      if (el) top = el.getBoundingClientRect().top + window.scrollY;
     }
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    if (top === null) return;
+    if (lenis) {
+      // long, eased glide; duration scales a little with distance
+      const distance = Math.abs(top - window.scrollY);
+      lenis.scrollTo(top, { duration: Math.min(2.2, 0.9 + distance / 4000), easing: (t) => 1 - Math.pow(1 - t, 4) });
+    } else {
+      window.scrollTo({ top, behavior: "smooth" });
+    }
   };
+
+  // Sliding active pill in the desktop nav
+  const pillRef = useRef<HTMLDivElement | null>(null);
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
+  useLayoutEffect(() => {
+    const el = linkRefs.current[activeSection];
+    if (!el) return;
+    const measure = () => setIndicator({ x: el.offsetLeft, w: el.offsetWidth });
+    measure();
+    // re-measure when the web font swaps in or the layout changes
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    if (pillRef.current) ro.observe(pillRef.current);
+    return () => ro.disconnect();
+  }, [activeSection]);
 
   // Parallax Layer Transformations (Ship voyage completes first: 0.0 -> 0.55)
   const skyScale = useTransform(scrollYProgress, [0, 0.55], [1, 1.15]);
@@ -197,7 +224,7 @@ export default function LithosHero() {
       {/* Navigation (fixed, persistent over page) */}
       <nav className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between p-4 sm:p-5 transition-all duration-500 ${
         isLightHeader 
-          ? "bg-[#F5F4F0]/85 backdrop-blur-xl border-b border-gray-300/80 shadow-sm" 
+          ? "bg-[#F5F4F0]/95 border-b border-gray-300/80 shadow-sm" 
           : "bg-transparent"
       }`}>
         <Link href="/" className="flex items-center gap-3 group">
@@ -217,30 +244,46 @@ export default function LithosHero() {
         </Link>
 
         {/* Center Pill */}
-        <div className={`hidden md:flex absolute left-1/2 -translate-x-1/2 rounded-full px-2 py-2 items-center gap-1 transition-all duration-300 ${
+        <div ref={pillRef} className={`hidden md:flex absolute left-1/2 -translate-x-1/2 rounded-full px-2 py-2 items-center gap-1 transition-colors duration-500 ${
           isLightHeader
-            ? "bg-gray-200/90 backdrop-blur-md border border-gray-300 shadow-inner"
-            : "bg-white/20 backdrop-blur-md border border-white/30"
+            ? "bg-gray-200/95 border border-gray-300 shadow-inner"
+            : "bg-black/30 border border-white/25"
         }`}>
+          {/* One pill that glides to the active link */}
+          <span
+            aria-hidden="true"
+            className={`absolute top-2 bottom-2 left-0 rounded-full shadow-md transition-[transform,width,background-color,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              isLightHeader ? "bg-gray-900" : "bg-white"
+            }`}
+            style={{
+              width: indicator?.w ?? 0,
+              transform: `translateX(${indicator?.x ?? 0}px)`,
+              opacity: indicator ? 1 : 0,
+            }}
+          />
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
                 key={item.name}
+                ref={(el) => {
+                  linkRefs.current[item.id] = el;
+                }}
+                aria-current={isActive ? "true" : undefined}
                 href={item.href}
                 onClick={(e) => {
                   e.preventDefault();
                   setActiveSection(item.id);
                   scrollToSection(item.id);
                 }}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`relative z-10 px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-300 ${
                   isActive
-                    ? isLightHeader 
-                      ? "bg-gray-900 text-white shadow-md font-semibold"
-                      : "bg-white text-gray-900 shadow-md font-semibold"
+                    ? isLightHeader
+                      ? "text-white"
+                      : "text-gray-900"
                     : isLightHeader
-                      ? "text-gray-700 hover:bg-gray-300/80 hover:text-gray-900 font-medium"
-                      : "text-white/80 hover:bg-white/20 hover:text-white"
+                      ? "text-gray-700 hover:text-gray-900"
+                      : "text-white/85 hover:text-white"
                 }`}
               >
                 {item.name}
@@ -278,7 +321,7 @@ export default function LithosHero() {
 
         {/* Mobile dropdown */}
         {mobileMenuOpen && (
-          <div className={`md:hidden absolute top-full left-4 right-4 mt-2 backdrop-blur-xl border rounded-2xl p-4 flex flex-col gap-3 z-[100] shadow-2xl transition-all ${
+          <div className={`md:hidden absolute top-full left-4 right-4 mt-2 border rounded-2xl p-4 flex flex-col gap-3 z-[100] shadow-2xl transition-all ${
             isLightHeader
               ? "bg-[#F5F4F0]/95 border-gray-300 text-gray-900"
               : "bg-black/90 border-white/20 text-white"
@@ -461,7 +504,7 @@ export default function LithosHero() {
           {/* Layer 4: Complete Floating About Card Overlay over Ship (z-45) */}
           <m.div
             id="about"
-            className="absolute z-45 w-[94%] sm:w-[88%] max-w-5xl px-6 py-6 sm:px-10 sm:py-10 bg-[#18181b]/70 backdrop-blur-lg border border-white/30 border-t-white/50 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] pointer-events-auto overflow-hidden group"
+            className="absolute z-45 w-[94%] sm:w-[88%] max-w-5xl px-6 py-6 sm:px-10 sm:py-10 bg-[#18181b]/[0.88] border border-white/30 border-t-white/50 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] pointer-events-auto overflow-hidden group"
             style={{
               opacity: textOpacity,
               y: textY,

@@ -46,6 +46,14 @@ const TEX_H = Math.round((TEX_W * CARD_H) / CARD_W); // 1440
 
 type LerpedBody = RapierRigidBody & { lerped?: THREE.Vector3 };
 
+// next/font hashes family names; read the real ones from the CSS variables set on <body>
+const fontVar = (name: string, fallback: string) => {
+  const v = typeof document !== "undefined" ? getComputedStyle(document.body).getPropertyValue(name).trim() : "";
+  return v ? `${v}, ${fallback}` : fallback;
+};
+const DISPLAY = () => fontVar("--font-playfair", "Georgia, serif");
+const BODY = () => fontVar("--font-inter", "Arial, sans-serif");
+
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
@@ -69,7 +77,7 @@ async function drawFront(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d")!;
   const [photo, logo] = await Promise.all([loadImage("/profile.webp"), loadImage("/logo-black.svg")]);
   try {
-    await document.fonts.ready;
+    await Promise.all([document.fonts.load(`700 92px ${DISPLAY()}`), document.fonts.load(`600 36px ${BODY()}`)]);
   } catch {}
 
   ctx.fillStyle = PAPER;
@@ -85,7 +93,7 @@ async function drawFront(canvas: HTMLCanvasElement) {
   roundRect(ctx, TEX_W / 2 - 90, 48, 180, 34, 17);
   ctx.fill();
   ctx.fillStyle = "#ffffff";
-  ctx.font = "600 34px Inter, Arial, sans-serif";
+  ctx.font = `600 34px ${BODY()}`;
   ctx.textAlign = "left";
   ctx.fillText("ASTERIX STUDIO", 72, 160);
   ctx.textAlign = "right";
@@ -110,11 +118,11 @@ async function drawFront(canvas: HTMLCanvasElement) {
   // Name + role
   ctx.textAlign = "left";
   ctx.fillStyle = INK;
-  ctx.font = "700 92px 'Cinzel Decorative', Georgia, serif";
+  ctx.font = `700 92px ${DISPLAY()}`;
   ctx.fillText("Ardian", 72, 1050);
   ctx.fillText("Setiawan", 72, 1145);
   ctx.fillStyle = ACCENT;
-  ctx.font = "600 36px Inter, Arial, sans-serif";
+  ctx.font = `600 36px ${BODY()}`;
   ctx.fillText("UI/UX DESIGNER & WEB DEVELOPER", 72, 1215);
 
   // Footer line
@@ -125,7 +133,7 @@ async function drawFront(canvas: HTMLCanvasElement) {
   ctx.lineTo(TEX_W - 72, 1270);
   ctx.stroke();
   ctx.fillStyle = "rgba(24,24,27,0.65)";
-  ctx.font = "500 30px Inter, Arial, sans-serif";
+  ctx.font = `500 30px ${BODY()}`;
   ctx.fillText("Indonesia · Remote", 72, 1340);
   if (logo) ctx.drawImage(logo, TEX_W - 72 - 120, 1290, 120, 72);
 }
@@ -138,14 +146,14 @@ function drawBack(canvas: HTMLCanvasElement) {
   ctx.fillRect(0, TEX_H - 120, TEX_W, 120);
   ctx.fillStyle = "#ffffff";
   ctx.textAlign = "center";
-  ctx.font = "700 84px 'Cinzel Decorative', Georgia, serif";
+  ctx.font = `700 84px ${DISPLAY()}`;
   ctx.fillText("Asterix", TEX_W / 2, TEX_H / 2 - 20);
   ctx.fillText("Studio", TEX_W / 2, TEX_H / 2 + 80);
-  ctx.font = "500 34px Inter, Arial, sans-serif";
+  ctx.font = `500 34px ${BODY()}`;
   ctx.fillStyle = "rgba(255,255,255,0.7)";
   ctx.fillText("asterixstudio.site", TEX_W / 2, TEX_H / 2 + 170);
   ctx.fillStyle = INK;
-  ctx.font = "600 30px Inter, Arial, sans-serif";
+  ctx.font = `600 30px ${BODY()}`;
   ctx.fillText("DESIGN WITH PURPOSE · CODE WITH PRECISION", TEX_W / 2, TEX_H - 48);
 }
 
@@ -157,7 +165,7 @@ function makeStrapTexture() {
   ctx.fillStyle = ACCENT;
   ctx.fillRect(0, 0, c.width, c.height);
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 26px Inter, Arial, sans-serif";
+  ctx.font = `700 26px ${BODY()}`;
   ctx.textBaseline = "middle";
   ctx.fillText("ASTERIX STUDIO  •  ", 18, 33);
   const tex = new THREE.CanvasTexture(c);

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Syne, Inter } from "next/font/google";
+import { Syne, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
@@ -13,6 +13,17 @@ const syne = Syne({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Display serif, self-hosted via next/font. The old Google Fonts @import (Cinzel Decorative +
+// Playfair) was dropped by the Tailwind v4 build, so headings fell back to each device's
+// default serif. Playfair Display keeps that editorial look, consistently everywhere.
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -74,7 +85,7 @@ export default function RootLayout({
   const orgSchema = getOrganizationSchema();
   
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -83,7 +94,7 @@ export default function RootLayout({
         <MetaPixel />
       </head>
       <body
-        className={`${syne.variable} ${inter.variable} antialiased bg-black text-white`}
+        className={`${syne.variable} ${inter.variable} ${playfair.variable} antialiased bg-black text-white`}
         suppressHydrationWarning
       >
         <LazyMotionProvider>

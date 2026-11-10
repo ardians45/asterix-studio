@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   // Allow dev origin for local network testing / HMR
-  allowedDevOrigins: ['10.157.136.1', 'localhost:3000'],
+  allowedDevOrigins: ['10.157.136.1', 'localhost:3000', 'portfolio.localhost'],
   async rewrites() {
     return [
       {

@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
         <div className="md:w-1/2"
         >
-            <h2 className="text-4xl md:text-6xl font-cinzel font-bold leading-tight mb-8 text-white">
+            <h2 data-reveal="up" className="text-4xl md:text-6xl font-cinzel font-bold leading-tight mb-8 text-white">
                 Ready to build something extraordinary together?
             </h2>
             <div className="flex gap-6">

@@ -1,70 +1,64 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { SplitText } from "gsap/SplitText";
-
-gsap.registerPlugin(SplitText);
+import type { CSSProperties } from "react";
 
 const SHADOW = "0 2px 12px rgba(0,0,0,0.75)";
 
 /**
- * Hero heading that enters once on load: each line's characters rise out of a word mask
- * (GSAP SplitText). Under reduced motion it simply shows (handled in CSS + early return).
+ * Hero heading that enters once on load: every character rises out of its word's mask.
+ *
+ * The split happens at render time (server-side) and the motion is pure CSS, so the text
+ * is in the first HTML paint with no JavaScript, no hydration wait and no GSAP in the
+ * initial bundle. Reduced motion shows it still (see `.hero-title` in globals.css).
  */
-export default function HeroTitle() {
-  const ref = useRef<HTMLHeadingElement | null>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set(el, { autoAlpha: 1 });
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      const lines = el.querySelectorAll<HTMLElement>("[data-line]");
-      const splits = Array.from(lines).map((line, i) =>
-        SplitText.create(line, {
-          type: "words,chars",
-          mask: "words",
-          autoSplit: true,
-          onSplit(self) {
-            return gsap.from(self.chars, {
-              yPercent: 115,
-              rotate: 6,
-              duration: 1.1,
-              ease: "expo.out",
-              stagger: 0.022,
-              delay: 0.2 + i * 0.18,
-            });
-          },
-        })
-      );
-      gsap.set(el, { autoAlpha: 1 });
-      return () => splits.forEach((s) => s.revert());
-    }, el);
-
-    return () => ctx.revert();
-  }, []);
-
+function Line({
+  text,
+  className,
+  style,
+  delay,
+}: {
+  text: string;
+  className: string;
+  style: CSSProperties;
+  delay: number;
+}) {
+  let i = 0;
+  const words = text.split(" ");
   return (
-    <h1 ref={ref} className="hero-split text-white leading-[0.95]">
-      <span
-        data-line
-        className="block font-cinzel font-normal text-5xl sm:text-7xl md:text-8xl pb-[0.08em]"
+    <span className={`block ${className}`} style={style} aria-label={text}>
+      {words.map((word, w) => (
+        <span key={w} aria-hidden="true">
+          <span className="ht-word">
+            {Array.from(word).map((ch, c) => (
+              <span
+                key={c}
+                className="ht-char"
+                style={{ "--d": `${delay}ms`, "--i": i++ } as CSSProperties}
+              >
+                {ch}
+              </span>
+            ))}
+          </span>
+          {w < words.length - 1 ? " " : null}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+export default function HeroTitle() {
+  return (
+    <h1 className="hero-title text-white leading-[0.95]">
+      <Line
+        text="Design with Purpose"
+        className="font-cinzel font-normal text-5xl sm:text-7xl md:text-8xl"
         style={{ letterSpacing: "-0.05em", textShadow: SHADOW }}
-      >
-        Design with Purpose
-      </span>
-      <span
-        data-line
-        className="block font-normal text-5xl sm:text-7xl md:text-8xl -mt-1 pb-[0.08em]"
+        delay={150}
+      />
+      <Line
+        text="code with precision"
+        className="font-normal text-5xl sm:text-7xl md:text-8xl -mt-1"
         style={{ letterSpacing: "-0.08em", textShadow: SHADOW }}
-      >
-        code with precision
-      </span>
+        delay={330}
+      />
     </h1>
   );
 }
