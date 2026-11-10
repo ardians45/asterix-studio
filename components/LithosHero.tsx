@@ -85,6 +85,23 @@ export default function LithosHero() {
 
   // Section 2 Parallax Scroll Target
   const targetRef = useRef<HTMLDivElement | null>(null);
+
+  // The voyage stage sits just below the fold, but Chrome still counted its (lazy) cloud layer
+  // as the Largest Contentful Paint on phones (LCP 3.5s). Keep the stage unpainted until the
+  // section actually enters the viewport; its images are still fetched ahead by native lazy loading.
+  const [voyageShown, setVoyageShown] = useState(false);
+  useEffect(() => {
+    const el = targetRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVoyageShown(true);
+        io.disconnect();
+      }
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end end"],
@@ -453,7 +470,7 @@ export default function LithosHero() {
 
       {/* SECTION 2: 2.5D PARALLAX SCROLL VOYAGE SECTION */}
       <section ref={targetRef} className="relative h-[270vh] bg-black">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black">
+        <div className={`sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-black ${voyageShown ? "" : "invisible"}`}>
           {/* Top Fade from Alabaster Light Gradient Overlay */}
           <div className="absolute top-0 left-0 right-0 h-16 sm:h-24 bg-gradient-to-b from-[#F5F4F0] via-[#F5F4F0]/70 to-transparent pointer-events-none z-30" />
 
