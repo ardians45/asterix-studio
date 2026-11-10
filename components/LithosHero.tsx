@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { useScroll, useTransform, m } from "framer-motion";
+import { useScroll, useTransform, useMotionValueEvent, m } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import Lanyard from "./lanyard/Lanyard";
+import HeroTitle from "./HeroTitle";
 
 // Hero artwork is served through next/image so it gets resized + converted to AVIF/WebP
 // (the raw files are ~5.5 MB of JPG/PNG when loaded as CSS backgrounds).
@@ -66,7 +68,7 @@ export default function LithosHero() {
       // header to light mode as soon as the hero has scrolled out from under it.
       const hero = heroRef.current;
       if (hero) {
-        setIsLightHeader(hero.getBoundingClientRect().bottom <= 80);
+        setIsLightHeader(window.scrollY > 10 && hero.getBoundingClientRect().bottom <= 80);
       }
     };
     const handleScroll = () => {
@@ -116,6 +118,15 @@ export default function LithosHero() {
   // About Card appears ONLY AFTER ship voyage completes (0.55 -> 0.68, stays until 0.92)
   const textOpacity = useTransform(scrollYProgress, [0.55, 0.68, 0.92, 0.98], [0, 1, 1, 0]);
   const textY = useTransform(scrollYProgress, [0.55, 0.68], [60, 0]);
+
+  // 3D lanyard: start loading once the voyage is underway, run only while the About card is visible
+  const [lanyardMount, setLanyardMount] = useState(false);
+  const [lanyardActive, setLanyardActive] = useState(false);
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (p > 0.25 && !lanyardMount) setLanyardMount(true);
+    const visible = p > 0.56 && p < 0.985;
+    if (visible !== lanyardActive) setLanyardActive(visible);
+  });
 
   // Spotlight reveal: only on devices with a real mouse, and only while the hero is on screen.
   useEffect(() => {
@@ -358,20 +369,7 @@ export default function LithosHero() {
 
         {/* 3. Heading (z-50) */}
         <div className="absolute top-[14%] left-0 right-0 flex flex-col items-center text-center px-5 pointer-events-none z-50">
-          <h1 className="text-white leading-[0.95]">
-            <span
-              className="block font-cinzel font-normal text-5xl sm:text-7xl md:text-8xl hero-anim hero-reveal"
-              style={{ letterSpacing: "-0.05em", animationDelay: "0.25s", textShadow: "0 2px 12px rgba(0,0,0,0.75)" }}
-            >
-              Design with Purpose
-            </span>
-            <span
-              className="block font-normal text-5xl sm:text-7xl md:text-8xl -mt-1 hero-anim hero-reveal"
-              style={{ letterSpacing: "-0.08em", animationDelay: "0.42s", textShadow: "0 2px 12px rgba(0,0,0,0.75)" }}
-            >
-              code with precision
-            </span>
-          </h1>
+          <HeroTitle />
         </div>
 
         {/* 4. Bottom-left paragraph (z-50) */}
@@ -472,43 +470,24 @@ export default function LithosHero() {
             {/* Subtle Glossy Ambient Light */}
             <div className="absolute -top-24 -left-24 w-72 h-72 bg-white/10 blur-[60px] rounded-full pointer-events-none" />
             <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-[#e8702a]/15 blur-[60px] rounded-full pointer-events-none" />
-            <h2 className="text-xs sm:text-sm text-[#e8702a] uppercase tracking-[0.3em] font-cinzel border-l-2 border-[#e8702a] pl-4 mb-6 text-left font-bold">
-              Who I Am
-            </h2>
 
-            <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start">
-              {/* Profile Image & Rotating Badge */}
-              <div className="w-full md:w-1/3 relative group shrink-0">
-                <div className="relative w-full aspect-[3/4] max-h-[260px] sm:max-h-[320px] overflow-hidden rounded-2xl border border-white/20 shadow-xl">
-                  <Image
-                    src="/profile.webp"
-                    alt="Ardian Setiawan"
-                    fill
-                    sizes="(min-width: 768px) 300px, 90vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
-                </div>
-                
-                {/* Decorative Spinning Badge */}
-                <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-[#e8702a] rounded-full flex items-center justify-center animate-[spin_12s_linear_infinite] hidden md:flex shadow-lg shadow-[#e8702a]/30">
-                  <svg viewBox="0 0 100 100" className="w-full h-full p-2">
-                    <path
-                      id="curve-overlay"
-                      d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                      fill="transparent"
-                    />
-                    <text className="text-[10px] uppercase font-bold tracking-widest text-white fill-white">
-                      <textPath href="#curve-overlay">
-                        Ardian Setiawan • Asterix Studio •
-                      </textPath>
-                    </text>
-                  </svg>
-                </div>
+            <div className="relative flex flex-col md:flex-row gap-6 md:gap-10 items-stretch">
+              {/* 3D lanyard ID card — hangs from the top edge of the glass card (desktop) */}
+              <div className="hidden md:block w-[300px] lg:w-[340px] shrink-0 -mt-10 -mb-10 h-[480px]">
+                <Lanyard mount={lanyardMount} active={lanyardActive} />
               </div>
 
               {/* Bio & Details Column */}
-              <div className="w-full md:w-2/3 flex flex-col justify-between text-left">
+              <div className="w-full md:flex-1 flex flex-col justify-center text-left">
+                <div className="flex items-center gap-4 mb-6">
+                  {/* Compact portrait on phones, where the 3D card is not shown */}
+                  <div className="md:hidden relative w-14 h-14 shrink-0 overflow-hidden rounded-full border border-white/30">
+                    <Image src="/profile.webp" alt="Ardian Setiawan" fill sizes="56px" className="object-cover" />
+                  </div>
+                  <h2 className="text-xs sm:text-sm text-[#e8702a] uppercase tracking-[0.3em] font-cinzel border-l-2 border-[#e8702a] pl-4 text-left font-bold">
+                    Who I Am
+                  </h2>
+                </div>
                 <div className="mb-6">
                   <p className="text-lg sm:text-2xl md:text-3xl font-display font-medium text-white leading-snug mb-4">
                     Hi, I&apos;m <span className="text-[#e8702a] font-bold">Ardian Setiawan</span> — UI/UX Designer &amp; Web Developer dedicated to designing and building intuitive landing pages, dashboards, and scalable web applications.

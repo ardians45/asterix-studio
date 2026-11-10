@@ -83,7 +83,7 @@ export default function Achievement() {
                             alt={item.title}
                             fill
                             sizes="(min-width: 768px) 540px, 100vw"
-                            className={`object-cover ${item.objectPosition || 'object-center'} transition-all duration-500 group-hover:scale-105`}
+                            className={`object-cover ${item.objectPosition || 'object-center'} transition-transform duration-500 group-hover:scale-[1.03]`}
                         />
                     </div>
 

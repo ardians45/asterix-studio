@@ -257,7 +257,7 @@ export default function Projects() {
                              alt={project.title}
                              fill
                              sizes="100vw"
-                             className="object-cover object-top transition-transform duration-700 group-hover/mob:scale-105"
+                             className="object-cover object-top transition-transform duration-700 group-hover/mob:scale-[1.03]"
                          />
                      </div>
                  </Link>
@@ -314,7 +314,7 @@ export default function Projects() {
                     <Link
                         href={project.link}
                         {...linkProps(project.link)}
-                        className="inline-flex items-center gap-2 uppercase tracking-widest text-sm text-gray-900 hover:text-[#e8702a] transition-all duration-300 group-hover:translate-x-2"
+                        className="relative inline-flex items-center gap-2 uppercase tracking-widest text-sm text-gray-900 hover:text-[#e8702a] transition-all duration-300 group-hover:translate-x-2 after:absolute after:left-0 after:-bottom-1 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 active:scale-[0.98]"
                     >
                         {isExternal(project.link) ? "Visit Live Site" : "View Project"} <FaArrowRight />
                     </Link>
@@ -339,7 +339,7 @@ export default function Projects() {
                                 <Link
                                     key={work.title}
                                     href={work.href}
-                                    className={`group relative block ${wide ? "md:col-span-2" : ""}`}
+                                    className={`group relative block rounded-xl transition-transform duration-300 hover:-translate-y-0.5 active:translate-y-0 ${wide ? "md:col-span-2" : ""}`}
                                 >
                                     <div className={`relative ${wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]"} w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-900 shadow-sm transition-all duration-500 group-hover:border-[#e8702a]/60 group-hover:shadow-md`}>
                                         <Image
@@ -347,7 +347,7 @@ export default function Projects() {
                                             alt={work.title}
                                             fill
                                             sizes={wide ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
-                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent transition-opacity duration-500 group-hover:from-black/70" />
                                         <div className={`absolute bottom-0 left-0 ${wide ? "p-6 md:p-8" : "p-6"}`}>

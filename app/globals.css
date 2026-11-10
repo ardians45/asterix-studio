@@ -56,3 +56,16 @@ h1, h2, h3, h4, h5, h6 {
 .hero-zoom { animation:heroZoom 1.8s cubic-bezier(0.16,1,0.3,1) forwards; }
 @media (prefers-reduced-motion: reduce){ .hero-anim,.hero-zoom{ animation:none; opacity:1; } }
 
+
+/* GSAP SplitText hero heading: hidden until split so it never flashes unstyled */
+.hero-split { visibility: hidden; }
+/* the global `* { font-family: Inter }` would override the split chars, keep each line's face */
+.hero-split [data-line] * { font-family: inherit; }
+@media (prefers-reduced-motion: reduce) { .hero-split { visibility: visible; } }
+
+/* Infinite logo loop (Skills band) */
+@keyframes logo-loop { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.logo-loop-track { animation: logo-loop var(--loop-duration, 40s) linear infinite; will-change: transform; }
+.logo-loop:hover .logo-loop-track,
+.logo-loop[data-paused="true"] .logo-loop-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .logo-loop-track { animation: none; } }

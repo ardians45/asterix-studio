@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LithosHero from "@/components/LithosHero";
 import Skills from "@/components/Skills";
+import ToolsLoop from "@/components/ToolsLoop";
 import Certificates from "@/components/Certificates";
 import Projects from "@/components/Projects";
 import SeoProofsSection from "@/components/sections/b2b/SeoProofsSection";
@@ -32,6 +33,7 @@ export default function PortfolioPage() {
       <LithosHero />
       <div className="relative z-10 bg-[#F5F4F0] text-gray-900">
         <Skills />
+        <ToolsLoop />
         <Certificates />
         <Projects />
         <SeoProofsSection theme="portfolio" lang="en" />
