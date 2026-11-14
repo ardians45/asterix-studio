@@ -1,11 +1,7 @@
-"use client";
-
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 import InkTrail from "./InkTrail";
 import { LiquidBlob } from "./LiquidBlob";
-
-const GadgetScene = dynamic(() => import("./GadgetScene"), { ssr: false });
 
 const SOCIALS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/ardian-setiawan45", Icon: FaLinkedin },
@@ -23,7 +19,20 @@ export default function PortfolioFooter() {
       <div className="pf-wrap relative flex min-h-[86svh] flex-col justify-center py-24">
         <div className="relative mx-auto w-fit">
           <h2 className="pf-reach pf-invert">Reach out</h2>
-          <GadgetScene fixedVariant={2} scale={0.95} className="pointer-events-none absolute left-1/2 top-1/2 h-[260%] w-full -translate-x-1/2 -translate-y-1/2" />
+          {/* CSS gadget rather than a second WebGL canvas: same look at this size, no GPU context */}
+          <div className="pf-reach-gadget pointer-events-none absolute left-1/2 top-1/2" aria-hidden="true">
+            <div className="pf-object">
+              <div className="pf-device" data-shape="pager">
+                <div className="pf-device-screen">
+                  <Image src="/portfolio/screens/greenify.webp" alt="" fill sizes="220px" className="object-cover object-top" />
+                  <span className="pf-device-sheen" />
+                </div>
+                <div className="pf-device-controls">
+                  <span className="pf-ab"><i /><i /></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <a href="mailto:ardians1945@gmail.com" className="pf-mail pf-invert mx-auto mt-8 w-fit text-base md:text-lg font-semibold">
           ardians1945@gmail.com

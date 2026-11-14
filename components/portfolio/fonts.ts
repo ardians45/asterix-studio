@@ -1,4 +1,4 @@
-import { Archivo, Mr_Dafoe, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, Mr_Dafoe } from "next/font/google";
 
 // Heavy grotesk for the giant wordmarks and statements.
 export const pfDisplay = Archivo({
@@ -15,12 +15,4 @@ export const pfScript = Mr_Dafoe({
   display: "swap",
 });
 
-// Small technical labels.
-export const pfMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-pf-mono",
-  display: "swap",
-});
-
-export const pfFontVars = `${pfDisplay.variable} ${pfScript.variable} ${pfMono.variable}`;
+export const pfFontVars = `${pfDisplay.variable} ${pfScript.variable}`;

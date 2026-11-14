@@ -1,12 +1,26 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import InkTrail from "./InkTrail";
 import { LiquidBlob } from "./LiquidBlob";
 
 const GadgetScene = dynamic(() => import("./GadgetScene"), { ssr: false });
 
 export default function PortfolioHero() {
+  // three.js is the heaviest thing on the page: fetch it only once the browser is idle, so the
+  // wordmark paints and the page becomes interactive first.
+  const [showGadget, setShowGadget] = useState(false);
+  useEffect(() => {
+    const go = () => setShowGadget(true);
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(go, { timeout: 2000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(go, 600);
+    return () => clearTimeout(id);
+  }, []);
+
   return (
     <section id="top" className="pf-hero relative isolate h-[100svh] min-h-[600px] overflow-hidden bg-[var(--pf-butter)]">
       {/* liquid ink follows the cursor (desktop); phones get a resting blob instead */}
@@ -26,7 +40,7 @@ export default function PortfolioHero() {
       </div>
 
       {/* big clear-shell gadget in the middle, overlapping the wordmark */}
-      <GadgetScene scale={0.98} className="pf-enter pf-gadget pointer-events-none absolute inset-0 top-[10svh] z-10" />
+      {showGadget && <GadgetScene scale={0.98} className="pf-gadget pointer-events-none absolute inset-0 top-[10svh] z-10" />}
 
       <span className="pf-dots pf-invert absolute bottom-9 left-5 md:left-12 z-20" aria-hidden="true" />
       <a href="#about" aria-label="Scroll to about" className="pf-scroll pf-invert absolute bottom-5 left-1/2 z-20 grid h-11 w-11 place-items-center">

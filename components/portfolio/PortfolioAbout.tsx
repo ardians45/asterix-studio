@@ -6,7 +6,8 @@ export default function PortfolioAbout() {
     <section id="about" className="relative bg-[#0b0b0b]">
       {/* the media panel pins to the screen; the yellow statement then slides up over it */}
       <div className="sticky top-0 h-[100svh] overflow-hidden">
-        <Image src="/profile.webp" alt="" fill sizes="100vw" aria-hidden="true" className="scale-125 object-cover object-[50%_32%] opacity-60 blur-2xl" />
+        {/* backdrop: a 64px-wide copy stretched to fill is already soft, so no costly CSS blur filter */}
+        <Image src="/profile.webp" alt="" fill sizes="64px" aria-hidden="true" className="scale-125 object-cover object-[50%_32%] opacity-50" />
         <div className="absolute inset-x-[4%] md:inset-x-[6%] top-[9svh] bottom-0 overflow-hidden">
           <Image src="/profile.webp" alt="Ardian Setiawan at work" fill sizes="(min-width: 768px) 88vw, 92vw" className="object-cover object-[50%_32%]" />
         </div>
