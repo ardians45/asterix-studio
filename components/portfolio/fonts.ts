@@ -1,4 +1,4 @@
-import { Archivo, Yellowtail, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, Mr_Dafoe, IBM_Plex_Mono } from "next/font/google";
 
 // Heavy grotesk for the giant wordmarks and statements.
 export const pfDisplay = Archivo({
@@ -7,8 +7,8 @@ export const pfDisplay = Archivo({
   display: "swap",
 });
 
-// Monoline script that overlaps the grotesk ("Ardian" + "setiawan").
-export const pfScript = Yellowtail({
+// Heavy brush script that overlaps the grotesk ("Ardian" + "setiawan").
+export const pfScript = Mr_Dafoe({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-pf-script",

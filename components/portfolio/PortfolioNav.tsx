@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useLenis } from "lenis/react";
 
 const LINKS = [
@@ -41,9 +40,9 @@ export default function PortfolioNav() {
           <Link
             href="/"
             aria-label="Asterix Studio home"
-            className="pointer-events-auto pf-pill grid h-11 w-11 place-items-center !p-0"
+            className="pointer-events-auto pf-logo grid h-11 w-11 place-items-center"
           >
-            <Image src="/logo-black.svg" alt="" width={20} height={20} className="h-5 w-5" />
+            <span className="pf-logo-mark" aria-hidden="true" />
           </Link>
 
           <a

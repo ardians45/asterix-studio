@@ -2,32 +2,28 @@
 
 import { useEffect, useRef } from "react";
 
-type Pt = { x: number; y: number; t: number };
-
-const LIFE = 1100; // ms a stroke stays on the page
+type Pt = { x: number; y: number; t: number; w: number };
 
 /**
- * Liquid ink that follows the cursor: a fat round blob at the pointer dragging a tapering trail
- * behind it, with a soft cast shadow. Fills its (positioned) parent and never takes pointer events.
- * Mouse only; skipped for touch and for reduced motion.
+ * Liquid ink that follows the cursor. Resting, it is a small drop under the pointer; the faster
+ * the pointer moves, the fatter the stroke it leaves, which then thins and dries out. Fills its
+ * (positioned) parent and never takes pointer events. Mouse only; skipped for touch and for
+ * reduced motion.
  */
 export default function InkTrail({
-  colors = ["#0E0E0E"],
-  size = 44,
-  shadow = true,
+  color = "#0E0E0E",
+  size = 70,
+  life = 1900,
   className = "",
 }: {
-  /** outer colour first; extra colours are drawn as thinner cores inside it */
-  colors?: string[];
+  color?: string;
+  /** widest half-stroke, reached at high pointer speed */
   size?: number;
-  shadow?: boolean;
+  /** ms a stroke stays on the page */
+  life?: number;
   className?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const colorsRef = useRef(colors);
-  useEffect(() => {
-    colorsRef.current = colors;
-  }, [colors]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -37,6 +33,7 @@ export default function InkTrail({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const REST = 13; // radius of the drop when the pointer is still
     let w = 0;
     let h = 0;
     const resize = () => {
@@ -52,52 +49,49 @@ export default function InkTrail({
     const pts: Pt[] = [];
     const target = { x: 0, y: 0 };
     const head = { x: 0, y: 0 };
+    let headR = REST;
     let inside = false;
-    let presence = 0; // 0..1, eases the blob in and out
+    let presence = 0; // 0..1, eases the drop in and out
     let raf = 0;
     let running = false;
 
-    const stroke = (color: string, k: number, now: number) => {
-      ctx.strokeStyle = color;
-      ctx.fillStyle = color;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      for (let i = 1; i < pts.length; i++) {
-        const a = pts[i - 1];
-        const b = pts[i];
-        const life = Math.max(0, 1 - (now - b.t) / LIFE);
-        ctx.lineWidth = Math.max(0.5, size * 2 * k * Math.pow(life, 0.7) * presence);
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-      const wobble = 1 + Math.sin(now / 420) * 0.05;
-      ctx.beginPath();
-      ctx.arc(head.x, head.y, size * k * wobble * presence, 0, Math.PI * 2);
-      ctx.fill();
-    };
-
     const frame = (now: number) => {
-      head.x += (target.x - head.x) * 0.2;
-      head.y += (target.y - head.y) * 0.2;
+      const px = head.x;
+      const py = head.y;
+      head.x += (target.x - head.x) * 0.22;
+      head.y += (target.y - head.y) * 0.22;
+      const speed = Math.hypot(head.x - px, head.y - py);
       presence += ((inside ? 1 : 0) - presence) * 0.12;
 
+      // stroke width follows speed, with a little wobble so the edge reads as liquid
+      const want = Math.min(size, REST + speed * 2.4);
+      headR += (want - headR) * (want > headR ? 0.35 : 0.08);
       const last = pts[pts.length - 1];
-      if (!last || Math.hypot(head.x - last.x, head.y - last.y) > 3) pts.push({ x: head.x, y: head.y, t: now });
-      while (pts.length && now - pts[0].t > LIFE) pts.shift();
+      if (!last || Math.hypot(head.x - last.x, head.y - last.y) > 4) {
+        pts.push({ x: head.x, y: head.y, t: now, w: headR * (0.82 + Math.random() * 0.36) });
+      }
+      while (pts.length && now - pts[0].t > life) pts.shift();
 
       ctx.clearRect(0, 0, w, h);
       if (presence > 0.01) {
-        const cs = colorsRef.current;
-        if (shadow) {
-          ctx.save();
-          ctx.filter = "blur(16px)";
-          ctx.translate(20, 30);
-          stroke("rgba(0,0,0,0.3)", 1, now);
-          ctx.restore();
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        for (let i = 1; i < pts.length; i++) {
+          const a = pts[i - 1];
+          const b = pts[i];
+          const k = Math.max(0, 1 - (now - b.t) / life);
+          // ease-out so a stroke holds its body, then closes quickly at the end
+          ctx.lineWidth = Math.max(0.5, (a.w + b.w) * Math.pow(k, 0.45) * presence);
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
         }
-        cs.forEach((c, i) => stroke(c, Math.max(0.2, 1 - i * 0.38), now));
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, headR * presence, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       if (inside || presence > 0.01 || pts.length > 1) raf = requestAnimationFrame(frame);
@@ -135,7 +129,7 @@ export default function InkTrail({
       cancelAnimationFrame(raf);
       ro.disconnect();
     };
-  }, [size, shadow]);
+  }, [color, size, life]);
 
   return <canvas ref={canvasRef} aria-hidden="true" className={`pointer-events-none absolute inset-0 h-full w-full ${className}`} />;
 }

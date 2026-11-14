@@ -8,31 +8,32 @@ const GadgetScene = dynamic(() => import("./GadgetScene"), { ssr: false });
 
 export default function PortfolioHero() {
   return (
-    <section id="top" className="pf-hero pf-ripple relative isolate h-[100svh] min-h-[600px] overflow-hidden bg-[var(--pf-butter)] text-[var(--pf-ink)]">
+    <section id="top" className="pf-hero relative isolate h-[100svh] min-h-[600px] overflow-hidden bg-[var(--pf-butter)]">
       {/* liquid ink follows the cursor (desktop); phones get a resting blob instead */}
-      <InkTrail className="-z-10" size={58} />
-      <LiquidBlob className="pf-enter pf-shadow absolute right-[-30%] bottom-[-8%] w-[120vw] text-[var(--pf-ink)] -z-10 md:hidden" style={{ ["--d" as string]: "250ms" }} />
+      <InkTrail />
+      <LiquidBlob className="pf-enter absolute right-[-30%] bottom-[-8%] w-[120vw] text-[var(--pf-ink)] md:hidden" style={{ ["--d" as string]: "250ms" }} />
 
-      <div className="pf-wrap relative pt-[17svh] md:pt-[14svh]">
+      {/* type sits over the ink in "difference", so it flips to yellow wherever ink runs under it */}
+      <div className="pf-wrap pf-invert relative pt-[15svh] md:pt-[11svh]">
         <h1 className="pf-lockup">
           <span className="pf-enter pf-wordmark">Ardian</span>
           <span className="pf-enter pf-script" style={{ ["--d" as string]: "160ms" }}>setiawan</span>
           <span className="sr-only"> — UI/UX designer and web developer</span>
         </h1>
-        <p className="pf-enter pf-label pf-label--tiny mt-3 md:mt-4" style={{ ["--d" as string]: "300ms" }}>
-          UI/UX designer &amp; web developer — design, Next.js build and SEO — South Tangerang, ID
+        <p className="pf-enter pf-tagline mt-2 md:mt-3" style={{ ["--d" as string]: "300ms" }}>
+          UI/UX design, Next.js builds and SEO that ranks — from one desk in South Tangerang.
         </p>
       </div>
 
-      {/* chrome gadget in the middle, overlapping the wordmark like a sticker */}
-      <GadgetScene className="pf-enter pf-gadget pointer-events-none absolute inset-0 top-[8svh] z-10" />
+      {/* big clear-shell gadget in the middle, overlapping the wordmark */}
+      <GadgetScene scale={0.98} className="pf-enter pf-gadget pointer-events-none absolute inset-0 top-[10svh] z-10" />
 
-      <a href="#about" aria-label="Scroll to about" className="pf-scroll absolute bottom-5 left-1/2 -translate-x-1/2 z-20 grid h-11 w-11 place-items-center rounded-full">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-          <path d="M12 4v16M5 13l7 7 7-7" />
+      <span className="pf-dots pf-invert absolute bottom-9 left-5 md:left-12 z-20" aria-hidden="true" />
+      <a href="#about" aria-label="Scroll to about" className="pf-scroll pf-invert absolute bottom-5 left-1/2 z-20 grid h-11 w-11 place-items-center">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 3v18M5 14l7 7 7-7" />
         </svg>
       </a>
-      <p className="pf-label pf-label--tiny absolute bottom-8 left-4 md:left-8 z-20 hidden sm:block">Available for freelance — 2026</p>
     </section>
   );
 }

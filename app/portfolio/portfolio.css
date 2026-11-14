@@ -8,7 +8,8 @@
 .pf-root ::selection { background: var(--pf-ink); color: var(--pf-butter); }
 .pf-root, .pf-root * { font-family: var(--font-inter), system-ui, sans-serif; }
 .pf-root .pf-wordmark, .pf-root .pf-heading, .pf-root .pf-statement, .pf-root .pf-reach,
-.pf-root .pf-display, .pf-root .pf-display * { font-family: var(--font-pf-display), system-ui, sans-serif; }
+.pf-root .pf-display, .pf-root .pf-display *, .pf-root .pf-tagline, .pf-root .pf-lens span, .pf-root .pf-cell-label h3,
+.pf-root .pf-nav .pf-pill { font-family: var(--font-pf-display), system-ui, sans-serif; }
 .pf-root .pf-script, .pf-root .pf-script-inline { font-family: var(--font-pf-script), cursive; }
 .pf-root .pf-label, .pf-root .pf-index, .pf-root .pf-card-label p { font-family: var(--font-pf-mono), ui-monospace, monospace; }
 
@@ -36,27 +37,36 @@
 
 .pf-label--tiny { font-size: 10px; letter-spacing: 0.14em; }
 
-/* faint concentric ripples on the yellow, like light on a curved screen */
-.pf-ripple::before {
-  content: ""; position: absolute; inset: 0; z-index: -20; pointer-events: none;
-  background: repeating-radial-gradient(circle at 28% 62%, rgba(0,0,0,.035) 0 1.5px, transparent 1.5px 10px);
+/* Type that sits over the liquid ink: yellow in "difference" reads black on the yellow page and
+   flips back to yellow wherever black ink runs underneath (and the reverse on the black footer). */
+.pf-invert { color: var(--pf-butter); mix-blend-mode: difference; }
+
+/* narrower content column used by the statement and the work grid */
+.pf-shell { width: 100%; margin-inline: auto; padding-inline: 16px; }
+@media (min-width: 768px) { .pf-shell { width: 80vw; max-width: 1280px; padding-inline: 0; } }
+
+.pf-tagline { font-size: 10px; font-weight: 800; letter-spacing: -0.01em; text-transform: uppercase; }
+@media (min-width: 768px) { .pf-tagline { font-size: 11px; } }
+
+/* "Ardian" + brush-script "setiawan" on one line, the script riding over the grotesk */
+.pf-lockup { display: flex; align-items: baseline; white-space: nowrap; font-size: clamp(2.6rem, 14.6vw, 15.5rem); line-height: 0.92; }
+.pf-wordmark { font-weight: 700; letter-spacing: -0.07em; }
+.pf-script {
+  font-size: 1em; letter-spacing: -0.02em; margin-left: -0.14em; line-height: 1;
+  rotate: -8deg; translate: 0 0.1em; transform-origin: left center;
 }
 
-/* "Ardian" + script "setiawan" on one line, the script riding over the grotesk */
-.pf-lockup { display: flex; align-items: baseline; white-space: nowrap; font-size: clamp(2.5rem, 11.6vw, 12.5rem); line-height: 0.9; }
-.pf-wordmark { font-weight: 800; letter-spacing: -0.065em; }
-.pf-script {
-  font-size: 0.96em; letter-spacing: -0.01em; margin-left: -0.1em;
-  rotate: -7deg; translate: 0 0.07em; transform-origin: left center;
-}
+.pf-dots { width: 7px; height: 22px; background: radial-gradient(circle at 50% 3.5px, currentColor 3.4px, transparent 3.6px), radial-gradient(circle at 50% 18.5px, currentColor 3.4px, transparent 3.6px); }
+.pf-logo { transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+.pf-logo:hover { transform: rotate(90deg); }
 .pf-heading { font-size: clamp(2.75rem, 7vw, 6.5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.95; }
 .pf-script-inline { font-weight: 400; letter-spacing: 0; display: inline-block; transform: rotate(-5deg) translateY(0.04em); margin-left: 0.08em; }
 .pf-statement {
-  font-size: clamp(1.6rem, 3.5vw, 3.6rem); font-weight: 600; letter-spacing: -0.035em;
-  line-height: 0.98; text-transform: uppercase;
+  font-size: clamp(1.7rem, 4.3vw, 4.6rem); font-weight: 700; letter-spacing: -0.045em;
+  line-height: 0.95; text-transform: uppercase;
 }
 .pf-statement-indent { display: inline-block; width: 0; }
-@media (min-width: 768px) { .pf-statement-indent { width: 40%; } }
+@media (min-width: 768px) { .pf-statement-indent { width: 28%; } }
 .pf-reach { font-size: clamp(3.4rem, 10vw, 10rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; text-transform: uppercase; white-space: nowrap; }
 
 /* pills & buttons */
@@ -72,10 +82,12 @@
 .pf-oval { padding: 0 20px; border-radius: 50%; }
 @media (min-width: 768px) { .pf-oval { padding: 0 26px; } }
 @media (min-width: 768px) {
-  .pf-nav .pf-pill, .pf-pill--sm { min-height: 32px; padding: 0 14px; font-size: 11px; border-width: 1px; }
-  .pf-nav .pf-oval { padding: 0 20px; }
-  .pf-nav .pf-pill.grid { height: 36px; width: 36px; }
+  .pf-nav .pf-pill, .pf-pill--sm { min-height: 34px; padding: 0 22px; font-size: 10.5px; font-weight: 800; letter-spacing: 0; text-transform: uppercase; border-width: 2px; }
+  .pf-nav nav { gap: 4px; }
+  .pf-nav .pf-oval { padding: 0 22px; }
 }
+.pf-nav .pf-pill { background: transparent; }
+.pf-nav .pf-pill:hover { background: var(--pf-ink); }
 .pf-pill--dark { background: transparent; border-color: var(--pf-butter); color: var(--pf-butter); }
 .pf-pill--dark:hover { background: var(--pf-butter); color: var(--pf-ink); }
 .pf-btn {
@@ -97,8 +109,8 @@
 
 /* hero */
 .pf-shadow { filter: drop-shadow(26px 38px 26px rgba(0,0,0,.28)); }
-.pf-scroll { border: 1.5px solid var(--pf-ink); background: var(--pf-butter); transition: transform .2s; }
-.pf-scroll:hover { transform: translate(-50%, 3px); }
+.pf-scroll { translate: -50% 0; transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+.pf-scroll:hover { transform: translateY(5px); }
 @media (prefers-reduced-motion: no-preference) {
   .pf-enter { animation: pf-enter 1s cubic-bezier(.16,1,.3,1) both; animation-delay: var(--d, 0ms); }
   /* opacity only: scaling the wrapper would make the WebGL canvas measure itself at the wrong size */
@@ -171,6 +183,34 @@
 .pf-device[data-shape="pager"] .pf-ab i { width: 20px; height: 20px; background: #f4f4f4; }
 .pf-device[data-shape="pager"] .pf-ab i + i { background: #1a1a1a; }
 
+/* hairline grid of cells; a round lens under the cursor reveals a colour layer behind the gadgets */
+@property --lr { syntax: "<length>"; inherits: true; initial-value: 0px; }
+.pf-grid, .pf-lens { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .pf-grid, .pf-lens { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .pf-grid, .pf-lens { grid-template-columns: repeat(3, 1fr); } }
+.pf-grid {
+  --line: rgba(14,14,14,.1); --mx: 50%; --my: 50%; --lr: 0px;
+  position: relative; border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+  transition: --lr .5s cubic-bezier(.2,.8,.2,1);
+}
+.pf-grid[data-lens="on"] { --lr: clamp(120px, 13vw, 210px); }
+.pf-lens { position: absolute; inset: 0; z-index: 0; pointer-events: none; clip-path: circle(var(--lr) at var(--mx) var(--my)); }
+.pf-lens > div { aspect-ratio: 1 / 1; overflow: hidden; display: grid; place-items: center; }
+.pf-lens span { font-size: clamp(3.5rem, 8vw, 8.5rem); font-weight: 800; letter-spacing: -0.06em; white-space: nowrap; text-transform: uppercase; }
+.pf-cell {
+  position: relative; z-index: 1; display: flex; flex-direction: column; aspect-ratio: 1 / 1; padding: 20px 22px 18px;
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.pf-cell .pf-object { flex: 1; min-height: 0; width: 70%; }
+.pf-cell-label { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.pf-cell-label h3 { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
+.pf-cell-label h3 sup { font-size: 7px; font-weight: 700; margin-left: 3px; vertical-align: super; }
+.pf-cell-icon {
+  display: grid; place-items: center; width: 24px; height: 24px; border-radius: 99px; background: var(--pf-ink); color: var(--pf-butter);
+  font-size: 12px; line-height: 1; transition: transform .25s cubic-bezier(.2,.8,.2,1);
+}
+.pf-card:hover .pf-cell-icon { transform: rotate(45deg) scale(1.1); }
+
 .pf-card-label {
   width: min(100%, 300px); margin: 22px auto 0; display: grid; grid-template-columns: 1fr auto; column-gap: 12px; align-items: baseline;
 }
@@ -192,3 +232,9 @@
   .pf-device, .pf-work-blob, .pf-device-sheen { transition: none; }
 }
 }
+
+/* Fixed nav in "difference": black on the yellow page, yellow over dark panels and the footer. */
+.pf-root .pf-nav { mix-blend-mode: difference; color: var(--pf-butter); }
+.pf-root .pf-nav .pf-pill { color: inherit; border-color: currentColor; background: transparent; }
+.pf-root .pf-nav .pf-pill:hover { background: var(--pf-butter); color: #000; }
+.pf-root .pf-logo-mark { display: block; width: 28px; height: 28px; background: currentColor; -webkit-mask: url(/logo-black.svg) center / contain no-repeat; mask: url(/logo-black.svg) center / contain no-repeat; }

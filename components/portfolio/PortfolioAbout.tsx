@@ -1,30 +1,26 @@
-"use client";
-
 import Image from "next/image";
-import { useRef } from "react";
-import { m, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import InkTrail from "./InkTrail";
 
 export default function PortfolioAbout() {
-  const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start start"] });
-  const scale = useTransform(scrollYProgress, [0, 1], reduced ? [1, 1] : [0.7, 1]);
-  const radius = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [48, 0]);
-
   return (
-    <section ref={ref} id="about" className="pf-ripple relative bg-[var(--pf-butter)] text-[var(--pf-ink)] pb-16 md:pb-24">
-      {/* media panel grows to the full width of the page as it scrolls in */}
-      <m.div style={{ scale, borderRadius: radius }} className="relative h-[62svh] md:h-[86svh] w-full overflow-hidden bg-[var(--pf-ink)] origin-top">
-        <Image src="/profile.webp" alt="Ardian Setiawan at work" fill sizes="100vw" className="object-cover object-[50%_32%]" />
-        <div className="absolute inset-0 pf-holo mix-blend-overlay opacity-40" aria-hidden="true" />
-      </m.div>
+    <section id="about" className="relative bg-[#0b0b0b]">
+      {/* the media panel pins to the screen; the yellow statement then slides up over it */}
+      <div className="sticky top-0 h-[100svh] overflow-hidden">
+        <Image src="/profile.webp" alt="" fill sizes="100vw" aria-hidden="true" className="scale-125 object-cover object-[50%_32%] opacity-60 blur-2xl" />
+        <div className="absolute inset-x-[4%] md:inset-x-[6%] top-[9svh] bottom-0 overflow-hidden">
+          <Image src="/profile.webp" alt="Ardian Setiawan at work" fill sizes="(min-width: 768px) 88vw, 92vw" className="object-cover object-[50%_32%]" />
+        </div>
+      </div>
 
-      <div className="pf-wrap relative pt-10 md:pt-14">
-        <h2 className="pf-label pf-label--tiny md:absolute md:left-8 md:top-[4.4rem] mb-4 md:mb-0">About</h2>
-        <p className="pf-statement">
-          <span className="pf-statement-indent" aria-hidden="true" />
-          Ardian is a designer who ships the code too. Research, interface, Next.js build and SEO — one person, one desk, nothing lost in a handoff.
-        </p>
+      <div className="relative isolate z-10 overflow-hidden bg-[var(--pf-butter)] py-20 md:py-32">
+        <InkTrail />
+        <div className="pf-shell pf-invert relative">
+          <h2 className="pf-tagline md:absolute md:left-0 md:top-[0.9em] mb-4 md:mb-0">Who I am</h2>
+          <p className="pf-statement">
+            <span className="pf-statement-indent" aria-hidden="true" />
+            Ardian is a designer who ships the code too. Research, interface, Next.js build and SEO: one person, one desk, nothing lost in a handoff.
+          </p>
+        </div>
       </div>
     </section>
   );

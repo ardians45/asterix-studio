@@ -17,15 +17,15 @@ export default function PortfolioFooter() {
   return (
     <footer id="contact" className="relative isolate overflow-hidden bg-[var(--pf-ink)] text-[var(--pf-butter)]">
       {/* the yellow world drips into the black footer, and yellow ink follows the cursor */}
-      <LiquidBlob className="absolute -top-[26%] left-[8%] w-[62vw] max-w-[820px] text-[var(--pf-butter)] -z-10" duration={11} />
-      <InkTrail className="-z-10" colors={["#FFD60A"]} shadow={false} size={40} />
+      <LiquidBlob className="absolute -top-[26%] left-[8%] w-[62vw] max-w-[820px] text-[var(--pf-butter)]" duration={11} />
+      <InkTrail color="#FFD60A" />
 
       <div className="pf-wrap relative flex min-h-[86svh] flex-col justify-center py-24">
         <div className="relative mx-auto w-fit">
-          <h2 className="pf-reach">Reach out</h2>
+          <h2 className="pf-reach pf-invert">Reach out</h2>
           <GadgetScene fixedVariant={2} scale={0.95} className="pointer-events-none absolute left-1/2 top-1/2 h-[260%] w-full -translate-x-1/2 -translate-y-1/2" />
         </div>
-        <a href="mailto:ardians1945@gmail.com" className="pf-mail mx-auto mt-8 w-fit text-base md:text-lg font-semibold">
+        <a href="mailto:ardians1945@gmail.com" className="pf-mail pf-invert mx-auto mt-8 w-fit text-base md:text-lg font-semibold">
           ardians1945@gmail.com
         </a>
 
