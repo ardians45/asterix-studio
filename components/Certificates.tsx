@@ -113,7 +113,9 @@ const certificates = [
   }
 ];
 
-export default function Certificates() {
+export default function Certificates({ tone = "paper" }: { tone?: "paper" | "butter" }) {
+  const butter = tone === "butter";
+  const bg = butter ? "#FFD60A" : "#F5F4F0";
   const sectionRef = useRef<HTMLElement | null>(null);
   const [shouldMount, setShouldMount] = useState(false);
 
@@ -135,15 +137,19 @@ export default function Certificates() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="certificates" className="py-20 h-screen relative bg-[#F5F4F0] overflow-hidden flex flex-col items-center justify-center">
+    <section ref={sectionRef} id="certificates" style={{ backgroundColor: bg }} className="py-20 h-screen relative overflow-hidden flex flex-col items-center justify-center">
        {/* Ambient Background Depth */}
-       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(232,112,42,0.08)_0%,transparent_70%)]" />
-       
+       {!butter && <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(232,112,42,0.08)_0%,transparent_70%)]" />}
+
        {/* Section Header */}
-       <div className="absolute top-16 left-6 md:left-12 z-10 pointer-events-none">
-            <h2 className="text-sm text-[#e8702a] uppercase tracking-[0.3em] font-cinzel border-l-2 border-[#e8702a] pl-4">
-              Certifications
-            </h2>
+       <div className={butter ? "absolute top-16 inset-x-0 z-10 pointer-events-none pf-wrap" : "absolute top-16 left-6 md:left-12 z-10 pointer-events-none"}>
+            {butter ? (
+              <h2 className="pf-heading">Certificates <span className="pf-script-inline">earned</span></h2>
+            ) : (
+              <h2 className="text-sm text-[#e8702a] uppercase tracking-[0.3em] font-cinzel border-l-2 border-[#e8702a] pl-4">
+                Certifications
+              </h2>
+            )}
        </div>
 
        <div className="w-full h-full relative z-1">
@@ -152,7 +158,7 @@ export default function Certificates() {
                 fit={1.2} 
                 minRadius={1200} // Larger radius = less dramatic curve, more elegant
                 dragSensitivity={15}
-                overlayBlurColor="#F5F4F0"
+                overlayBlurColor={bg}
                 openedImageWidth="85vw"
                 openedImageHeight="65vh"
                 grayscale={false}

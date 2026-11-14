@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import LithosHero from "@/components/LithosHero";
-import Skills from "@/components/Skills";
+import "./portfolio.css";
+import { pfFontVars } from "@/components/portfolio/fonts";
+import PortfolioNav from "@/components/portfolio/PortfolioNav";
+import PortfolioHero from "@/components/portfolio/PortfolioHero";
+import PortfolioAbout from "@/components/portfolio/PortfolioAbout";
+import PortfolioWork from "@/components/portfolio/PortfolioWork";
+import PortfolioSkills from "@/components/portfolio/PortfolioSkills";
+import PortfolioAwards from "@/components/portfolio/PortfolioAwards";
+import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
 import ToolsLoop from "@/components/ToolsLoop";
 import Certificates from "@/components/Certificates";
-import Projects from "@/components/Projects";
 import SeoProofsSection from "@/components/sections/b2b/SeoProofsSection";
-import Achievement from "@/components/Achievement";
-import Footer from "@/components/Footer";
-import RevealObserver from "@/components/motion/RevealObserver";
 
 const title = "Portfolio Ardian Setiawan | UI/UX Designer & Web Developer";
 const description =
@@ -30,18 +33,19 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <main data-portfolio-page className="bg-black text-white selection:bg-[#e8702a] selection:text-white">
-      <RevealObserver />
-      <LithosHero />
-      <div className="relative z-10 bg-[#F5F4F0] text-gray-900">
-        <Skills />
-        <ToolsLoop />
-        <Certificates />
-        <Projects />
+    <main data-portfolio-page className={`pf-root ${pfFontVars}`}>
+      <PortfolioNav />
+      <PortfolioHero />
+      <PortfolioAbout />
+      <PortfolioWork />
+      <ToolsLoop />
+      <PortfolioSkills />
+      <PortfolioAwards />
+      <Certificates tone="butter" />
+      <div className="pf-seo">
         <SeoProofsSection theme="portfolio" lang="en" />
-        <Achievement />
-        <Footer />
       </div>
+      <PortfolioFooter />
     </main>
   );
 }

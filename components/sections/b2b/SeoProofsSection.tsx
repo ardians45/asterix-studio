@@ -297,7 +297,7 @@ export default function SeoProofsSection({ theme = "default", lang = "id" }: Seo
         </div>
 
         {/* Category Selector Tabs */}
-        <div className="flex justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
           {categories.map((cat) => (
             <button
               key={cat.id}
