@@ -5,6 +5,7 @@ import PortfolioNav from "@/components/portfolio/PortfolioNav";
 import PortfolioHero from "@/components/portfolio/PortfolioHero";
 import PortfolioAbout from "@/components/portfolio/PortfolioAbout";
 import PortfolioWork from "@/components/portfolio/PortfolioWork";
+import PortfolioReel from "@/components/portfolio/PortfolioReel";
 import PortfolioSkills from "@/components/portfolio/PortfolioSkills";
 import PortfolioAwards from "@/components/portfolio/PortfolioAwards";
 import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
@@ -38,6 +39,7 @@ export default function PortfolioPage() {
       <PortfolioHero />
       <PortfolioAbout />
       <PortfolioWork />
+      <PortfolioReel />
       <ToolsLoop />
       <PortfolioSkills />
       <PortfolioAwards />
