@@ -10,7 +10,6 @@ import PortfolioReel from "@/components/portfolio/PortfolioReel";
 import PortfolioSkills from "@/components/portfolio/PortfolioSkills";
 import PortfolioAwards from "@/components/portfolio/PortfolioAwards";
 import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
-import ToolsLoop from "@/components/ToolsLoop";
 import Certificates from "@/components/Certificates";
 import SeoProofsSection from "@/components/sections/b2b/SeoProofsSection";
 
@@ -42,7 +41,6 @@ export default function PortfolioPage() {
       <PortfolioJourney />
       <PortfolioWork />
       <PortfolioReel />
-      <ToolsLoop />
       <PortfolioSkills />
       <PortfolioAwards />
       <Certificates tone="butter" />

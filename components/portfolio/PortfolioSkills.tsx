@@ -47,18 +47,23 @@ const GROUPS = [
 export default function PortfolioSkills() {
   return (
     <section id="skills" className="relative bg-[var(--pf-butter)] text-[var(--pf-ink)] py-20 md:py-28">
-      <div className="pf-wrap">
-        <h2 className="pf-heading mb-12 md:mb-16">
-          The <span className="pf-script-inline">toolbox</span>
-        </h2>
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div className="pf-shell grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16 lg:items-center">
+        <div>
+          <h2 className="pf-heading">
+            The <span className="pf-script-inline">toolbox</span>
+          </h2>
+          <p className="mt-6 max-w-sm text-base md:text-lg leading-snug opacity-80">
+            The stack behind every build: designed in Figma, built in Next.js and React, shipped with SEO in mind.
+          </p>
+        </div>
+        <div className="pf-skills-grid">
           {GROUPS.map((g) => (
-            <div key={g.title}>
-              <h3 className="pf-label mb-4 border-b-2 border-[var(--pf-ink)] pb-3">{g.title}</h3>
-              <ul className="flex flex-wrap gap-2">
+            <div key={g.title} className="pf-skill-group">
+              <h3 className="pf-label">{g.title}</h3>
+              <ul className="pf-skill-list">
                 {g.items.map(({ name, Icon, color }) => (
-                  <li key={name} className="pf-chip">
-                    <Icon aria-hidden="true" style={{ color }} className="text-lg" />
+                  <li key={name} className="pf-skill-item">
+                    <Icon aria-hidden="true" style={{ color }} />
                     {name}
                   </li>
                 ))}

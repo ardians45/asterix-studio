@@ -14,6 +14,7 @@
 .pf-root .pf-label, .pf-root .pf-index, .pf-root .pf-card-label p { font-family: var(--font-inter), system-ui, sans-serif; }
 
 /* SEO proofs section (shared component): recolour its orange "portfolio" theme to butter & ink */
+@media (min-width: 768px) { .pf-seo > section > .container { width: 80vw; max-width: 1280px; padding-inline: 0; } }
 .pf-seo > section { background: var(--pf-butter); border-color: rgba(14,14,14,.2); }
 .pf-seo h2 { font-family: var(--font-pf-display), system-ui, sans-serif; font-weight: 800; letter-spacing: -0.04em; color: var(--pf-ink); }
 .pf-seo [class*="text-[#e8702a]"] { color: var(--pf-ink); }
@@ -185,8 +186,7 @@
 
 /* hairline grid of cells; a round lens under the cursor reveals a colour layer behind the gadgets */
 @property --lr { syntax: "<length>"; inherits: true; initial-value: 0px; }
-.pf-grid, .pf-lens { display: grid; grid-template-columns: 1fr; }
-@media (min-width: 640px) { .pf-grid, .pf-lens { grid-template-columns: repeat(2, 1fr); } }
+.pf-grid, .pf-lens { display: grid; grid-template-columns: repeat(2, 1fr); }
 @media (min-width: 1024px) { .pf-grid, .pf-lens { grid-template-columns: repeat(3, 1fr); } }
 .pf-grid {
   --line: rgba(14,14,14,.1); --mx: 50%; --my: 50%; --lr: 0px;
@@ -206,8 +206,15 @@
 .pf-cell-label h3 { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
 .pf-cell-label h3 sup { font-size: 7px; font-weight: 700; margin-left: 3px; vertical-align: super; }
 .pf-cell-icon {
-  display: grid; place-items: center; width: 24px; height: 24px; border-radius: 99px; background: var(--pf-ink); color: var(--pf-butter);
+  position: relative; flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 99px; background: var(--pf-ink); color: var(--pf-butter);
   font-size: 12px; line-height: 1; transition: transform .25s cubic-bezier(.2,.8,.2,1);
+}
+/* 44px touch area around the small arrow */
+.pf-cell-icon::after { content: ""; position: absolute; inset: -10px; }
+@media (max-width: 639px) {
+  .pf-cell { padding: 12px 12px 10px; }
+  .pf-cell .pf-object { width: 80%; }
+  .pf-cell-label { gap: 6px; }
 }
 .pf-card:hover .pf-cell-icon { transform: rotate(45deg) scale(1.1); }
 
@@ -305,6 +312,34 @@
   .pf-journey:not([data-still="true"]) .pf-journey-cta > a { justify-content: center; }
 }
 
+
+/* work heading row */
+.pf-work-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+@media (min-width: 768px) { .pf-work-head { margin-bottom: 48px; } }
+
+/* toolbox */
+.pf-skills-grid { display: grid; gap: 28px; }
+@media (min-width: 640px) { .pf-skills-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 40px; } }
+.pf-skill-group > h3 { border-top: 2px solid var(--pf-ink); padding-top: 12px; margin-bottom: 14px; }
+.pf-skill-list { display: grid; gap: 10px; }
+@media (min-width: 640px) { .pf-skill-list { gap: 12px; } }
+.pf-skill-item { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; line-height: 1.2; }
+.pf-skill-item svg { width: 26px; height: 26px; flex: none; }
+@media (min-width: 1024px) {
+  #skills { min-height: 100svh; display: flex; align-items: center; }
+  #skills > .pf-shell { width: 80vw; }
+}
+
+/* certificates (butter) */
+.pf-cert-grid { display: grid; grid-template-columns: 1fr; column-gap: 32px; }
+@media (min-width: 640px) { .pf-cert-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .pf-cert-grid { grid-template-columns: repeat(3, 1fr); } }
+.pf-cert { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; border-top: 2px solid var(--pf-ink); padding: 18px 0 22px; transition: transform .2s cubic-bezier(.2,.8,.2,1); }
+a.pf-cert:hover { transform: translateY(-2px); }
+.pf-cert-title { font-size: 18px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 4px; transition: text-decoration-color .2s; }
+a.pf-cert:hover .pf-cert-title { text-decoration-color: var(--pf-ink); }
+.pf-cert-meta { margin-top: 6px; font-size: 14px; color: rgba(14,14,14,.7); }
+.pf-cert-arrow { flex: none; font-size: 16px; line-height: 1.4; }
 } /* end @layer components */
 /* WebGL gagal: bingkai kanvas kosong disembunyiin, section tinggal teks */
 .pf-root .pf-journey-canvas[data-failed="true"] { display: none; }

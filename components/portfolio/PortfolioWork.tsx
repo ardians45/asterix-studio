@@ -48,9 +48,16 @@ export default function PortfolioWork() {
   };
 
   return (
-    <section id="work" className="relative bg-[var(--pf-butter)] text-[var(--pf-ink)] pb-24 md:pb-36">
-      <h2 className="sr-only">Selected work</h2>
+    <section id="work" className="relative bg-[var(--pf-butter)] text-[var(--pf-ink)] pt-16 md:pt-24 pb-24 md:pb-36">
       <div className="pf-shell">
+        <div className="pf-work-head">
+          <h2 className="pf-heading">
+            Selected <span className="pf-script-inline">work</span>
+          </h2>
+          <p className="pf-label hidden md:block">
+            {String(works.length).padStart(2, "0")} projects · 2025
+          </p>
+        </div>
         <div ref={gridRef} className="pf-grid" data-lens="off" onPointerMove={onMove} onPointerLeave={onLeave}>
           {/* colour layer, only visible through the round lens under the cursor */}
           <div className="pf-lens" aria-hidden="true">

@@ -9,7 +9,7 @@ export default function PortfolioAwards() {
 
   return (
     <section id="awards" className="relative bg-[var(--pf-butter)] text-[var(--pf-ink)] py-20 md:py-28">
-      <div className="pf-wrap">
+      <div className="pf-shell">
         <h2 className="pf-heading mb-12 md:mb-16">
           Awards <span className="pf-script-inline">&amp; roles</span>
         </h2>

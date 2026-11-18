@@ -136,6 +136,39 @@ export default function Certificates({ tone = "paper" }: { tone?: "paper" | "but
     return () => io.disconnect();
   }, []);
 
+  if (butter) {
+    return (
+      <section id="certificates" className="relative bg-[var(--pf-butter)] text-[var(--pf-ink)] py-20 md:py-28">
+        <div className="pf-shell">
+          <h2 className="pf-heading mb-12 md:mb-16">Certificates <span className="pf-script-inline">earned</span></h2>
+          <ul className="pf-cert-grid">
+            {certificates.map((c) => {
+              const hasLink = c.link !== '#';
+              const body = (
+                <>
+                  <div>
+                    <h3 className="pf-cert-title">{c.title}</h3>
+                    <p className="pf-cert-meta">{c.description.replace('•', '·')}</p>
+                  </div>
+                  {hasLink && <span className="pf-cert-arrow" aria-hidden="true">↗</span>}
+                </>
+              );
+              return (
+                <li key={c.title}>
+                  {hasLink ? (
+                    <a href={c.link} target="_blank" rel="noopener noreferrer" className="pf-cert">{body}</a>
+                  ) : (
+                    <div className="pf-cert">{body}</div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section ref={sectionRef} id="certificates" style={{ backgroundColor: bg }} className="py-20 h-screen relative overflow-hidden flex flex-col items-center justify-center">
        {/* Ambient Background Depth */}

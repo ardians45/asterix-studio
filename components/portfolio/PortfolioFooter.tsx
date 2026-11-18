@@ -16,7 +16,8 @@ export default function PortfolioFooter() {
       <LiquidBlob className="absolute -top-[26%] left-[8%] w-[62vw] max-w-[820px] text-[var(--pf-butter)]" duration={11} />
       <InkTrail color="#FFD60A" />
 
-      <div className="pf-wrap relative flex min-h-[86svh] flex-col justify-center py-24">
+      <div className="relative flex min-h-[86svh] flex-col justify-center py-24">
+        <div className="pf-shell flex flex-col">
         <div className="relative mx-auto w-fit">
           <h2 className="pf-reach pf-invert">Reach out</h2>
           {/* CSS gadget rather than a second WebGL canvas: same look at this size, no GPU context */}
@@ -37,8 +38,9 @@ export default function PortfolioFooter() {
         <a href="mailto:ardians1945@gmail.com" className="pf-mail pf-invert mx-auto mt-8 w-fit text-base md:text-lg font-semibold">
           ardians1945@gmail.com
         </a>
+        </div>
 
-        <div className="absolute inset-x-4 md:inset-x-8 bottom-6 flex flex-wrap items-end justify-between gap-4">
+        <div className="pf-shell absolute inset-x-0 bottom-6 flex flex-wrap items-end justify-between gap-4">
           <p className="pf-label pf-label--tiny !text-[var(--pf-butter)]/70">
             South Tangerang, Banten
             <br />© {new Date().getFullYear()} Ardian Setiawan · Asterix Studio
