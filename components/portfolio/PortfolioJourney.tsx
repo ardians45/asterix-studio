@@ -13,6 +13,12 @@ type Entry = { id: string; split: string; years: string; lap: string; title: str
 const CHAPTERS: Entry[] = [...journey, { id: "fin", ...journeyFinish }];
 const LAST = CHAPTERS.length - 1;
 
+/** winners' photos shown as a full-width card in the stacked (still) layout */
+const WINNERS: Record<string, { src: string; label: string }> = {
+  s3: { src: "/portfolio/balloons/mia.webp", label: "2nd place · MIA × LinkAja 2025" },
+  s4: { src: "/portfolio/balloons/prada.webp", label: "3rd place · PRADA × Tel-U 2026" },
+};
+
 /** small framed photo for the stacked (still) layout; a missing file falls back to an ink box with the label */
 function Thumb({ photo, small = false }: { photo: Photo; small?: boolean }) {
   const [failed, setFailed] = useState(!photo.src);
@@ -192,6 +198,13 @@ export default function PortfolioJourney() {
                   <div>
                     <h3 className="pf-display pf-journey-title">{c.title}</h3>
                     <p className="pf-journey-body">{c.body}</p>
+                    {isStill && WINNERS[c.id] && (
+                      <figure className="mt-4 overflow-hidden rounded-xl border-[3px] border-[var(--pf-butter)] bg-[var(--pf-ink)]">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={WINNERS[c.id].src} alt={WINNERS[c.id].label} width={1000} height={625} className="block h-auto w-full" />
+                        <figcaption className="bg-[var(--pf-ink)] px-3 py-2 text-center text-sm font-extrabold text-[var(--pf-butter)]">{WINNERS[c.id].label}</figcaption>
+                      </figure>
+                    )}
                     {isStill && c.photos && c.photos.length > 0 && (
                       <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
                         {c.photos.map((ph) => (

@@ -45,10 +45,10 @@ export default function PortfolioPage() {
       <PortfolioSkills />
       <PortfolioAwards />
       <Certificates tone="butter" />
+      <PortfolioMarquee />
       <div className="pf-seo">
         <SeoProofsSection theme="portfolio" lang="en" />
       </div>
-      <PortfolioMarquee />
       <PortfolioFooter />
     </main>
   );

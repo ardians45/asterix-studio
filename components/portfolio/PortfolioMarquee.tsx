@@ -49,7 +49,6 @@ export default function PortfolioMarquee() {
   const t2 = useRef<HTMLDivElement>(null);
   const pausedRef = useRef(false);
   const hoverRef = useRef(false);
-  const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
@@ -60,9 +59,6 @@ export default function PortfolioMarquee() {
     return () => mq.removeEventListener("change", sync);
   }, []);
 
-  useEffect(() => {
-    pausedRef.current = paused;
-  }, [paused]);
 
   useEffect(() => {
     if (reduced) return;
@@ -153,25 +149,6 @@ export default function PortfolioMarquee() {
       <div className="pf-mq-tape pf-mq-tape--two" aria-hidden="true">
         <Tape words={TAPE_TWO} outlineOdd trackRef={t2} />
       </div>
-      {!reduced && (
-        <button
-          type="button"
-          className="pf-mq-btn"
-          aria-label={paused ? "Play marquee" : "Pause marquee"}
-          aria-pressed={paused}
-          onClick={() => setPaused((p) => !p)}
-        >
-          {paused ? (
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <path d="M8 5v14l11-7z" fill="currentColor" />
-            </svg>
-          ) : (
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor" />
-            </svg>
-          )}
-        </button>
-      )}
     </section>
   );
 }
