@@ -258,11 +258,11 @@ export const journey: Chapter[] = [
     years: "2026",
     lap: "Lap three",
     title: "Systems that run on race day",
-    body: "Full-stack contract at PT Paletindo from March: the product e-catalog and internal tools. Race timing developer at 20FIT from April, streaming RFID reads to live results. 3rd place at PRADA UI/UX and a Dicoding full-stack scholarship.",
+    body: "3rd place at PRADA UI/UX with Telkom University during Ramadan. A full-stack contract at PT Paletindo from March: the product e-catalog and internal tools. Race timing developer at 20FIT from April, streaming RFID reads to live results. Plus a Dicoding full-stack scholarship.",
     photos: [
+      { src: "/portfolio/logos/prada-telu.webp", label: "3rd place · PRADA × Tel-U · Ramadan 2026" },
       { src: "/portfolio/logos/paletindo.webp", label: "Paletindo · contract · Mar 2026" },
       { src: "/portfolio/logos/racelab.webp", label: "Race timing · 20FIT · Apr 2026" },
-      { src: "/portfolio/logos/prada-telu.webp", label: "3rd place · PRADA × Tel-U" },
       { src: "/portfolio/logos/dicoding.webp", label: "Dicoding scholarship" },
     ],
   },
