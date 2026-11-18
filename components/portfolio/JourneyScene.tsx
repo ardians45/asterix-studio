@@ -54,7 +54,7 @@ const GATE_Y = 6; // height of the beam centre
 const CAM_FROM = 0.02;
 const CAM_TO = 0.93;
 const LOOK_AHEAD = 0.04;
-const SIGN_T = 0.97; // NEXT LAP sign: ahead of the camera for the whole last chapter
+const SIGN_AHEAD = 48; // NEXT LAP sign: unit di depan kamera akhir (CAM_TO), di KIRI jalan supaya tetap di layar saat jalan tampil di kanan
 const SIGN_T_STILL = 0.78; // closer, so it is readable in the single still frame
 const STILL_T = 0.68; // camera for the still frame
 const DRIFT_SPEED = 1.5; // units per second, last chapter only
@@ -65,8 +65,12 @@ const BOARD_H = 3.9;
 const PLATE_H = 0.62;
 const FRAME = 0.12;
 const POLE_H = 2.0;
-const SHOW_DIST = 40;
-const HIDE_DIST = 30;
+const SHOW_DIST = 75;
+const HIDE_DIST = 15;
+const BOARD_FIRST = 1; // papan pertama: sedikit di depan gerbang dari kamera
+const BOARD_STEP = 11; // papan berikut: di belakang gerbang
+const CAM_SIDE = 1.5; // kamera geser ke kanan dari garis tengah
+const VIEW_SHIFT = 0.45; // geser gambar ke kanan di desktop
 const FOV = 50;
 const UP = new Vector3(0, 1, 0);
 
@@ -374,14 +378,17 @@ export default function JourneyScene({ getProgress, still = false, className = "
     const yaw = (25 * Math.PI) / 180;
 
     journey.forEach((ch, ci) => {
-      const n = ch.photos.length;
       ch.photos.forEach((ph, k) => {
-        // on wide screens the text column covers the left of the screen: every board goes on the right of the road, a bit forward/back so they do not line up
-        const jitter = wide ? (k % 2 === 0 ? -0.006 : 0.006) : 0;
-        const t = T(GATES[ci] - 0.05 + (0.08 * (k + 0.5)) / n + jitter);
+        // papan diletakkan relatif terhadap kamera di tengah chapter (progress 0.1/0.3/0.5/0.7): 24..46 unit di depannya, sebelum gerbang
+        const camC = CAM_FROM + (CAM_TO - CAM_FROM) * (0.1 + 0.2 * ci);
+        const gd = (T(GATES[ci]) - T(camC)) * LEN; // jarak kamera (tengah chapter) ke gerbang chapter ini
+        const ahead = k === 0 ? gd + BOARD_FIRST : gd + BOARD_STEP * k;
+        const t = T(camC) + ahead / LEN;
         const s = -1; // semua papan di kiri jalan (permintaan user); di desktop kamera digeser lebih ke kanan supaya tetap di luar kolom teks
-        const gap = wide ? 1 + ((k * 2 + ci) % 3) * 0.5 : 1.5 + ((k + ci) % 3) * 0.75; // 1..2 / 1.5..3 from the asphalt edge
-        const off = s * (HALF_WIDTH + gap + (BOARD_W + FRAME * 2) / 2);
+        const gap = wide ? 5.4 : 1.5 + ((k + ci) % 3) * 0.75; // jarak dari tepi aspal
+        // desktop: papan di balik gerbang (k>=1) digeser keluar sampai tepi dalamnya tepat di kiri tiang gerbang pada layar
+        const half = (BOARD_W + FRAME * 2) / 2;
+        const off = s * (wide && k > 0 ? (HALF_WIDTH + 2.3) * (ahead / gd) + half + 0.6 - CAM_SIDE : HALF_WIDTH + gap + half);
         frameAt(t);
         const g = new Group();
         g.position.set(p.x + side.x * off, p.y, p.z + side.z * off);
@@ -429,12 +436,12 @@ export default function JourneyScene({ getProgress, still = false, className = "
 
     // ── NEXT LAP sign, right of the road, facing the camera ────────────────
     {
-      frameAt(T(still ? SIGN_T_STILL : SIGN_T));
+      frameAt(still ? T(SIGN_T_STILL) : T(CAM_TO) + SIGN_AHEAD / LEN);
       const g = new Group();
-      const off = HALF_WIDTH + 6;
+      const off = still ? HALF_WIDTH + 6 : -(HALF_WIDTH + 5.5);
       g.position.set(p.x + side.x * off, p.y, p.z + side.z * off);
       g.lookAt(g.position.x - tan.x, g.position.y, g.position.z - tan.z);
-      const signW = 7.5;
+      const signW = still ? 7.5 : 11;
       const signH = signW * 0.3125;
       const signY = 5.6;
       const poleG = keepGeo(new BoxGeometry(0.2, signY, 0.2));
@@ -455,12 +462,13 @@ export default function JourneyScene({ getProgress, still = false, className = "
     const camPos = new Vector3();
     const camLook = new Vector3();
     const STILL_P = (STILL_T - CAM_FROM) / (CAM_TO - CAM_FROM);
-    const maxDrift = Math.max(0, (1 - (FOG_FAR + 10) / LEN - T(CAM_TO)) * LEN); // never reach the fogged-out end of the road
+    // never reach the fogged-out end of the road, and stop well before the NEXT LAP sign so it stays in view
+    const maxDrift = Math.max(0, Math.min((1 - (FOG_FAR + 10) / LEN - T(CAM_TO)) * LEN, SIGN_AHEAD - 30));
     let drift = 0;
     const place = (progress: number) => {
       const tc = T(CAM_FROM + (CAM_TO - CAM_FROM) * Math.min(1, Math.max(0, progress))) + drift / LEN;
       frameAt(tc);
-      camPos.copy(p).addScaledVector(side, 1.5).addScaledVector(UP, 2.2);
+      camPos.copy(p).addScaledVector(side, CAM_SIDE).addScaledVector(UP, 2.2);
       frameAt(tc + T(LOOK_AHEAD));
       camLook.copy(p).addScaledVector(UP, 0.8);
       camera.position.copy(camPos);
@@ -473,7 +481,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
       if (!w || !h) return;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
-      if (!still && w >= 1024) camera.setViewOffset(w, h, -w * 0.31, 0, w, h); // track + left-side boards sit right of the text column
+      if (!still && w >= 1024) camera.setViewOffset(w, h, -w * VIEW_SHIFT, 0, w, h); // track + left-side boards sit right of the text column
       else camera.clearViewOffset();
       camera.updateProjectionMatrix();
       if (still) draw();
@@ -528,7 +536,8 @@ export default function JourneyScene({ getProgress, still = false, className = "
       let last = performance.now();
       const frame = (now: number) => {
         raf = requestAnimationFrame(frame);
-        const delta = Math.min(0.05, (now - last) / 1000);
+        // rAF timestamp can be earlier than performance.now() on the first frame: a negative delta made the damping overshoot wildly
+        const delta = Math.max(0, Math.min(0.05, (now - last) / 1000));
         last = now;
         const target = progressRef.current?.() ?? 0;
         smooth += (target - smooth) * (1 - Math.pow(0.0004, delta)); // frame-rate independent damping

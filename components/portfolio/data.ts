@@ -63,7 +63,7 @@ export const works: Work[] = [
     title: "CareerConnect",
     kind: "Web platform · React",
     year: "2025",
-    image: "/projects/career-connect/cc1.webp",
+    image: "/projects/career-connect/careerconnect-hero.webp",
     href: "/projects/career-connect",
     blob: "#FF3D7F",
     category: "web",
