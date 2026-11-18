@@ -49,6 +49,18 @@ const TABS: Tab[] = [
     link: { href: "https://www.youtube.com/live/gaASDK_3yA4", label: "Watch the live stream ↗" },
   },
   {
+    id: "cctv",
+    label: "CCTV review",
+    title: "CCTV review",
+    points: [
+      "Station cameras synced to the timing data",
+      "Jump to the moment an athlete crossed each mat",
+      "Settles disputed laps with video, not guesswork",
+    ],
+    // people in the footage are blurred: athletes and visitors never agreed to appear here
+    images: [{ src: "/portfolio/20fit/cctv-review.webp", alt: "Race timing screen with station camera footage synced to lap times", w: 1600, h: 904 }],
+  },
+  {
     id: "infrastructure",
     label: "Infrastructure",
     title: "Infrastructure",

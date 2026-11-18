@@ -31,35 +31,6 @@ export const works: Work[] = [
     chips: ["Check-in", "Time chip", "Lap tracker", "Leaderboard", "Race photos"],
   },
   {
-    title: "Paletindo",
-    kind: "E-catalog · Next.js · SEO",
-    year: "2025",
-    image: "/portfolio/screens/paletindo.webp",
-    href: "https://paletindo.id/",
-    blob: "#2B59FF",
-    category: "web",
-    impact: "PageSpeed 100 · Google #1",
-  },
-  {
-    title: "SR Laundry",
-    kind: "Landing page · Local SEO",
-    year: "2025",
-    image: "/portfolio/screens/srlaundry.webp",
-    href: "https://srlaundry.site/",
-    blob: "#00B3A4",
-    category: "web",
-    impact: "+180% WhatsApp inquiries",
-  },
-  {
-    title: "Ruang Senawa",
-    kind: "Interior studio website · Palu",
-    year: "2026",
-    category: "web",
-    image: "/portfolio/screens/ruangsenawa.webp",
-    href: "https://ruangsenawa.com/",
-    blob: "#1F4D3A",
-  },
-  {
     title: "BANTU Platform",
     kind: "UI/UX case study",
     year: "2025",
@@ -111,7 +82,7 @@ export const works: Work[] = [
     image: "/projects/cactastic/cactastic.webp",
     href: "/projects/cactastic",
     blob: "#0EA5E9",
-    category: "web",
+    category: "ux",
   },
   {
     title: "3D Tetris Grunge",
@@ -123,6 +94,69 @@ export const works: Work[] = [
     category: "systems",
   },
 ];
+
+export type ClientPhoto = { src: string; w: number; h: number };
+export type Client = {
+  name: string;
+  kind: string;
+  impact?: string;
+  url?: string;
+  photos: ClientPhoto[];
+};
+
+const P = "/portfolio/clients/";
+
+export const clients: Client[] = [
+  {
+    name: "Paletindo",
+    kind: "E-catalog · Next.js · SEO",
+    impact: "PageSpeed 100 · Google #1",
+    url: "https://paletindo.id/",
+    photos: [
+      { src: "/portfolio/screens/paletindo.webp", w: 640, h: 452 },
+      { src: P + "paletindo-2.webp", w: 1440, h: 900 },
+    ],
+  },
+  {
+    name: "SR Laundry",
+    kind: "Landing page · Local SEO",
+    impact: "+180% WhatsApp inquiries",
+    url: "https://srlaundry.site/",
+    photos: [
+      { src: "/portfolio/screens/srlaundry.webp", w: 640, h: 452 },
+      { src: P + "srlaundry-2.webp", w: 1440, h: 900 },
+    ],
+  },
+  {
+    name: "Ruang Senawa",
+    kind: "Interior studio website · Palu",
+    url: "https://ruangsenawa.com/",
+    photos: [
+      { src: "/portfolio/screens/ruangsenawa.webp", w: 1600, h: 912 },
+      { src: P + "ruangsenawa-2.webp", w: 1440, h: 900 },
+    ],
+  },
+  {
+    name: "KS Contractor",
+    kind: "Contractor website · Malang",
+    url: "https://karyasuksescontractor.com/",
+    photos: [1, 2, 3].map((n) => ({ src: `${P}karyasukses-${n}.webp`, w: 1440, h: 900 })),
+  },
+  {
+    name: "Airsanad",
+    kind: "Multi-brand website · Padel, cafe, villa",
+    url: "https://airsanad.com/",
+    photos: [1, 2, 3].map((n) => ({ src: `${P}airsanad-${n}.webp`, w: 1440, h: 900 })),
+  },
+  {
+    name: "Dokter Namira",
+    kind: "Clinic website · Local SEO · Malang",
+    photos: [1, 2, 3].map((n) => ({ src: `${P}dokternamira-${n}.webp`, w: 1600, h: 730 })),
+  },
+];
+
+/** Projects shipped: every work plus every client website. */
+export const projectCount = works.length + clients.length;
 
 export const achievements = [
   {

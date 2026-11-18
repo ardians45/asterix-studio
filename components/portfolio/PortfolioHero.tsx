@@ -3,9 +3,9 @@
 import { useLenis } from "lenis/react";
 import AgentConsole from "./AgentConsole";
 import InkTrail from "./InkTrail";
-import { works } from "./data";
+import { projectCount } from "./data";
 
-const PROJECTS = String(works.length).padStart(2, "0");
+const PROJECTS = String(projectCount).padStart(2, "0");
 
 // Callouts around the console (desktop). dx/dy: dot, ax/ay: where the line meets the card, tx/ty: card
 // offset from that point. All in percent of the stage; the dots land on the agent nodes / the console edge.

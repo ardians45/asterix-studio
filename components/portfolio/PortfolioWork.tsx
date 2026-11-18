@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
-import { works, isExternal, type Work } from "./data";
+import ClientStack from "./ClientStack";
+import { works, clients, isExternal, type Work } from "./data";
 
 type Filter = "all" | Work["category"];
 
@@ -15,7 +16,7 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: "systems", label: "Systems & 3D" },
 ];
 
-const years = works.map((w) => Number(w.year));
+const years = [...works.map((w) => Number(w.year)), 2024]; // 2024: first client sites
 const YEAR_RANGE =
   Math.min(...years) === Math.max(...years) ? `${years[0]}` : `${Math.min(...years)}–${Math.max(...years)}`;
 
@@ -100,6 +101,7 @@ export default function PortfolioWork() {
   const visible = works.filter((w) => filter === "all" || w.category === filter);
   const featured = visible.find((w) => w.featured);
   const rest = visible.filter((w) => !w.featured);
+  const showClients = filter === "all" || filter === "web";
   const lastWide = rest.length % 2 === 1;
 
   return (
@@ -110,7 +112,7 @@ export default function PortfolioWork() {
             Selected <span className="pf-script-inline">work</span>
           </h2>
           <p className="pf-label hidden md:block" aria-live="polite">
-            {visible.length} projects · {YEAR_RANGE}
+            {visible.length + (showClients ? clients.length : 0)} projects · {YEAR_RANGE}
           </p>
         </div>
 
@@ -124,6 +126,7 @@ export default function PortfolioWork() {
 
         <div className="pf-wk-list" data-fade={fading ? "out" : "in"}>
           {featured && <Featured key={featured.title} work={featured} />}
+          {showClients && <ClientStack />}
           <div className="pf-wk-grid">
             {rest.map((w, i) => {
               const ext = isExternal(w.href);
