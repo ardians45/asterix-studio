@@ -67,7 +67,7 @@ const PARTS: [number, number, number, number, number][] = [
   [-0.9, -1.38, 0.12, 0.06, 0],
 ];
 
-function fitCover(tex: Texture) {
+export function fitCover(tex: Texture) {
   const img = tex.image as { width: number; height: number } | undefined;
   if (!img) return;
   const a = img.width / img.height;
@@ -83,7 +83,7 @@ function fitCover(tex: Texture) {
 }
 
 /** Soft studio: a grey room with a few coloured light panels, baked into an environment map. */
-function buildEnvironment(renderer: WebGLRenderer) {
+export function buildEnvironment(renderer: WebGLRenderer) {
   const env = new Scene();
   env.background = new Color("#7d838c");
   const geo = new PlaneGeometry(1, 1);
@@ -113,7 +113,7 @@ function buildEnvironment(renderer: WebGLRenderer) {
   return target;
 }
 
-function buildGadgets(screenMat: MeshBasicMaterial) {
+export function buildGadgets(screenMat: MeshBasicMaterial) {
   const geos: BufferGeometry[] = [];
   const mats: Material[] = [];
   const keep = <T extends Material>(m: T) => (mats.push(m), m);

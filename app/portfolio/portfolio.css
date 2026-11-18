@@ -245,3 +245,66 @@
 
 /* Skip layout and paint for long sections until they are about to scroll into view. */
 .pf-root #skills, .pf-root #awards, .pf-root .pf-seo { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* ───────────── Career lap (race-track timeline) ─────────────
+   Phones and reduced motion: header, a framed still, then stacked chapter rows.
+   >= 768px without reduced motion: tall section, pinned stage, chapters swap in the left column. */
+@layer components {
+
+.pf-journey { padding-block: 80px; }
+.pf-journey-controls { display: none; }
+.pf-journey-canvas { position: relative; height: 60svh; margin: 32px 0 40px; border-radius: 28px; overflow: hidden; background: var(--pf-ink); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+.pf-journey-canvas canvas { border-radius: inherit; }
+.pf-journey-list { border-top: 1px solid rgba(255,255,255,.15); }
+.pf-journey-chapter { display: grid; gap: 12px; padding-block: 24px; border-bottom: 1px solid rgba(255,255,255,.15); }
+.pf-journey-meta { display: grid; gap: 4px; align-content: start; }
+.pf-journey-lap { opacity: .6; }
+.pf-journey-title { font-size: clamp(1.5rem, 6vw, 2rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.05; }
+.pf-journey-body { margin-top: 12px; font-size: 16px; line-height: 1.6; color: rgba(255,255,255,.75); }
+.pf-journey-cta { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.pf-journey-cta > a { justify-content: center; }
+.pf-journey-split[aria-current] { background: var(--pf-butter); color: var(--pf-ink); }
+.pf-journey-line { height: 2px; margin-top: 16px; background: rgba(255,255,255,.15); }
+.pf-journey-line > div { height: 100%; background: var(--pf-butter); transform: scaleX(0); transform-origin: left; }
+
+@media (min-width: 640px) {
+  .pf-journey-cta { flex-direction: row; }
+  .pf-journey-cta > a { justify-content: flex-start; }
+}
+@media (min-width: 768px) {
+  .pf-journey { padding-block: 112px; }
+  .pf-journey-chapter { grid-template-columns: 14rem 1fr; gap: 32px; padding-block: 32px; }
+  .pf-journey-title { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+  .pf-journey-body { font-size: 18px; }
+  .pf-journey-cta > a { justify-content: center; }
+}
+/* mode pin cuma kalau gerak nggak dikurangi: pengguna reduced-motion langsung dapat baris diam, tanpa kedip layout pin */
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .pf-journey:not([data-still="true"]) { height: calc(100svh * 5.5); padding-block: 0; }
+  .pf-journey:not([data-still="true"]) .pf-journey-stick { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; align-items: center; }
+  .pf-journey:not([data-still="true"]) .pf-shell { position: static; }
+  .pf-journey:not([data-still="true"]) .pf-journey-col { width: 40%; max-width: 520px; }
+  .pf-journey:not([data-still="true"]) .pf-journey-controls { display: block; margin-top: 28px; }
+  .pf-journey:not([data-still="true"]) .pf-journey-canvas { position: absolute; inset: 0; height: auto; margin: 0; border-radius: 0; box-shadow: none; }
+  /* teks kiri butuh dasar tenang: lintasan pudar ke ink di belakang kolom teks */
+  .pf-journey:not([data-still="true"]) .pf-journey-canvas::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(90deg, rgba(14,14,14,.94) 0%, rgba(14,14,14,.8) 30%, rgba(14,14,14,0) 56%); }
+  .pf-journey:not([data-still="true"]) .pf-journey-list { display: grid; margin-top: 32px; border-top: 0; }
+  .pf-journey:not([data-still="true"]) .pf-journey-chapter {
+    grid-area: 1 / 1; display: block; padding-block: 0; border-bottom: 0;
+    opacity: 0; visibility: hidden; transform: translateY(12px);
+    transition: opacity .3s ease, transform .3s ease, visibility 0s linear .3s;
+  }
+  .pf-journey:not([data-still="true"]) .pf-journey-chapter[data-active="true"] {
+    opacity: 1; visibility: visible; transform: none; transition-delay: 0s;
+  }
+  .pf-journey:not([data-still="true"]) .pf-journey-meta { display: block; margin-bottom: 14px; }
+  .pf-journey:not([data-still="true"]) .pf-journey-lap { opacity: 1; }
+  .pf-journey:not([data-still="true"]) .pf-journey-lap::before { content: " · "; }
+  .pf-journey:not([data-still="true"]) .pf-journey-title { font-size: clamp(2rem, min(3.4vw, 5svh), 3.25rem); }
+  .pf-journey:not([data-still="true"]) .pf-journey-cta > a { justify-content: center; }
+}
+
+} /* end @layer components */
+/* WebGL gagal: bingkai kanvas kosong disembunyiin, section tinggal teks */
+.pf-root .pf-journey-canvas[data-failed="true"] { display: none; }

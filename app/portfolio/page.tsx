@@ -4,6 +4,7 @@ import { pfFontVars } from "@/components/portfolio/fonts";
 import PortfolioNav from "@/components/portfolio/PortfolioNav";
 import PortfolioHero from "@/components/portfolio/PortfolioHero";
 import PortfolioAbout from "@/components/portfolio/PortfolioAbout";
+import PortfolioJourney from "@/components/portfolio/PortfolioJourney";
 import PortfolioWork from "@/components/portfolio/PortfolioWork";
 import PortfolioReel from "@/components/portfolio/PortfolioReel";
 import PortfolioSkills from "@/components/portfolio/PortfolioSkills";
@@ -38,6 +39,7 @@ export default function PortfolioPage() {
       <PortfolioNav />
       <PortfolioHero />
       <PortfolioAbout />
+      <PortfolioJourney />
       <PortfolioWork />
       <PortfolioReel />
       <ToolsLoop />

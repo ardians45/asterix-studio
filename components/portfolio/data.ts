@@ -95,6 +95,13 @@ export const achievements = [
     image: "/achievement/prada.png",
   },
   {
+    year: "2026",
+    title: "Progressive Scholarship, full-stack",
+    org: "Dicoding × DBS Foundation",
+    note: "Selected for the full-stack track of Coding Camp 2026, a national programme.",
+    image: "/certificates/dicoding-placeholder.webp",
+  },
+  {
     year: "2025",
     title: "2nd place, MIA UI/UX",
     org: "National, 200+ teams",
@@ -124,4 +131,58 @@ export const achievements = [
   },
 ];
 
-export const isExternal = (href: string) => /^https?:\/\//.test(href);
+export type Chapter = {
+  id: string;
+  split: string;
+  years: string;
+  lap: string;
+  title: string;
+  body: string;
+};
+
+export const journey: Chapter[] = [
+  {
+    id: "s1",
+    split: "S1",
+    years: "2019–2021",
+    lap: "Start line",
+    title: "Software engineering, then the real world",
+    body: "SMK Negeri 2 Karanganyar, software engineering. Internships in digital content and events, then a 280-hour office competency programme with Kemnaker's SIAPkerja, certified.",
+  },
+  {
+    id: "s2",
+    split: "S2",
+    years: "2023–2024",
+    lap: "Lap one",
+    title: "An informatics degree and the first clients",
+    body: "Informatics engineering at Universitas Pamulang, GPA 3.57. Asterix Studio from December 2023: websites designed, built and shipped end to end, plus the ads that send them traffic.",
+  },
+  {
+    id: "s3",
+    split: "S3",
+    years: "2025",
+    lap: "Lap two",
+    title: "Top intern and a national podium",
+    body: "Top intern of batch 1 at PT Kita Bantu Indonesia, designing three core products in Figma. 2nd place at the MIA UI/UX competition, top 3 of 200+ teams.",
+  },
+  {
+    id: "s4",
+    split: "S4",
+    years: "2026",
+    lap: "Lap three",
+    title: "Systems that run on race day",
+    body: "Race timing developer at 20FIT, streaming RFID reads to live results. Full-stack contract at PT Paletindo: the product e-catalog and internal tools. 3rd place at PRADA UI/UX and a Dicoding full-stack scholarship.",
+  },
+];
+
+export const journeyFinish = {
+  split: "FIN",
+  years: "Now",
+  lap: "Finish line",
+  title: "Next split: your project",
+  body: "Design, build and SEO from one desk. Tell me what you're racing toward.",
+  primary: { label: "Start a project", href: "#contact" },
+  secondary: { label: "See the work", href: "#work" },
+};
+
+export const isExternal =(href: string) => /^https?:\/\//.test(href);

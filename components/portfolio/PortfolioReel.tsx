@@ -44,7 +44,7 @@ export default function PortfolioReel() {
           <p className="pf-label mb-5 opacity-70">In the field · 20FIT</p>
           <h2 className="pf-heading">Race Lab</h2>
           <p className="mt-6 max-w-[34rem] text-base leading-relaxed text-white/75 md:text-lg">
-            The race-day system behind 20FIT&apos;s hybrid race: every step from arrival to the finish photo runs on screen.
+            The race-day system behind 20FIT&apos;s hybrid race. I build and maintain it as a part-time developer since April 2026, from arrival to the finish photo.
           </p>
           <ol className="mt-10 border-t border-white/15">
             {STEPS.map(([name, note], i) => (
