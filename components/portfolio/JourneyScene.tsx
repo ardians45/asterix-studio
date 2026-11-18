@@ -60,8 +60,8 @@ const STILL_T = 0.68; // camera for the still frame
 const DRIFT_SPEED = 1.5; // units per second, last chapter only
 const DRIFT_FROM = 0.8; // progress where the last chapter starts
 const FOG_FAR = 175;
-const BOARD_W = 4.2; // photo, 4:3
-const BOARD_H = 3.15;
+const BOARD_W = 5.2; // photo, 4:3
+const BOARD_H = 3.9;
 const PLATE_H = 0.62;
 const FRAME = 0.12;
 const POLE_H = 2.0;
@@ -379,8 +379,8 @@ export default function JourneyScene({ getProgress, still = false, className = "
         // on wide screens the text column covers the left of the screen: every board goes on the right of the road, a bit forward/back so they do not line up
         const jitter = wide ? (k % 2 === 0 ? -0.006 : 0.006) : 0;
         const t = T(GATES[ci] - 0.05 + (0.08 * (k + 0.5)) / n + jitter);
-        const s = wide || k % 2 === 0 ? 1 : -1;
-        const gap = wide ? 2 + ((k * 2 + ci) % 3) * 0.75 : 2 + ((k + ci) % 3); // 2..3.5 / 2..4 from the asphalt edge
+        const s = -1; // semua papan di kiri jalan (permintaan user); di desktop kamera digeser lebih ke kanan supaya tetap di luar kolom teks
+        const gap = wide ? 1 + ((k * 2 + ci) % 3) * 0.5 : 1.5 + ((k + ci) % 3) * 0.75; // 1..2 / 1.5..3 from the asphalt edge
         const off = s * (HALF_WIDTH + gap + (BOARD_W + FRAME * 2) / 2);
         frameAt(t);
         const g = new Group();
@@ -473,7 +473,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
       if (!w || !h) return;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
-      if (!still && w >= 1024) camera.setViewOffset(w, h, -w * 0.2, 0, w, h); // track sits in the right half
+      if (!still && w >= 1024) camera.setViewOffset(w, h, -w * 0.31, 0, w, h); // track + left-side boards sit right of the text column
       else camera.clearViewOffset();
       camera.updateProjectionMatrix();
       if (still) draw();
@@ -501,7 +501,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
         if (wide && want) {
           // safety: never rise behind the text column (left 42% of the screen)
           proj.set(b.x, boardCenterY, b.z).project(camera);
-          if (proj.z < 1 && (proj.x + 1) / 2 < 0.42) want = 0;
+          if (proj.z < 1 && (proj.x + 1) / 2 < 0.53) want = 0;
         }
         b.v = instant ? want : b.v + (want - b.v) * k;
         if (b.v < 0.003) {
