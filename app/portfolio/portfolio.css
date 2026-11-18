@@ -148,14 +148,14 @@
 a.pf-stat:hover b { text-decoration: underline; text-underline-offset: 4px; }
 
 .pf-stage { position: relative; }
-.pf-stage-canvas { position: relative; height: 60svh; min-height: 340px; }
+.pf-stage-console { width: min(100%, 520px); margin-inline: auto; }
 .pf-callouts { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .pf-callout-card { display: block; background: #F2C900; border: 1px solid rgba(14,14,14,.15); border-radius: 8px; padding: 8px 12px; }
 .pf-callout-card b { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
 .pf-callout-card span { display: block; font-size: 13px; margin-top: 2px; }
 .pf-callout-dot, .pf-callout-lines { display: none; }
 @media (min-width: 1024px) {
-  .pf-stage-canvas { position: absolute; inset: 0; height: auto; min-height: 0; }
+  .pf-stage-console { position: absolute; left: 7.5%; top: 50%; width: 85%; margin: 0; translate: 0 -50%; }
   .pf-stage { height: 78svh; }
   .pf-callouts { position: absolute; inset: 0; display: block; margin: 0; pointer-events: none; }
   .pf-callout-dot { display: block; position: absolute; left: var(--dx); top: var(--dy); width: 10px; height: 10px; translate: -50% -50%; border-radius: 99px; background: var(--pf-butter); box-shadow: 0 0 0 2px var(--pf-ink); }
@@ -165,11 +165,28 @@ a.pf-stat:hover b { text-decoration: underline; text-underline-offset: 4px; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .pf-enter { animation: pf-enter 1s cubic-bezier(.16,1,.3,1) both; animation-delay: var(--d, 0ms); }
-  /* opacity only: scaling the wrapper would make the WebGL canvas measure itself at the wrong size */
-  .pf-gadget { animation: pf-fade .9s ease both; }
+  .pf-console { animation: pf-fade .9s ease both; }
 }
 @keyframes pf-enter { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @keyframes pf-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* agent orchestration console (hero) */
+.pf-console { --rx: 0deg; --ry: 0deg; perspective: 1700px; aspect-ratio: 620 / 530; }
+.pf-root .pf-console, .pf-root .pf-console * { font-family: ui-monospace, "JetBrains Mono", "SF Mono", Consolas, monospace; }
+.pf-root .pf-console svg text:not(.pf-console-mono) { font-family: var(--font-pf-display), var(--font-inter), system-ui, sans-serif; }
+.pf-console-tilt { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(calc(-11deg + var(--ry))) rotateX(calc(5deg + var(--rx))); transition: transform .25s ease-out; }
+.pf-console-slab, .pf-console-edge, .pf-console-panel { position: absolute; inset: 0; border-radius: 4.5% / 5.3%; }
+.pf-console-slab { background: #000; transform: translateZ(-26px); box-shadow: 0 60px 70px rgba(0,0,0,.35), 0 20px 30px rgba(0,0,0,.3); }
+.pf-console-edge { background: #2a2a2a; transform: translateZ(-12px); }
+.pf-console-panel { background: linear-gradient(160deg,#242424 0%,#111 45%,#0a0a0a 100%); border: 1px solid #3a3a3a; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 0 60px rgba(255,214,10,.05); padding: 3.4% 3.2% 3%; color: #fff; overflow: hidden; container-type: inline-size; display: flex; flex-direction: column; }
+.pf-console-panel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg,rgba(255,255,255,.10),transparent 38%); pointer-events: none; }
+.pf-console-bar { display: flex; align-items: center; gap: 1.2cqw; font-size: 2.3cqw; color: #8a8a8a; height: 4.6cqw; flex: none; white-space: nowrap; }
+.pf-console-bar i { width: 2.1cqw; height: 2.1cqw; border-radius: 50%; background: #444; }
+.pf-console-bar i:nth-child(1) { background: #ff6b5e; } .pf-console-bar i:nth-child(2) { background: #ffc93c; } .pf-console-bar i:nth-child(3) { background: #3ddc84; }
+.pf-console-bar span { margin-left: 1.6cqw; } .pf-console-bar b { margin-left: auto; color: #3ddc84; font-weight: 700; }
+.pf-console-svg { display: block; width: 100%; height: auto; margin-top: 1cqw; flex: none; }
+.pf-console-log { margin-top: 1cqw; border-top: 1px solid #2e2e2e; padding-top: 2.6cqw; font-size: 3cqw; line-height: 1.9; color: #9a9a9a; }
+.pf-console-log .g { color: #3ddc84; } .pf-console-log .y { color: #FFD60A; }
 
 /* holographic tint */
 .pf-holo { background: conic-gradient(from 210deg at 60% 40%, #ff4fb8, #4fd1ff, #b6ff4f, #FFD60A, #ff4fb8); }

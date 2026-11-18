@@ -22,7 +22,7 @@ export const works: Work[] = [
     year: "2026",
     category: "systems",
     featured: true,
-    image: "/portfolio/video/racelab-poster.webp",
+    image: "/portfolio/video/racelab-control.webp", // race control dashboard; the poster stays for the video
     poster: "/portfolio/video/racelab-poster.webp",
     video: "/portfolio/video/racelab.mp4",
     href: "#journey",

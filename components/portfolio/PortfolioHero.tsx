@@ -1,22 +1,19 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { useLenis } from "lenis/react";
+import AgentConsole from "./AgentConsole";
 import InkTrail from "./InkTrail";
 import { works } from "./data";
 
-const GadgetScene = dynamic(() => import("./GadgetScene"), { ssr: false });
-
 const PROJECTS = String(works.length).padStart(2, "0");
 
-// Callouts on the gadget (desktop). dx/dy: dot, ax/ay: where the line meets the card, tx/ty: card
-// offset from that point. All in percent of the stage, picked so the dots land on the controller body.
+// Callouts around the console (desktop). dx/dy: dot, ax/ay: where the line meets the card, tx/ty: card
+// offset from that point. All in percent of the stage; the dots land on the agent nodes / the console edge.
 const CALLOUTS = [
-  { top: "Now", sub: "Race timing at 20FIT", dx: 82, dy: 61, ax: 82, ay: 24, tx: "-50%", ty: "-100%" },
-  { top: `${PROJECTS} Projects`, sub: "shipped", dx: 22, dy: 62, ax: 17, ay: 44, tx: "-50%", ty: "0" },
-  { top: "2nd place", sub: "MIA UI/UX 2025", dx: 82, dy: 76, ax: 82, ay: 90, tx: "-50%", ty: "0" },
-  { top: "Since 2023", sub: "Asterix Studio", dx: 50, dy: 85, ax: 50, ay: 90, tx: "-50%", ty: "0" },
+  { top: "Now", sub: "Race timing at 20FIT", dx: 76, dy: 27, ax: 76, ay: 12, tx: "-50%", ty: "-100%" },
+  { top: `${PROJECTS} Projects`, sub: "shipped", dx: 25, dy: 28, ax: 25, ay: 12, tx: "-50%", ty: "-100%" },
+  { top: "2nd place", sub: "MIA UI/UX 2025", dx: 82, dy: 82, ax: 82, ay: 92, tx: "-50%", ty: "0" },
+  { top: "Since 2023", sub: "Asterix Studio", dx: 50, dy: 82, ax: 50, ay: 92, tx: "-50%", ty: "0" },
 ];
 
 const STATS = [
@@ -26,19 +23,7 @@ const STATS = [
 ];
 
 export default function PortfolioHero() {
-  // three.js is the heaviest thing on the page: fetch it only once the browser is idle, so the
-  // wordmark paints and the page becomes interactive first.
   const lenis = useLenis();
-  const [showGadget, setShowGadget] = useState(false);
-  useEffect(() => {
-    const go = () => setShowGadget(true);
-    if ("requestIdleCallback" in window) {
-      const id = window.requestIdleCallback(go, { timeout: 2000 });
-      return () => window.cancelIdleCallback(id);
-    }
-    const id = setTimeout(go, 600);
-    return () => clearTimeout(id);
-  }, []);
 
   const jump = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -90,10 +75,7 @@ export default function PortfolioHero() {
         </div>
 
         <div className="pf-stage">
-          {/* the box keeps its size before the gadget arrives, so nothing jumps */}
-          <div className="pf-stage-canvas">
-            {showGadget && <GadgetScene variant={2} scale={1} className="pf-gadget pointer-events-none absolute inset-0" />}
-          </div>
+          <AgentConsole className="pf-stage-console" />
           <svg className="pf-callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
             {CALLOUTS.map((c) => (
               <line key={c.top} x1={c.dx} y1={c.dy} x2={c.ax} y2={c.ay} />

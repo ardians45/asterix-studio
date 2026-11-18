@@ -34,7 +34,7 @@ function Featured({ work }: { work: Work }) {
   return (
     <div className="pf-wk-feat" data-playing={playing}>
       <Image
-        src={work.poster ?? work.image}
+        src={work.image}
         alt={`${work.title} race-day dashboard`}
         fill
         sizes="(min-width: 768px) 80vw, 100vw"
