@@ -6,6 +6,7 @@ import PortfolioHero from "@/components/portfolio/PortfolioHero";
 import PortfolioAbout from "@/components/portfolio/PortfolioAbout";
 import PortfolioJourney from "@/components/portfolio/PortfolioJourney";
 import PortfolioWork from "@/components/portfolio/PortfolioWork";
+import Portfolio20fit from "@/components/portfolio/Portfolio20fit";
 import PortfolioSkills from "@/components/portfolio/PortfolioSkills";
 import PortfolioAwards from "@/components/portfolio/PortfolioAwards";
 import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
@@ -39,6 +40,7 @@ export default function PortfolioPage() {
       <PortfolioAbout />
       <PortfolioJourney />
       <PortfolioWork />
+      <Portfolio20fit />
       <PortfolioSkills />
       <PortfolioAwards />
       <Certificates tone="butter" />

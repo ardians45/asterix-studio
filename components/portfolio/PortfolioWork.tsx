@@ -23,8 +23,8 @@ function Featured({ work }: { work: Work }) {
   const lenis = useLenis();
   const [playing, setPlaying] = useState(false);
 
-  const toLap = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const el = document.querySelector(work.href);
+  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
+    const el = document.getElementById(target.replace(/^#/, ""));
     if (!el) return;
     e.preventDefault();
     if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -72 });
@@ -67,9 +67,14 @@ function Featured({ work }: { work: Work }) {
             ))}
           </div>
         )}
-        <a href={work.href} onClick={toLap} className="pf-wk-link">
-          See the full lap →
-        </a>
+        <div className="pf-wk-links">
+          <a href={work.href} onClick={(e) => scrollTo(e, work.href)} className="pf-wk-link">
+            See the full lap →
+          </a>
+          <a href="#20fit" onClick={(e) => scrollTo(e, "#20fit")} className="pf-wk-link">
+            See the 20FIT stack →
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -128,6 +133,7 @@ export default function PortfolioWork() {
                   key={w.title}
                   href={w.href}
                   {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  onClick={w.href === "#" ? (e) => e.preventDefault() : undefined}
                   className="pf-wk-card"
                   data-wide={wide}
                 >

@@ -51,6 +51,15 @@ export const works: Work[] = [
     impact: "+180% WhatsApp inquiries",
   },
   {
+    title: "Ruang Senawa",
+    kind: "Interior studio website · Palu",
+    year: "2026",
+    category: "web",
+    image: "/portfolio/screens/ruangsenawa.webp",
+    href: "https://ruangsenawa.com/",
+    blob: "#1F4D3A",
+  },
+  {
     title: "BANTU Platform",
     kind: "UI/UX case study",
     year: "2025",
