@@ -249,7 +249,7 @@ export const journey: Chapter[] = [
     body: "Top intern of batch 1 at PT Kita Bantu Indonesia, designing three core products in Figma. 2nd place at the MIA UI/UX competition, top 3 of 200+ teams.",
     photos: [
       { src: "/portfolio/logos/bantu.webp", label: "BANTU · top intern 2025" },
-      { wordmark: "MIA UI/UX · LinkAja", label: "2nd place · MIA UI/UX" },
+      { src: "/portfolio/logos/mia-linkaja.webp", label: "2nd place · MIA × LinkAja" },
     ],
   },
   {
@@ -262,8 +262,8 @@ export const journey: Chapter[] = [
     photos: [
       { src: "/portfolio/logos/racelab.webp", label: "Race timing · 20FIT" },
       { src: "/portfolio/logos/paletindo.webp", label: "Paletindo · full-stack contract" },
-      { wordmark: "PRADA · Telkom University", label: "3rd place · PRADA" },
-      { wordmark: "Dicoding", label: "Dicoding scholarship" },
+      { src: "/portfolio/logos/prada-telu.webp", label: "3rd place · PRADA × Tel-U" },
+      { src: "/portfolio/logos/dicoding.webp", label: "Dicoding scholarship" },
     ],
   },
 ];
