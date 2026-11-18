@@ -2,50 +2,100 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import { works, isExternal } from "./data";
+import { useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
+import { works, isExternal, type Work } from "./data";
 
-const SHAPES = ["handheld", "frame", "pager", "tv"] as const;
-// what the lens shows behind each gadget: [cell colour, colour of the big project name]
-const LENS: [string, string][] = [
-  ["#FF5A4A", "#0E0E0E"],
-  ["#B8FF8A", "#0E0E0E"],
-  ["#0E0E0E", "#FFD60A"],
-  ["#0E0E0E", "#3DDC84"],
-  ["#C9A8FF", "#0E0E0E"],
-  ["#5B9BFF", "#0E0E0E"],
-  ["#5B9BFF", "#FFFFFF"],
-  ["#A8E4FF", "#0E0E0E"],
-  ["#FF8A00", "#0E0E0E"],
+type Filter = "all" | Work["category"];
+
+const FILTERS: { id: Filter; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "web", label: "Websites" },
+  { id: "ux", label: "UI/UX case studies" },
+  { id: "systems", label: "Systems & 3D" },
 ];
 
+const years = works.map((w) => Number(w.year));
+const YEAR_RANGE =
+  Math.min(...years) === Math.max(...years) ? `${years[0]}` : `${Math.min(...years)}–${Math.max(...years)}`;
+
+function Featured({ work }: { work: Work }) {
+  const lenis = useLenis();
+  const [playing, setPlaying] = useState(false);
+
+  const toLap = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = document.querySelector(work.href);
+    if (!el) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -72 });
+    else el.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <div className="pf-wk-feat" data-playing={playing}>
+      <Image
+        src={work.poster ?? work.image}
+        alt={`${work.title} race-day dashboard`}
+        fill
+        sizes="(min-width: 768px) 80vw, 100vw"
+        className="object-cover"
+      />
+      <span className="pf-wk-feat-shade" aria-hidden="true" />
+      {playing && work.video && (
+        <video src={work.video} poster={work.poster} muted controls playsInline autoPlay preload="none" onEnded={() => setPlaying(false)} />
+      )}
+      <button
+        type="button"
+        className="pf-wk-play"
+        aria-label={playing ? `Close ${work.title} video` : `Play ${work.title} video`}
+        onClick={() => setPlaying((p) => !p)}
+      >
+        {playing ? (
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="3" strokeLinecap="round" fill="none" /></svg>
+        ) : (
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+        )}
+      </button>
+      <div className="pf-wk-feat-info">
+        <span className="pf-label text-white">Featured · {work.year}</span>
+        <h3 className="pf-wk-ftitle">{work.title}</h3>
+        <p className="pf-wk-kind">{work.summary ?? work.kind}</p>
+        {work.chips && (
+          <div className="pf-wk-pills">
+            {work.chips.map((c) => (
+              <span key={c} className="pf-wk-pill">{c}</span>
+            ))}
+          </div>
+        )}
+        <a href={work.href} onClick={toLap} className="pf-wk-link">
+          See the full lap →
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function PortfolioWork() {
-  const gridRef = useRef<HTMLDivElement>(null);
+  const [filter, setFilter] = useState<Filter>("all");
+  const [fading, setFading] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // The lens position is written straight to CSS variables, so moving the mouse never re-renders.
-  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const el = gridRef.current;
-    if (!el || e.pointerType !== "mouse") return;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-    el.dataset.lens = "on";
-  };
-  const onLeave = () => {
-    if (gridRef.current) gridRef.current.dataset.lens = "off";
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+
+  const choose = (next: Filter) => {
+    if (next === filter) return;
+    if (timer.current) clearTimeout(timer.current);
+    setFading(true);
+    timer.current = setTimeout(() => {
+      setFilter(next);
+      setFading(false);
+    }, 200);
   };
 
-  const tilt = (e: React.PointerEvent<HTMLElement>) => {
-    if (e.pointerType !== "mouse") return;
-    const el = e.currentTarget;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--rx", `${((e.clientY - r.top) / r.height - 0.5) * -16}deg`);
-    el.style.setProperty("--ry", `${((e.clientX - r.left) / r.width - 0.5) * 20}deg`);
-  };
-  const untilt = (e: React.PointerEvent<HTMLElement>) => {
-    e.currentTarget.style.setProperty("--rx", "0deg");
-    e.currentTarget.style.setProperty("--ry", "0deg");
-  };
+  const visible = works.filter((w) => filter === "all" || w.category === filter);
+  const featured = visible.find((w) => w.featured);
+  const rest = visible.filter((w) => !w.featured);
+  const lastWide = rest.length % 2 === 1;
 
   return (
     <section id="work" className="relative bg-[var(--pf-butter)] text-[var(--pf-ink)] pt-16 md:pt-24 pb-24 md:pb-36">
@@ -54,55 +104,54 @@ export default function PortfolioWork() {
           <h2 className="pf-heading">
             Selected <span className="pf-script-inline">work</span>
           </h2>
-          <p className="pf-label hidden md:block">
-            {String(works.length).padStart(2, "0")} projects · 2025
+          <p className="pf-label hidden md:block" aria-live="polite">
+            {visible.length} projects · {YEAR_RANGE}
           </p>
         </div>
-        <div ref={gridRef} className="pf-grid" data-lens="off" onPointerMove={onMove} onPointerLeave={onLeave}>
-          {/* colour layer, only visible through the round lens under the cursor */}
-          <div className="pf-lens" aria-hidden="true">
-            {works.map((w, i) => (
-              <div key={w.title} style={{ background: LENS[i % LENS.length][0], color: LENS[i % LENS.length][1] }}>
-                <span>{w.title}</span>
-              </div>
-            ))}
-          </div>
 
-          {works.map((w, i) => {
-            const ext = isExternal(w.href);
-            return (
-              <Link
-                key={w.title}
-                href={w.href}
-                {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="pf-card pf-cell group"
-                onPointerMove={tilt}
-                onPointerLeave={untilt}
-              >
-                <div className="pf-object" style={{ ["--float" as string]: `${(i % 3) * -1.3}s` }}>
-                  <div className="pf-device" data-shape={SHAPES[i % SHAPES.length]}>
-                    <div className="pf-device-screen">
-                      <Image src={w.image} alt={`${w.title} screen`} fill sizes="(min-width: 1024px) 300px, (min-width: 640px) 40vw, 80vw" className="object-cover object-top" />
-                      <span className="pf-device-sheen" aria-hidden="true" />
-                    </div>
-                    <div className="pf-device-controls" aria-hidden="true">
-                      <span className="pf-dpad" />
-                      <span className="pf-grille" />
-                      <span className="pf-ab"><i /><i /></span>
-                    </div>
+        <div className="pf-wk-filters" role="group" aria-label="Filter projects">
+          {FILTERS.map((f) => (
+            <button key={f.id} type="button" className="pf-wk-chip" aria-pressed={filter === f.id} onClick={() => choose(f.id)}>
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="pf-wk-list" data-fade={fading ? "out" : "in"}>
+          {featured && <Featured key={featured.title} work={featured} />}
+          <div className="pf-wk-grid">
+            {rest.map((w, i) => {
+              const ext = isExternal(w.href);
+              const wide = lastWide && i === rest.length - 1;
+              return (
+                <Link
+                  key={w.title}
+                  href={w.href}
+                  {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="pf-wk-card"
+                  data-wide={wide}
+                >
+                  <div className="pf-wk-media">
+                    <Image
+                      src={w.image}
+                      alt={`${w.title} preview`}
+                      fill
+                      sizes={wide ? "(min-width: 768px) 80vw, 100vw" : "(min-width: 768px) 40vw, 100vw"}
+                      className="object-cover object-top"
+                    />
                   </div>
-                </div>
-
-                <div className="pf-cell-label">
-                  <h3>
-                    {w.title}
-                    <sup>({w.year})</sup>
-                  </h3>
-                  <span className="pf-cell-icon" aria-hidden="true">{ext ? "↗" : "→"}</span>
-                </div>
-              </Link>
-            );
-          })}
+                  <div className="pf-wk-row">
+                    <h3 className="pf-wk-title">
+                      {w.title} <span aria-hidden="true">{ext ? "↗" : "→"}</span>
+                    </h3>
+                    <span className="pf-wk-year">{w.year}</span>
+                  </div>
+                  <p className="pf-wk-kind">{w.kind}</p>
+                  {w.impact && <span className="pf-wk-impact">{w.impact}</span>}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -14,6 +14,7 @@
 import { useEffect, useRef } from "react";
 import {
   AmbientLight,
+  Box3,
   BoxGeometry,
   BufferGeometry,
   ClampToEdgeWrapping,
@@ -33,6 +34,7 @@ import {
   SRGBColorSpace,
   Texture,
   TextureLoader,
+  Vector3,
   WebGLRenderer,
 } from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
@@ -204,7 +206,14 @@ export function buildGadgets(screenMat: MeshBasicMaterial) {
   return { variants, dispose };
 }
 
-export default function GadgetScene({ className = "", scale = 0.7 }: { className?: string; scale?: number }) {
+/** Index of the twin-stick controller with antennas in `buildGadgets().variants`. */
+export const GADGET_PAD = 2;
+
+/**
+ * `variant`: when set, that gadget is locked (no gadget swap, no full turn); the screenshots still
+ * rotate and the gadget only tilts a little toward the pointer. Without it the hero behaves as before.
+ */
+export default function GadgetScene({ className = "", scale = 0.7, variant }: { className?: string; scale?: number; variant?: number }) {
   const wrap = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -235,10 +244,16 @@ export default function GadgetScene({ className = "", scale = 0.7 }: { className
     const screenMat = new MeshBasicMaterial({ color: "#0b0b0c", toneMapped: false });
     const { variants, dispose } = buildGadgets(screenMat);
     const group = new Group();
+    const locked = variant !== undefined ? variant % variants.length : undefined;
     variants.forEach((v, i) => {
-      v.visible = i === 0;
+      v.visible = i === (locked ?? 0);
       group.add(v);
     });
+    if (locked !== undefined) {
+      // centre the locked gadget's bounding box on the group so it turns around its own middle
+      const c = new Box3().setFromObject(variants[locked]).getCenter(new Vector3());
+      variants[locked].position.sub(c);
+    }
     scene.add(group);
 
     // screen textures: fetched one at a time, the first right away
@@ -278,7 +293,12 @@ export default function GadgetScene({ className = "", scale = 0.7 }: { className
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       // shrink on narrow canvases so the wide gadgets still fit a phone screen
-      fit = Math.min(1, (VIEW_H * camera.aspect) / (4.4 * scale));
+      if (locked !== undefined) {
+        // fill ~88% of the width (gadget is ~3.9 wide, ~3.7 tall with antennas), never taller than the canvas
+        fit = Math.min((0.88 * VIEW_H * camera.aspect) / 3.9, (0.94 * VIEW_H) / 3.7) / scale;
+      } else {
+        fit = Math.min(1, (VIEW_H * camera.aspect) / (4.4 * scale));
+      }
     };
     resize();
     const ro = new ResizeObserver(resize);
@@ -289,16 +309,26 @@ export default function GadgetScene({ className = "", scale = 0.7 }: { className
     const start = performance.now();
     const frame = (now: number) => {
       raf = requestAnimationFrame(frame);
-      const delta = Math.min(0.05, (now - last) / 1000);
+      const delta = Math.max(0, Math.min(0.05, (now - last) / 1000)); // rAF time can precede performance.now() on the first frame: a negative delta would blow the damping up
       last = now;
       const t = (now - start) / 1000;
       const k = 1 - Math.pow(0.002, delta); // frame-rate independent damping
       spin.value += (spin.target - spin.value) * (1 - Math.pow(0.0006, delta));
-      const ty = (reduced ? -0.3 : -0.3 + pointer.x * 0.7 + Math.sin(t * 0.6) * 0.08) + spin.value;
-      const tx = reduced ? 0.12 : 0.12 - pointer.y * 0.45 + Math.cos(t * 0.5) * 0.05;
+      let ty: number;
+      let tx: number;
+      if (locked !== undefined) {
+        // faces the camera at rest; pointer tilt only, capped at 12 degrees, plus a tiny idle sway
+        const max = 0.21;
+        const clamp = (v: number) => Math.max(-max, Math.min(max, v));
+        ty = reduced ? 0 : clamp(pointer.x * 0.21) + Math.sin(t * 0.6) * 0.03;
+        tx = reduced ? 0 : clamp(-pointer.y * 0.21) + Math.cos(t * 0.5) * 0.02;
+      } else {
+        ty = (reduced ? -0.3 : -0.3 + pointer.x * 0.7 + Math.sin(t * 0.6) * 0.08) + spin.value;
+        tx = reduced ? 0.12 : 0.12 - pointer.y * 0.45 + Math.cos(t * 0.5) * 0.05;
+      }
       group.rotation.y += (ty - group.rotation.y) * k;
       group.rotation.x += (tx - group.rotation.x) * k;
-      group.rotation.z = reduced ? 0.08 : 0.08 + Math.sin(t * 0.4) * 0.05;
+      group.rotation.z = locked !== undefined ? (reduced ? 0 : Math.sin(t * 0.4) * 0.03) : reduced ? 0.08 : 0.08 + Math.sin(t * 0.4) * 0.05;
       group.position.y = reduced ? 0 : Math.sin(t * 0.9) * 0.08;
       group.scale.setScalar(scale * fit);
       renderer.render(scene, camera);
@@ -327,7 +357,12 @@ export default function GadgetScene({ className = "", scale = 0.7 }: { className
       pointer.x = (e.clientX / window.innerWidth) * 2 - 1;
       pointer.y = (e.clientY / window.innerHeight) * 2 - 1;
     };
+    const onLeave = () => {
+      pointer.x = 0;
+      pointer.y = 0;
+    };
     window.addEventListener("pointermove", onMove, { passive: true });
+    document.documentElement.addEventListener("pointerleave", onLeave);
 
     // every few seconds: one full turn, and swap gadget + screenshot while it is edge-on
     let swap = 0;
@@ -335,11 +370,11 @@ export default function GadgetScene({ className = "", scale = 0.7 }: { className
       ? 0
       : window.setInterval(() => {
           if (!raf) return;
-          spin.target += Math.PI * 2;
+          if (locked === undefined) spin.target += Math.PI * 2;
           show(index + 1, true); // start fetching the next screenshot before the swap
           swap = window.setTimeout(() => {
             index += 1;
-            variants.forEach((v, i) => (v.visible = i === index % variants.length));
+            if (locked === undefined) variants.forEach((v, i) => (v.visible = i === index % variants.length));
             show(index);
           }, 260);
         }, 3200);
@@ -352,6 +387,7 @@ export default function GadgetScene({ className = "", scale = 0.7 }: { className
       ro.disconnect();
       document.removeEventListener("visibilitychange", sync);
       window.removeEventListener("pointermove", onMove);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
       textures.forEach((t) => t?.dispose());
       screenMat.dispose();
       dispose();
@@ -359,7 +395,7 @@ export default function GadgetScene({ className = "", scale = 0.7 }: { className
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [scale]);
+  }, [scale, variant]);
 
   return <div ref={wrap} className={className} aria-hidden="true" />;
 }

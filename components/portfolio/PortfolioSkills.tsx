@@ -1,7 +1,8 @@
 import {
   SiNextdotjs, SiReact, SiTailwindcss, SiTypescript, SiThreedotjs, SiFramer, SiFigma, SiGit,
-  SiJavascript, SiVuedotjs, SiPython, SiDocker, SiCanva, SiGithub, SiOpenai, SiAnthropic, SiGreensock,
+  SiJavascript, SiVuedotjs, SiPython, SiDocker, SiCanva, SiGithub, SiOpenai, SiClaude, SiGooglegemini, SiGreensock,
 } from "react-icons/si";
+import { GiWhaleTail } from "react-icons/gi";
 
 const GROUPS = [
   {
@@ -32,14 +33,23 @@ const GROUPS = [
     ],
   },
   {
-    title: "Tools & AI",
+    title: "Tools",
     items: [
       { name: "Git", Icon: SiGit, color: "#F05032" },
       { name: "GitHub", Icon: SiGithub, color: "#000000" },
       { name: "Docker", Icon: SiDocker, color: "#1D63ED" },
       { name: "Python", Icon: SiPython, color: "#3776AB" },
-      { name: "Claude", Icon: SiAnthropic, color: "#C15F3C" },
+    ],
+  },
+  {
+    title: "AI orchestration",
+    items: [
+      { name: "Claude Code", Icon: SiClaude, color: "#D97757" },
+      { name: "Claude", Icon: SiClaude, color: "#D97757" },
       { name: "ChatGPT", Icon: SiOpenai, color: "#000000" },
+      { name: "Gemini", Icon: SiGooglegemini, color: "#8E75B2" },
+      // Orca (orca.dev) belum punya ikon di react-icons: pakai ekor paus sebagai penanda
+      { name: "Orca", Icon: GiWhaleTail, color: "#0E0E0E" },
     ],
   },
 ];
@@ -53,7 +63,7 @@ export default function PortfolioSkills() {
             The <span className="pf-script-inline">toolbox</span>
           </h2>
           <p className="mt-6 max-w-sm text-base md:text-lg leading-snug opacity-80">
-            The stack behind every build: designed in Figma, built in Next.js and React, shipped with SEO in mind.
+            The stack behind every build, and the AI agents I orchestrate to ship it.
           </p>
         </div>
         <div className="pf-skills-grid">

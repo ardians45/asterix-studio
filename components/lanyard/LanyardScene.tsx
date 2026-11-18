@@ -53,6 +53,17 @@ const fontVar = (name: string, fallback: string) => {
 };
 const DISPLAY = () => fontVar("--font-playfair", "Georgia, serif");
 const BODY = () => fontVar("--font-inter", "Arial, sans-serif");
+// Heavy sans for the butter theme: the portfolio display font when it is loaded, else Inter
+const HEAVY = () => {
+  const root = typeof document !== "undefined" ? (document.querySelector(".pf-root") as HTMLElement | null) : null;
+  const v = root ? getComputedStyle(root).getPropertyValue("--font-pf-display").trim() : "";
+  return v ? `${v}, ${BODY()}` : BODY();
+};
+
+export type LanyardTheme = "orange" | "butter";
+const BUTTER = "#FFD60A";
+const BUTTER_PAPER = "#F7F5EE";
+const BUTTER_INK = "#0E0E0E";
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath();
@@ -71,6 +82,72 @@ function loadImage(src: string) {
     img.onerror = () => resolve(null);
     img.src = src;
   });
+}
+
+async function drawFrontButter(canvas: HTMLCanvasElement) {
+  const ctx = canvas.getContext("2d")!;
+  const photo = await loadImage("/profile.webp");
+  try {
+    await Promise.all([document.fonts.load(`800 92px ${HEAVY()}`), document.fonts.load(`600 36px ${BODY()}`)]);
+  } catch {}
+
+  ctx.fillStyle = BUTTER_PAPER;
+  ctx.fillRect(0, 0, TEX_W, TEX_H);
+
+  // Ink band + thin butter rule
+  ctx.fillStyle = BUTTER_INK;
+  ctx.fillRect(0, 0, TEX_W, 210);
+  ctx.fillStyle = BUTTER;
+  ctx.fillRect(0, 210, TEX_W, 8);
+  // Slot for the clip
+  ctx.fillStyle = BUTTER_PAPER;
+  roundRect(ctx, TEX_W / 2 - 90, 48, 180, 34, 17);
+  ctx.fill();
+  ctx.fillStyle = BUTTER;
+  ctx.font = `600 34px ${BODY()}`;
+  ctx.textAlign = "left";
+  ctx.fillText("ASTERIX STUDIO", 72, 160);
+  ctx.textAlign = "right";
+  ctx.fillText("SOFTWARE · AI", TEX_W - 72, 160);
+
+  // Photo
+  const px = 72, py = 290, pw = TEX_W - 144, ph = 640;
+  ctx.save();
+  roundRect(ctx, px, py, pw, ph, 36);
+  ctx.clip();
+  ctx.fillStyle = "#e7e5df";
+  ctx.fillRect(px, py, pw, ph);
+  if (photo) {
+    const scale = Math.max(pw / photo.width, ph / photo.height);
+    const w = photo.width * scale;
+    const h = photo.height * scale;
+    ctx.drawImage(photo, px + (pw - w) / 2, py + (ph - h) / 2.6, w, h);
+  }
+  ctx.restore();
+
+  // Name + role + place
+  ctx.textAlign = "left";
+  ctx.fillStyle = BUTTER_INK;
+  ctx.font = `800 96px ${HEAVY()}`;
+  ctx.fillText("Ardian Setiawan", 72, 1060);
+  ctx.fillStyle = "rgba(14,14,14,0.7)";
+  const role = "SOFTWARE ENGINEER & AI ORCHESTRATOR";
+  let roleSize = 34;
+  ctx.font = `600 ${roleSize}px ${BODY()}`;
+  while (roleSize > 20 && ctx.measureText(role).width > TEX_W - 144) {
+    roleSize -= 1;
+    ctx.font = `600 ${roleSize}px ${BODY()}`;
+  }
+  ctx.fillText(role, 72, 1130);
+  ctx.strokeStyle = "rgba(14,14,14,0.18)";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(72, 1270);
+  ctx.lineTo(TEX_W - 72, 1270);
+  ctx.stroke();
+  ctx.fillStyle = "rgba(14,14,14,0.55)";
+  ctx.font = `500 28px ${BODY()}`;
+  ctx.fillText("SOUTH TANGERANG, INDONESIA", 72, 1330);
 }
 
 async function drawFront(canvas: HTMLCanvasElement) {
@@ -138,8 +215,26 @@ async function drawFront(canvas: HTMLCanvasElement) {
   if (logo) ctx.drawImage(logo, TEX_W - 72 - 120, 1290, 120, 72);
 }
 
-function drawBack(canvas: HTMLCanvasElement) {
+function drawBack(canvas: HTMLCanvasElement, theme: LanyardTheme) {
   const ctx = canvas.getContext("2d")!;
+  if (theme === "butter") {
+    ctx.fillStyle = BUTTER_INK;
+    ctx.fillRect(0, 0, TEX_W, TEX_H);
+    ctx.fillStyle = BUTTER;
+    ctx.fillRect(0, TEX_H - 120, TEX_W, 120);
+    ctx.fillStyle = BUTTER;
+    ctx.textAlign = "center";
+    ctx.font = `800 84px ${HEAVY()}`;
+    ctx.fillText("Asterix", TEX_W / 2, TEX_H / 2 - 20);
+    ctx.fillText("Studio", TEX_W / 2, TEX_H / 2 + 80);
+    ctx.font = `500 34px ${BODY()}`;
+    ctx.fillStyle = "rgba(255,255,255,0.7)";
+    ctx.fillText("asterixstudio.site", TEX_W / 2, TEX_H / 2 + 170);
+    ctx.fillStyle = BUTTER_INK;
+    ctx.font = `600 30px ${BODY()}`;
+    ctx.fillText("DESIGN WITH PURPOSE · CODE WITH PRECISION", TEX_W / 2, TEX_H - 48);
+    return;
+  }
   ctx.fillStyle = INK;
   ctx.fillRect(0, 0, TEX_W, TEX_H);
   ctx.fillStyle = ACCENT;
@@ -157,14 +252,14 @@ function drawBack(canvas: HTMLCanvasElement) {
   ctx.fillText("DESIGN WITH PURPOSE · CODE WITH PRECISION", TEX_W / 2, TEX_H - 48);
 }
 
-function makeStrapTexture() {
+function makeStrapTexture(theme: LanyardTheme) {
   const c = document.createElement("canvas");
   c.width = 512;
   c.height = 64;
   const ctx = c.getContext("2d")!;
-  ctx.fillStyle = ACCENT;
+  ctx.fillStyle = theme === "butter" ? BUTTER_INK : ACCENT;
   ctx.fillRect(0, 0, c.width, c.height);
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = theme === "butter" ? BUTTER : "#ffffff";
   ctx.font = `700 26px ${BODY()}`;
   ctx.textBaseline = "middle";
   ctx.fillText("ASTERIX STUDIO  •  ", 18, 33);
@@ -175,7 +270,7 @@ function makeStrapTexture() {
   return tex;
 }
 
-function useCardTextures() {
+function useCardTextures(theme: LanyardTheme) {
   const [front, back] = useMemo(() => {
     const f = document.createElement("canvas");
     const b = document.createElement("canvas");
@@ -187,20 +282,20 @@ function useCardTextures() {
       t.colorSpace = THREE.SRGBColorSpace;
       t.anisotropy = 8;
     }
-    drawBack(b);
+    drawBack(b, theme);
     bt.needsUpdate = true;
     return [ft, bt] as const;
-  }, []);
+  }, [theme]);
 
   useEffect(() => {
     let cancelled = false;
-    drawFront(front.image as HTMLCanvasElement).then(() => {
+    (theme === "butter" ? drawFrontButter : drawFront)(front.image as HTMLCanvasElement).then(() => {
       if (!cancelled) front.needsUpdate = true;
     });
     return () => {
       cancelled = true;
     };
-  }, [front]);
+  }, [front, theme]);
 
   useEffect(() => () => {
     front.dispose();
@@ -210,7 +305,7 @@ function useCardTextures() {
   return { front, back };
 }
 
-function Band({ maxSpeed = 50, minSpeed = 10 }: { maxSpeed?: number; minSpeed?: number }) {
+function Band({ theme, maxSpeed = 50, minSpeed = 10 }: { theme: LanyardTheme; maxSpeed?: number; minSpeed?: number }) {
   const band = useRef<THREE.Mesh<MeshLineGeometry, MeshLineMaterial>>(null);
   const fixed = useRef<LerpedBody>(null!);
   const j1 = useRef<LerpedBody>(null!);
@@ -231,8 +326,8 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: { maxSpeed?: number; minSpeed?: 
     linearDamping: 4,
   };
 
-  const { front, back } = useCardTextures();
-  const strap = useMemo(() => makeStrapTexture(), []);
+  const { front, back } = useCardTextures(theme);
+  const strap = useMemo(() => makeStrapTexture(theme), [theme]);
   useEffect(() => () => strap.dispose(), [strap]);
 
   const [curve] = useState(() => {
@@ -376,7 +471,7 @@ function Band({ maxSpeed = 50, minSpeed = 10 }: { maxSpeed?: number; minSpeed?: 
   );
 }
 
-export default function LanyardScene({ active }: { active: boolean }) {
+export default function LanyardScene({ active, theme = "orange" }: { active: boolean; theme?: LanyardTheme }) {
   return (
     <Canvas
       camera={{ position: [0, 0, 13], fov: 16 }}
@@ -388,7 +483,7 @@ export default function LanyardScene({ active }: { active: boolean }) {
     >
       <ambientLight intensity={Math.PI} />
       <Physics gravity={[0, -40, 0]} timeStep={1 / 60} paused={!active}>
-        <Band />
+        <Band theme={theme} />
       </Physics>
       <Environment blur={0.75} resolution={256}>
         <Lightformer intensity={2} color="white" position={[0, -1, 5]} rotation={[0, 0, Math.PI / 3]} scale={[100, 0.1, 1]} />

@@ -2,14 +2,33 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { useLenis } from "lenis/react";
 import InkTrail from "./InkTrail";
-import { LiquidBlob } from "./LiquidBlob";
+import { works } from "./data";
 
 const GadgetScene = dynamic(() => import("./GadgetScene"), { ssr: false });
+
+const PROJECTS = String(works.length).padStart(2, "0");
+
+// Callouts on the gadget (desktop). dx/dy: dot, ax/ay: where the line meets the card, tx/ty: card
+// offset from that point. All in percent of the stage, picked so the dots land on the controller body.
+const CALLOUTS = [
+  { top: "Now", sub: "Race timing at 20FIT", dx: 82, dy: 61, ax: 82, ay: 24, tx: "-50%", ty: "-100%" },
+  { top: `${PROJECTS} Projects`, sub: "shipped", dx: 22, dy: 62, ax: 17, ay: 44, tx: "-50%", ty: "0" },
+  { top: "2nd place", sub: "MIA UI/UX 2025", dx: 82, dy: 76, ax: 82, ay: 90, tx: "-50%", ty: "0" },
+  { top: "Since 2023", sub: "Asterix Studio", dx: 50, dy: 85, ax: 50, ay: 90, tx: "-50%", ty: "0" },
+];
+
+const STATS = [
+  { value: PROJECTS, label: "projects shipped" },
+  { value: "2", label: "UI/UX podiums" },
+  { value: "2019 → now", label: "in the lap", href: "#journey" },
+];
 
 export default function PortfolioHero() {
   // three.js is the heaviest thing on the page: fetch it only once the browser is idle, so the
   // wordmark paints and the page becomes interactive first.
+  const lenis = useLenis();
   const [showGadget, setShowGadget] = useState(false);
   useEffect(() => {
     const go = () => setShowGadget(true);
@@ -21,29 +40,84 @@ export default function PortfolioHero() {
     return () => clearTimeout(id);
   }, []);
 
-  return (
-    <section id="top" className="pf-hero relative isolate h-[100svh] min-h-[600px] overflow-hidden bg-[var(--pf-butter)]">
-      {/* liquid ink follows the cursor (desktop); phones get a resting blob instead */}
-      <InkTrail />
-      <LiquidBlob className="pf-enter absolute right-[-30%] bottom-[-8%] w-[120vw] text-[var(--pf-ink)] md:hidden" style={{ ["--d" as string]: "250ms" }} />
+  const jump = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el as HTMLElement, { offset: -72 });
+    else el.scrollIntoView({ behavior: "smooth" });
+  };
 
-      {/* type sits over the ink in "difference", so it flips to yellow wherever ink runs under it */}
-      <div className="pf-wrap pf-invert relative pt-[15svh] md:pt-[11svh]">
-        <h1 className="pf-lockup">
-          <span className="pf-enter pf-wordmark">Ardian</span>
-          <span className="pf-enter pf-script" style={{ ["--d" as string]: "160ms" }}>setiawan</span>
-          <span className="sr-only"> — UI/UX designer and web developer</span>
-        </h1>
-        <p className="pf-enter pf-tagline mt-2 md:mt-3" style={{ ["--d" as string]: "300ms" }}>
-          UI/UX design, Next.js builds and SEO that ranks — from one desk in South Tangerang.
-        </p>
+  return (
+    <section id="top" className="pf-hero relative isolate overflow-hidden bg-[var(--pf-butter)] min-h-[100svh] lg:h-[100svh] lg:min-h-[720px]">
+      {/* liquid ink follows the cursor (desktop only) */}
+      <InkTrail />
+
+      <div className="pf-shell relative grid h-full items-center gap-10 pt-[104px] pb-16 lg:grid-cols-[45fr_55fr] lg:gap-12 lg:pt-[72px] lg:pb-0">
+        <div className="flex flex-col items-start gap-6">
+          <p className="pf-enter pf-label pf-invert">Software Engineer · AI Orchestrator</p>
+          <h1 className="pf-enter pf-invert pf-hero-title" style={{ ["--d" as string]: "120ms" }}>
+            <span className="pf-hero-name">Ardian</span>
+            <span className="pf-hero-script pf-script">setiawan</span>
+            <span className="sr-only"> — software engineer and AI orchestrator</span>
+          </h1>
+          <p className="pf-enter pf-invert pf-hero-lede" style={{ ["--d" as string]: "240ms" }}>
+            Solid fundamentals, a UX eye, and AI agents on my team. I find the real problem first, then ship the fix.
+          </p>
+          <div className="pf-enter flex flex-wrap gap-3" style={{ ["--d" as string]: "340ms" }}>
+            <a href="#contact" onClick={(e) => jump(e, "#contact")} className="pf-hero-btn pf-hero-btn--ink">
+              Start a project
+            </a>
+            <a href="#work" onClick={(e) => jump(e, "#work")} className="pf-hero-btn pf-hero-btn--line">
+              See the work
+            </a>
+          </div>
+          <div className="pf-enter pf-stats pf-invert w-full" style={{ ["--d" as string]: "440ms" }}>
+            {STATS.map((s) =>
+              s.href ? (
+                <a key={s.label} href={s.href} onClick={(e) => jump(e, s.href)} className="pf-stat">
+                  <b>{s.value}</b>
+                  <span>{s.label}</span>
+                </a>
+              ) : (
+                <div key={s.label} className="pf-stat">
+                  <b>{s.value}</b>
+                  <span>{s.label}</span>
+                </div>
+              )
+            )}
+          </div>
+        </div>
+
+        <div className="pf-stage">
+          {/* the box keeps its size before the gadget arrives, so nothing jumps */}
+          <div className="pf-stage-canvas">
+            {showGadget && <GadgetScene variant={2} scale={1} className="pf-gadget pointer-events-none absolute inset-0" />}
+          </div>
+          <svg className="pf-callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            {CALLOUTS.map((c) => (
+              <line key={c.top} x1={c.dx} y1={c.dy} x2={c.ax} y2={c.ay} />
+            ))}
+          </svg>
+          <ul className="pf-callouts">
+            {CALLOUTS.map((c) => (
+              <li
+                key={c.top}
+                className="pf-callout"
+                style={{ ["--dx" as string]: `${c.dx}%`, ["--dy" as string]: `${c.dy}%`, ["--ax" as string]: `${c.ax}%`, ["--ay" as string]: `${c.ay}%`, ["--tx" as string]: c.tx, ["--ty" as string]: c.ty }}
+              >
+                <span className="pf-callout-dot" aria-hidden="true" />
+                <span className="pf-callout-card">
+                  <b>{c.top}</b>
+                  <span>{c.sub}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      {/* big clear-shell gadget in the middle, overlapping the wordmark */}
-      {showGadget && <GadgetScene scale={0.98} className="pf-gadget pointer-events-none absolute inset-0 top-[10svh] z-10" />}
-
-      <span className="pf-dots pf-invert absolute bottom-9 left-5 md:left-12 z-20" aria-hidden="true" />
-      <a href="#about" aria-label="Scroll to about" className="pf-scroll pf-invert absolute bottom-5 left-1/2 z-20 grid h-11 w-11 place-items-center">
+      <a href="#about" aria-label="Scroll to about" className="pf-scroll pf-scroll--end pf-invert absolute bottom-5 right-4 z-20 grid h-11 w-11 place-items-center md:right-8">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M12 3v18M5 14l7 7 7-7" />
         </svg>

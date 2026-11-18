@@ -7,8 +7,31 @@ import { journey, journeyFinish } from "./data";
 
 const JourneyScene = dynamic(() => import("./JourneyScene"), { ssr: false });
 
-const CHAPTERS = [...journey, { id: "fin", ...journeyFinish }];
+type Photo = { src?: string; label: string };
+type Entry = { id: string; split: string; years: string; lap: string; title: string; body: string; photos?: Photo[] };
+
+const CHAPTERS: Entry[] = [...journey, { id: "fin", ...journeyFinish }];
 const LAST = CHAPTERS.length - 1;
+
+/** small framed photo for the stacked (still) layout; a missing file falls back to an ink box with the label */
+function Thumb({ photo }: { photo: Photo }) {
+  const [failed, setFailed] = useState(!photo.src);
+  return failed ? (
+    <div className="flex aspect-[4/3] h-24 shrink-0 items-center justify-center rounded-lg border-2 border-[var(--pf-butter)] bg-[#1a1a1a] p-2 text-center text-[11px] leading-tight text-[var(--pf-butter)]">
+      {photo.label}
+    </div>
+  ) : (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={photo.src}
+      alt={photo.label}
+      title={photo.label}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      className="aspect-[4/3] h-24 shrink-0 rounded-lg border-2 border-[var(--pf-butter)] object-cover"
+    />
+  );
+}
 
 /**
  * Career timeline as a race track. On tablets and up the section is tall and its content is pinned
@@ -132,6 +155,7 @@ export default function PortfolioJourney() {
                     type="button"
                     className="pf-pill pf-pill--dark pf-journey-split"
                     aria-current={i === active ? "true" : undefined}
+                    aria-label={i === LAST ? "Still running" : undefined}
                     onClick={() => goChapter(i)}
                   >
                     {c.split}
@@ -160,6 +184,13 @@ export default function PortfolioJourney() {
                   <div>
                     <h3 className="pf-display pf-journey-title">{c.title}</h3>
                     <p className="pf-journey-body">{c.body}</p>
+                    {isStill && c.photos && c.photos.length > 0 && (
+                      <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+                        {c.photos.map((ph) => (
+                          <Thumb key={ph.label} photo={ph} />
+                        ))}
+                      </div>
+                    )}
                     {c.id === "fin" && (
                       <div className="pf-journey-cta">
                         <a href={journeyFinish.primary.href} onClick={(e) => goHash(e, journeyFinish.primary.href)} className="pf-btn text-[var(--pf-ink)]">

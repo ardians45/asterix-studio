@@ -1,14 +1,15 @@
 "use client";
 
 /**
- * The career timeline as a race track. A ribbon of tarmac winds away from the camera, with four
- * chrome timing gates (S1 to S4), a chequered finish gate and a desk with a gadget on it behind
- * the line. The camera rides the track following `getProgress()` (0..1, read every frame, so
- * scrolling never re-renders React).
+ * The career timeline as a race track. A ribbon of tarmac winds away from the camera with four
+ * chrome timing gates (S1 to S4) and photo billboards beside the road. There is no finish: the
+ * road runs on into the fog and, in the last chapter, the camera keeps creeping forward past a
+ * NEXT LAP sign. The camera rides the track following `getProgress()` (0..1, read every frame,
+ * so scrolling never re-renders React).
  *
  * Plain three.js like GadgetScene: simple geometry only, one renderer, the loop pauses when the
  * section is off screen or the tab is hidden, everything is disposed on unmount.
- * With `still` it draws one frame from the finish line instead of looping.
+ * With `still` it draws one frame (road to the horizon, sign, a few photos) instead of looping.
  */
 
 import { useEffect, useRef } from "react";
@@ -38,19 +39,34 @@ import {
   Vector3,
   WebGLRenderer,
 } from "three";
-import { buildEnvironment, buildGadgets, fitCover } from "./GadgetScene";
+import { buildEnvironment } from "./GadgetScene";
+import { journey } from "./data";
 
 const BUTTER = "#FFD60A";
 const INK = "#0E0E0E";
 const HALF_WIDTH = 6;
+// Semua nilai t di bawah dinyatakan pada lintasan lama (8 segmen) lalu diskalakan ke lintasan yang
+// sudah diperpanjang lewat `T()`, jadi posisi gerbang dan kamera tidak bergeser.
 // Gerbang dilewati kamera di tengah tiap chapter (progress 0.1/0.3/0.5/0.7 → t = CAM_FROM + p*(CAM_TO-CAM_FROM)),
 // jadi panel teks S1..S4 ganti pas gerbangnya kelihatan.
 const GATES = [0.16, 0.34, 0.52, 0.70];
 const GATE_Y = 6; // height of the beam centre
-const FINISH_T = 0.95;
 const CAM_FROM = 0.02;
 const CAM_TO = 0.93;
 const LOOK_AHEAD = 0.04;
+const SIGN_T = 0.97; // NEXT LAP sign: ahead of the camera for the whole last chapter
+const SIGN_T_STILL = 0.78; // closer, so it is readable in the single still frame
+const STILL_T = 0.68; // camera for the still frame
+const DRIFT_SPEED = 1.5; // units per second, last chapter only
+const DRIFT_FROM = 0.8; // progress where the last chapter starts
+const FOG_FAR = 175;
+const BOARD_W = 4.2; // photo, 4:3
+const BOARD_H = 3.15;
+const PLATE_H = 0.62;
+const FRAME = 0.12;
+const POLE_H = 2.0;
+const SHOW_DIST = 40;
+const HIDE_DIST = 30;
 const FOV = 50;
 const UP = new Vector3(0, 1, 0);
 
@@ -80,23 +96,114 @@ function plateTexture(text: string) {
   return t;
 }
 
-function checkerTexture() {
-  const cell = 32;
+function inkPlate(w: number, h: number, draw: (ctx: CanvasRenderingContext2D) => void) {
   const c = document.createElement("canvas");
-  c.width = cell * 20;
-  c.height = cell * 2;
-  const ctx = c.getContext("2d")!;
-  for (let y = 0; y < 2; y++) {
-    for (let x = 0; x < 20; x++) {
-      ctx.fillStyle = (x + y) % 2 === 0 ? "#ffffff" : INK;
-      ctx.fillRect(x * cell, y * cell, cell, cell);
-    }
-  }
+  c.width = w;
+  c.height = h;
+  draw(c.getContext("2d")!);
   const t = new CanvasTexture(c);
   t.colorSpace = SRGBColorSpace;
   t.anisotropy = 4;
   return t;
 }
+
+const FONT = '800 {S}px Inter, Archivo, system-ui, sans-serif';
+
+/** ink label strip under a photo, text butter, shrunk to fit */
+function labelTexture(text: string) {
+  return inkPlate(1024, 150, (ctx) => {
+    ctx.fillStyle = INK;
+    ctx.fillRect(0, 0, 1024, 150);
+    let size = 64;
+    ctx.font = FONT.replace("{S}", String(size));
+    while (ctx.measureText(text).width > 940 && size > 24) {
+      size -= 2;
+      ctx.font = FONT.replace("{S}", String(size));
+    }
+    ctx.fillStyle = BUTTER;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(text, 512, 78);
+  });
+}
+
+/** stand-in for a photo that is missing: ink, diagonal hatching, a camera and the label */
+function placeholderTexture(label: string) {
+  return inkPlate(640, 480, (ctx) => {
+    ctx.fillStyle = "#1a1a1a";
+    ctx.fillRect(0, 0, 640, 480);
+    ctx.strokeStyle = "rgba(255,214,10,0.10)";
+    ctx.lineWidth = 2;
+    for (let x = -480; x < 640; x += 28) {
+      ctx.beginPath();
+      ctx.moveTo(x, 480);
+      ctx.lineTo(x + 480, 0);
+      ctx.stroke();
+    }
+    // camera icon
+    ctx.strokeStyle = BUTTER;
+    ctx.lineWidth = 8;
+    ctx.lineJoin = "round";
+    ctx.strokeRect(250, 150, 140, 90);
+    ctx.strokeRect(290, 132, 60, 18);
+    ctx.beginPath();
+    ctx.arc(320, 195, 26, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = BUTTER;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = "700 28px Inter, system-ui, sans-serif";
+    ctx.fillText("Photo coming soon", 320, 296);
+    let size = 26;
+    ctx.font = `600 ${size}px Inter, system-ui, sans-serif`;
+    while (ctx.measureText(label).width > 560 && size > 14) {
+      size -= 2;
+      ctx.font = `600 ${size}px Inter, system-ui, sans-serif`;
+    }
+    ctx.fillStyle = "rgba(255,255,255,0.7)";
+    ctx.fillText(label, 320, 336);
+  });
+}
+
+function nextLapTexture() {
+  return inkPlate(1024, 320, (ctx) => {
+    ctx.fillStyle = INK;
+    ctx.fillRect(0, 0, 1024, 320);
+    ctx.strokeStyle = BUTTER;
+    ctx.lineWidth = 14;
+    ctx.strokeRect(14, 14, 996, 292);
+    ctx.fillStyle = BUTTER;
+    ctx.font = FONT.replace("{S}", "150");
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("NEXT LAP →", 512, 172);
+  });
+}
+
+/** centre-crop a photo texture to 4:3 */
+function cover43(tex: Texture) {
+  const img = tex.image as { width: number; height: number } | undefined;
+  tex.colorSpace = SRGBColorSpace;
+  tex.anisotropy = 4;
+  if (!img || !img.width || !img.height) return;
+  const target = BOARD_W / BOARD_H;
+  const a = img.width / img.height;
+  if (a > target) {
+    tex.repeat.set(target / a, 1);
+    tex.offset.set((1 - target / a) / 2, 0);
+  } else {
+    tex.repeat.set(1, a / target);
+    tex.offset.set(0, (1 - a / target) / 2);
+  }
+}
+
+const easeOutBack = (x: number) => {
+  const c1 = 1.4;
+  const c3 = c1 + 1;
+  return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+};
+
+type Board = { g: Group; x: number; z: number; tx: number; tz: number; v: number };
 
 export default function JourneyScene({ getProgress, still = false, className = "" }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -131,7 +238,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
 
     const scene = new Scene();
     scene.background = new Color(INK);
-    scene.fog = new Fog(INK, 25, 175);
+    scene.fog = new Fog(INK, 25, FOG_FAR);
     const camera = new PerspectiveCamera(FOV, 1, 0.3, 320);
     const envTarget = buildEnvironment(renderer);
     scene.environment = envTarget.texture;
@@ -141,10 +248,14 @@ export default function JourneyScene({ getProgress, still = false, className = "
     scene.add(sun);
 
     // ── the track ──────────────────────────────────────────────────────────
+    // 12 control points; the first 9 are the original lap, the rest run on into the fog (no finish)
     const pts: Vector3[] = [];
-    for (let i = 0; i <= 8; i++) pts.push(new Vector3(Math.sin(i * 0.85) * 28, Math.sin(i * 0.55 + 0.5) * 2.5, -i * 65));
+    for (let i = 0; i <= 11; i++) pts.push(new Vector3(Math.sin(i * 0.85) * 28, Math.sin(i * 0.55 + 0.5) * 2.5, -i * 65));
     const curve = new CatmullRomCurve3(pts, false, "centripetal");
     const LEN = curve.getLength();
+    const L0 = new CatmullRomCurve3(pts.slice(0, 9), false, "centripetal").getLength();
+    /** t on the old 8-segment track -> t on this longer one */
+    const T = (t: number) => (t * L0) / LEN;
 
     const p = new Vector3();
     const tan = new Vector3();
@@ -182,14 +293,14 @@ export default function JourneyScene({ getProgress, still = false, className = "
     {
       const pos: number[] = [];
       const idx: number[] = [];
-      strip(pos, idx, 0, 1, 520, 0, HALF_WIDTH, 0);
+      strip(pos, idx, 0, 1, 720, 0, HALF_WIDTH, 0);
       scene.add(new Mesh(toGeo(pos, idx), tarmac));
     }
     {
       const pos: number[] = [];
       const idx: number[] = [];
-      for (const s of [-1, 1]) strip(pos, idx, 0, 1, 520, s * (HALF_WIDTH - 0.4), 0.14, 0.03);
-      // dashed centre line: 4 units of paint, 5 of gap
+      for (const s of [-1, 1]) strip(pos, idx, 0, 1, 720, s * (HALF_WIDTH - 0.4), 0.14, 0.03);
+      // dashed centre line: 4 units of paint, 5 of gap, all the way out
       const period = 9 / LEN;
       for (let t = 0.004; t + 4 / LEN < 1; t += period) strip(pos, idx, t, t + 4 / LEN, 3, 0, 0.09, 0.03);
       scene.add(new Mesh(toGeo(pos, idx), lineMat));
@@ -200,7 +311,6 @@ export default function JourneyScene({ getProgress, still = false, className = "
     const postGeo = keepGeo(new BoxGeometry(0.6, 7.2, 0.6));
     const beamGeo = keepGeo(new BoxGeometry(HALF_WIDTH * 2 + 1.4, 2.4, 0.7));
     const plateGeo = keepGeo(new PlaneGeometry(5.2, 2.275));
-    const bannerGeo = keepGeo(new PlaneGeometry(HALF_WIDTH * 2 + 1, 2.1));
     const matGeo = keepGeo(new BoxGeometry(HALF_WIDTH * 2 - 1.2, 0.06, 1.8));
     const stripeGeo = keepGeo(new BoxGeometry(0.1, 0.02, 1.8));
     const butterMat = keepMat(new MeshStandardMaterial({ color: BUTTER, roughness: 0.6 }));
@@ -225,7 +335,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
     };
 
     GATES.forEach((t, i) => {
-      const g = gate(t);
+      const g = gate(T(t));
       const tex = keepTex(plateTexture(`S${i + 1}`));
       const m = keepMat(new MeshBasicMaterial({ map: tex }));
       const front = new Mesh(plateGeo, m);
@@ -246,79 +356,113 @@ export default function JourneyScene({ getProgress, still = false, className = "
       }
     });
 
-    // finish gate with a chequered banner
-    {
-      const g = gate(FINISH_T);
-      const tex = keepTex(checkerTexture());
-      const m = keepMat(new MeshBasicMaterial({ map: tex }));
-      const front = new Mesh(bannerGeo, m);
-      front.position.set(0, GATE_Y, -0.37);
-      front.rotation.y = Math.PI;
-      const back = new Mesh(bannerGeo, m);
-      back.position.set(0, GATE_Y, 0.37);
-      g.add(front, back);
-    }
-
-    // desk behind the line, with a handheld gadget turning slowly on it
-    const screenMat = keepMat(new MeshBasicMaterial({ color: "#0b0b0c", toneMapped: false }));
-    const { variants, dispose: disposeGadgets } = buildGadgets(screenMat);
-    const gadget = variants[0];
-    const desk = new Group();
-    const deskPos = new Vector3();
-    const deskTan = new Vector3();
-    const deskSide = new Vector3();
-    {
-      frameAt(FINISH_T + 22 / LEN);
-      desk.position.copy(p);
-      desk.lookAt(p.x - tan.x, p.y, p.z - tan.z); // front of the gadget faces the camera
-      deskPos.copy(p);
-      deskTan.copy(tan);
-      deskSide.copy(side);
-      const body = new Mesh(keepGeo(new BoxGeometry(6, 1.2, 3)), keepMat(new MeshStandardMaterial({ color: "#222222", roughness: 0.7, metalness: 0.2 })));
-      body.position.y = 0.6;
-      const top = new Mesh(keepGeo(new BoxGeometry(6.2, 0.1, 3.2)), butterMat);
-      top.position.y = 1.25;
-      desk.add(body, top);
-      gadget.scale.setScalar(1.5);
-      gadget.position.y = 1.3 + 1.6 * 1.5;
-      desk.add(gadget);
-      scene.add(desk);
-    }
-
+    // ── photo billboards beside the road ───────────────────────────────────
     const loader = new TextureLoader();
     let disposed = false;
     let draw: () => void = () => {};
-    loader.load("/portfolio/screens/paletindo.webp", (t) => {
-      if (disposed) {
-        t.dispose();
-        return;
-      }
-      fitCover(t);
-      texs.push(t);
-      screenMat.map = t;
-      screenMat.color.set("#ffffff");
-      screenMat.needsUpdate = true;
-      if (still) draw();
+    const wide = !still && window.innerWidth >= 1024; // text column covers the left 40% of the screen
+    const boards: Board[] = [];
+    const frameH = BOARD_H + PLATE_H + FRAME * 2;
+    const frameGeo = keepGeo(new BoxGeometry(BOARD_W + FRAME * 2, frameH, FRAME));
+    const photoGeo = keepGeo(new PlaneGeometry(BOARD_W, BOARD_H));
+    const labelGeo = keepGeo(new PlaneGeometry(BOARD_W, PLATE_H));
+    const boardPoleGeo = keepGeo(new BoxGeometry(0.16, 1, 0.16));
+    const boardPoleMat = keepMat(new MeshStandardMaterial({ color: "#8a8a8a", metalness: 0.6, roughness: 0.4 }));
+    const frameMat = keepMat(new MeshStandardMaterial({ color: BUTTER, roughness: 0.55 }));
+    const boardCenterY = POLE_H + frameH / 2;
+    const facing = new Vector3();
+    const yaw = (25 * Math.PI) / 180;
+
+    journey.forEach((ch, ci) => {
+      const n = ch.photos.length;
+      ch.photos.forEach((ph, k) => {
+        // on wide screens the text column covers the left of the screen: every board goes on the right of the road, a bit forward/back so they do not line up
+        const jitter = wide ? (k % 2 === 0 ? -0.006 : 0.006) : 0;
+        const t = T(GATES[ci] - 0.05 + (0.08 * (k + 0.5)) / n + jitter);
+        const s = wide || k % 2 === 0 ? 1 : -1;
+        const gap = wide ? 2 + ((k * 2 + ci) % 3) * 0.75 : 2 + ((k + ci) % 3); // 2..3.5 / 2..4 from the asphalt edge
+        const off = s * (HALF_WIDTH + gap + (BOARD_W + FRAME * 2) / 2);
+        frameAt(t);
+        const g = new Group();
+        g.position.set(p.x + side.x * off, p.y, p.z + side.z * off);
+        // face the oncoming camera, turned about 25 degrees toward the road
+        facing.set(-tan.x * Math.cos(yaw) - s * side.x * Math.sin(yaw), 0, -tan.z * Math.cos(yaw) - s * side.z * Math.sin(yaw));
+        g.lookAt(g.position.x + facing.x, g.position.y, g.position.z + facing.z);
+
+        const pole = new Mesh(boardPoleGeo, boardPoleMat);
+        pole.scale.y = boardCenterY;
+        pole.position.set(0, boardCenterY / 2, -FRAME);
+        const frame = new Mesh(frameGeo, frameMat);
+        frame.position.set(0, boardCenterY, 0);
+
+        const photoMat = keepMat(new MeshBasicMaterial({ map: keepTex(placeholderTexture(ph.label)) }));
+        const photo = new Mesh(photoGeo, photoMat);
+        photo.position.set(0, boardCenterY + frameH / 2 - FRAME - BOARD_H / 2, FRAME / 2 + 0.005);
+        const plate = new Mesh(labelGeo, keepMat(new MeshBasicMaterial({ map: keepTex(labelTexture(ph.label)) })));
+        plate.position.set(0, boardCenterY - frameH / 2 + FRAME + PLATE_H / 2, FRAME / 2 + 0.005);
+        g.add(pole, frame, photo, plate);
+        g.scale.y = 0.001;
+        g.visible = false;
+        scene.add(g);
+        boards.push({ g, x: g.position.x, z: g.position.z, tx: tan.x, tz: tan.z, v: 0 });
+
+        if (ph.src) {
+          loader.load(
+            ph.src,
+            (tex) => {
+              if (disposed) {
+                tex.dispose();
+                return;
+              }
+              cover43(tex);
+              texs.push(tex);
+              photoMat.map = tex;
+              photoMat.needsUpdate = true;
+              if (still) draw();
+            },
+            undefined,
+            () => {}, // missing file: keep the placeholder
+          );
+        }
+      });
     });
+
+    // ── NEXT LAP sign, right of the road, facing the camera ────────────────
+    {
+      frameAt(T(still ? SIGN_T_STILL : SIGN_T));
+      const g = new Group();
+      const off = HALF_WIDTH + 6;
+      g.position.set(p.x + side.x * off, p.y, p.z + side.z * off);
+      g.lookAt(g.position.x - tan.x, g.position.y, g.position.z - tan.z);
+      const signW = 7.5;
+      const signH = signW * 0.3125;
+      const signY = 5.6;
+      const poleG = keepGeo(new BoxGeometry(0.2, signY, 0.2));
+      for (const x of [-signW / 2 + 0.6, signW / 2 - 0.6]) {
+        const pole = new Mesh(poleG, boardPoleMat);
+        pole.position.set(x, signY / 2, -0.1);
+        g.add(pole);
+      }
+      const sign = new Mesh(keepGeo(new PlaneGeometry(signW, signH)), keepMat(new MeshBasicMaterial({ map: keepTex(nextLapTexture()) })));
+      sign.position.set(0, signY, 0.01);
+      const backing = new Mesh(keepGeo(new BoxGeometry(signW + 0.1, signH + 0.1, 0.1)), darkMat);
+      backing.position.set(0, signY, -0.05);
+      g.add(sign, backing);
+      scene.add(g);
+    }
 
     // ── camera + loop ──────────────────────────────────────────────────────
     const camPos = new Vector3();
     const camLook = new Vector3();
-    const deskEye = new Vector3();
-    const deskAim = new Vector3();
+    const STILL_P = (STILL_T - CAM_FROM) / (CAM_TO - CAM_FROM);
+    const maxDrift = Math.max(0, (1 - (FOG_FAR + 10) / LEN - T(CAM_TO)) * LEN); // never reach the fogged-out end of the road
+    let drift = 0;
     const place = (progress: number) => {
-      const tc = CAM_FROM + (CAM_TO - CAM_FROM) * Math.min(1, Math.max(0, progress));
+      const tc = T(CAM_FROM + (CAM_TO - CAM_FROM) * Math.min(1, Math.max(0, progress))) + drift / LEN;
       frameAt(tc);
       camPos.copy(p).addScaledVector(side, 1.5).addScaledVector(UP, 2.2);
-      frameAt(tc + LOOK_AHEAD);
+      frameAt(tc + T(LOOK_AHEAD));
       camLook.copy(p).addScaledVector(UP, 0.8);
-      // chapter FIN: kamera naik pelan dan berhenti menghadap meja + gadget di balik garis finish
-      const k = Math.min(1, Math.max(0, (progress - 0.82) / 0.18));
-      const e = k * k * (3 - 2 * k);
-      if (e > 0) {
-        camPos.lerp(deskEye.copy(deskPos).addScaledVector(deskTan, -10).addScaledVector(deskSide, 1.2).addScaledVector(UP, 3.4), e);
-        camLook.lerp(deskAim.copy(deskPos).addScaledVector(UP, 3.2), e);
-      }
       camera.position.copy(camPos);
       camera.lookAt(camLook);
     };
@@ -335,12 +479,38 @@ export default function JourneyScene({ getProgress, still = false, className = "
       if (still) draw();
     };
 
-    let smooth = still ? 1 : progressRef.current?.() ?? 0;
-    let spin = 0;
+    let smooth = still ? STILL_P : progressRef.current?.() ?? 0;
     draw = () => {
       place(smooth);
-      gadget.rotation.y = still ? -0.35 : Math.sin(spin) * 0.45; // layar tetap menghadap kamera, cuma bergoyang pelan
       renderer.render(scene, camera);
+    };
+
+    /** grow boards near the camera out of the ground, sink the ones left behind; no allocations */
+    const proj = new Vector3();
+    const updateBoards = (delta: number, instant: boolean) => {
+      const cx = camera.position.x;
+      const cz = camera.position.z;
+      const k = 1 - Math.exp(-delta * 4);
+      for (let i = 0; i < boards.length; i++) {
+        const b = boards[i];
+        const dx = b.x - cx;
+        const dz = b.z - cz;
+        const d = Math.sqrt(dx * dx + dz * dz);
+        const passed = dx * b.tx + dz * b.tz < 0; // camera already beyond the board
+        let want = d < (passed ? HIDE_DIST : SHOW_DIST) ? 1 : 0;
+        if (wide && want) {
+          // safety: never rise behind the text column (left 42% of the screen)
+          proj.set(b.x, boardCenterY, b.z).project(camera);
+          if (proj.z < 1 && (proj.x + 1) / 2 < 0.42) want = 0;
+        }
+        b.v = instant ? want : b.v + (want - b.v) * k;
+        if (b.v < 0.003) {
+          b.g.visible = false;
+        } else {
+          b.g.visible = true;
+          b.g.scale.y = Math.max(0.001, easeOutBack(Math.min(1, b.v)));
+        }
+      }
     };
 
     resize();
@@ -351,6 +521,8 @@ export default function JourneyScene({ getProgress, still = false, className = "
     let io: IntersectionObserver | undefined;
     let onVisibility: (() => void) | undefined;
     if (still) {
+      place(smooth);
+      updateBoards(0, true);
       draw();
     } else {
       let last = performance.now();
@@ -360,8 +532,12 @@ export default function JourneyScene({ getProgress, still = false, className = "
         last = now;
         const target = progressRef.current?.() ?? 0;
         smooth += (target - smooth) * (1 - Math.pow(0.0004, delta)); // frame-rate independent damping
-        spin += delta * 0.5;
-        draw();
+        // last chapter: keep creeping down the road; elsewhere settle back to the scroll position
+        drift = smooth >= DRIFT_FROM ? Math.min(maxDrift, drift + DRIFT_SPEED * delta) : Math.max(0, drift - 60 * delta);
+        place(smooth);
+        camera.updateMatrixWorld();
+        updateBoards(delta, false);
+        renderer.render(scene, camera);
       };
       let onScreen = true;
       const sync = () => {
@@ -393,7 +569,6 @@ export default function JourneyScene({ getProgress, still = false, className = "
       texs.forEach((t) => t.dispose());
       mats.forEach((m) => m.dispose());
       geos.forEach((g) => g.dispose());
-      disposeGadgets();
       envTarget.dispose();
       renderer.dispose();
       renderer.domElement.remove();
