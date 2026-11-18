@@ -155,7 +155,7 @@ a.pf-stat:hover b { text-decoration: underline; text-underline-offset: 4px; }
 .pf-callout-card span { display: block; font-size: 13px; margin-top: 2px; }
 .pf-callout-dot, .pf-callout-lines { display: none; }
 @media (min-width: 1024px) {
-  .pf-stage-console { position: absolute; left: 7.5%; top: 50%; width: 85%; margin: 0; translate: 0 -50%; }
+  .pf-stage-console { position: absolute; left: 2%; top: 50%; width: 96%; margin: 0; translate: 0 -50%; }
   .pf-stage { height: 78svh; }
   .pf-callouts { position: absolute; inset: 0; display: block; margin: 0; pointer-events: none; }
   .pf-callout-dot { display: block; position: absolute; left: var(--dx); top: var(--dy); width: 10px; height: 10px; translate: -50% -50%; border-radius: 99px; background: var(--pf-butter); box-shadow: 0 0 0 2px var(--pf-ink); }
@@ -170,23 +170,57 @@ a.pf-stat:hover b { text-decoration: underline; text-underline-offset: 4px; }
 @keyframes pf-enter { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @keyframes pf-fade { from { opacity: 0; } to { opacity: 1; } }
 
-/* agent orchestration console (hero) */
-.pf-console { --rx: 0deg; --ry: 0deg; perspective: 1700px; aspect-ratio: 620 / 530; }
-.pf-root .pf-console, .pf-root .pf-console * { font-family: ui-monospace, "JetBrains Mono", "SF Mono", Consolas, monospace; }
-.pf-root .pf-console svg text:not(.pf-console-mono) { font-family: var(--font-pf-display), var(--font-inter), system-ui, sans-serif; }
-.pf-console-tilt { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(calc(-11deg + var(--ry))) rotateX(calc(5deg + var(--rx))); transition: transform .25s ease-out; }
-.pf-console-slab, .pf-console-edge, .pf-console-panel { position: absolute; inset: 0; border-radius: 4.5% / 5.3%; }
+/* agent orchestration workspace mockup (hero) */
+.pf-console { --rx: 0deg; --ry: 0deg; perspective: 1700px; aspect-ratio: 620 / 640; }
+@media (min-width: 640px) { .pf-console { aspect-ratio: 620 / 500; } }
+.pf-root .pf-console, .pf-root .pf-console * { font-family: var(--font-inter), system-ui, sans-serif; }
+.pf-root .pf-console time, .pf-root .pf-oc-card-h b, .pf-root .pf-oc-sess em, .pf-root .pf-oc-branch small, .pf-root .pf-oc-who { font-family: ui-monospace, "JetBrains Mono", "SF Mono", Consolas, monospace; }
+.pf-console-tilt { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateY(calc(-8deg + var(--ry))) rotateX(calc(4deg + var(--rx))); transition: transform .25s ease-out; }
+.pf-console-slab, .pf-console-edge, .pf-console-panel { position: absolute; inset: 0; border-radius: 22px; }
 .pf-console-slab { background: #000; transform: translateZ(-26px); box-shadow: 0 60px 70px rgba(0,0,0,.35), 0 20px 30px rgba(0,0,0,.3); }
 .pf-console-edge { background: #2a2a2a; transform: translateZ(-12px); }
-.pf-console-panel { background: linear-gradient(160deg,#242424 0%,#111 45%,#0a0a0a 100%); border: 1px solid #3a3a3a; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 0 60px rgba(255,214,10,.05); padding: 3.4% 3.2% 3%; color: #fff; overflow: hidden; container-type: inline-size; display: flex; flex-direction: column; }
-.pf-console-panel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg,rgba(255,255,255,.10),transparent 38%); pointer-events: none; }
-.pf-console-bar { display: flex; align-items: center; gap: 1.2cqw; font-size: 2.3cqw; color: #8a8a8a; height: 4.6cqw; flex: none; white-space: nowrap; }
-.pf-console-bar i { width: 2.1cqw; height: 2.1cqw; border-radius: 50%; background: #444; }
-.pf-console-bar i:nth-child(1) { background: #ff6b5e; } .pf-console-bar i:nth-child(2) { background: #ffc93c; } .pf-console-bar i:nth-child(3) { background: #3ddc84; }
-.pf-console-bar span { margin-left: 1.6cqw; } .pf-console-bar b { margin-left: auto; color: #3ddc84; font-weight: 700; }
-.pf-console-svg { display: block; width: 100%; height: auto; margin-top: 1cqw; flex: none; }
-.pf-console-log { margin-top: 1cqw; border-top: 1px solid #2e2e2e; padding-top: 2.6cqw; font-size: 3cqw; line-height: 1.9; color: #9a9a9a; }
-.pf-console-log .g { color: #3ddc84; } .pf-console-log .y { color: #FFD60A; }
+.pf-console-panel { background: #151515; border: 1px solid rgba(255,255,255,.08); box-shadow: inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 60px rgba(0,0,0,.5); color: #fff; overflow: hidden; container-type: inline-size; display: flex; flex-direction: column; }
+.pf-console-panel > * { font-size: max(9.5px, 2.05cqw); line-height: 1.3; }
+.pf-oc-bar { display: flex; align-items: center; gap: .9em; height: 3.2em; padding: 0 1.2em; flex: none; border-bottom: 1px solid rgba(255,255,255,.06); white-space: nowrap; min-width: 0; }
+.pf-oc-dots { display: flex; gap: .45em; } .pf-oc-dots i { width: .8em; height: .8em; border-radius: 50%; background: #ff6b5e; } .pf-oc-dots i:nth-child(2) { background: #ffc93c; } .pf-oc-dots i:nth-child(3) { background: #3ddc84; }
+.pf-oc-pill { background: #f2f2f2; color: #151515; font-weight: 600; border-radius: 99px; padding: .25em .8em; flex: none; }
+.pf-oc-tab { color: #cfcfcf; overflow: hidden; text-overflow: ellipsis; min-width: 0; } .pf-oc-tab em { font-style: normal; color: #3ddc97; }
+.pf-oc-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 38% 62%; }
+.pf-oc-side { background: #1c1c1c; padding: .9em .8em; display: flex; flex-direction: column; gap: .35em; overflow: hidden; border-right: 1px solid rgba(255,255,255,.06); min-width: 0; }
+.pf-oc-group { display: flex; align-items: center; gap: .6em; background: #262626; border: 1px solid rgba(255,255,255,.07); border-radius: .7em; padding: .45em .7em; margin-top: .3em; } .pf-oc-group:first-child { margin-top: 0; }
+.pf-oc-group b { font-weight: 600; } .pf-oc-group u { text-decoration: none; font-size: .85em; background: #3a3a3a; color: #bbb; border-radius: 99px; padding: 0 .5em; }
+.pf-oc-proj { font-weight: 700; padding: .15em .5em; color: #f2f2f2; }
+.pf-oc-branch { border-radius: .8em; padding: .5em .6em; min-width: 0; } .pf-oc-branch small { display: block; color: #8d8d8d; font-size: .82em; margin: .1em 0 .3em 1.45em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pf-oc-branch--sel { background: #333; border: 1px solid rgba(255,255,255,.14); }
+.pf-oc-row { display: flex; align-items: center; gap: .55em; } .pf-oc-row b { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pf-oc-row u { text-decoration: none; font-size: .78em; background: #3a3a3a; color: #bbb; border-radius: .4em; padding: .05em .45em; margin-left: .2em; }
+.pf-oc-live { width: .6em; height: .6em; border-radius: 50%; background: #1fd47a; flex: none; }
+.pf-oc-clock { width: .75em; height: .75em; border-radius: 50%; border: .14em solid #f0b429; border-right-color: transparent; flex: none; }
+.pf-oc-sess { display: flex; align-items: center; gap: .5em; margin: .3em 0 0 .35em; color: #b8b8b8; min-width: 0; font-size: .88em; }
+.pf-oc-sess i { width: .8em; height: .8em; border-radius: 50%; flex: none; } .pf-oc-sess span { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .pf-oc-sess em { font-style: normal; color: #7c7c7c; font-size: .85em; flex: none; }
+.pf-oc-chat { padding: 1em 1.1em; display: flex; flex-direction: column; gap: .7em; min-width: 0; min-height: 0; background: #181818; overflow: hidden; }
+.pf-oc-worked { color: #8d8d8d; }
+.pf-oc-card { border: 1px solid rgba(255,255,255,.09); border-radius: 1em; padding: .7em .9em; background: #1d1d1d; }
+.pf-oc-card-h { display: flex; align-items: center; gap: .5em; color: #9a9a9a; white-space: nowrap; font-size: .9em; } .pf-oc-card-h i { width: .9em; height: .9em; border-radius: 50%; flex: none; }
+.pf-oc-card-h b { color: #fff; font-weight: 500; } .pf-oc-card-h time { margin-left: auto; font-size: .85em; }
+.pf-oc-card p { margin: .5em 0 0; color: #ececec; }
+.pf-oc-msg { margin: .2em 0 0; color: #b8b8b8; }
+.pf-oc-input { margin-top: auto; border: 1px solid rgba(255,255,255,.1); background: #1d1d1d; border-radius: 1em; padding: .8em .9em .6em; }
+.pf-oc-ph { color: #8d8d8d; font-size: .92em; }
+.pf-oc-caret { display: inline-block; width: 1px; height: 1.05em; background: #ddd; vertical-align: text-bottom; margin-left: 2px; }
+.pf-oc-tools { display: flex; align-items: center; gap: .7em; margin-top: .9em; color: #bbb; white-space: nowrap; } .pf-oc-tools svg { flex: none; }
+.pf-oc-plus { font-size: 1.3em; line-height: 1; }
+.pf-oc-warn { color: #FFD60A; background: rgba(255,214,10,.12); border-radius: 99px; padding: .15em .6em; font-size: .88em; }
+.pf-oc-who { margin-left: auto; font-size: .88em; }
+.pf-oc-send { width: 1.9em; height: 1.9em; border-radius: 50%; background: #6b6b6b; color: #fff; display: grid; place-items: center; flex: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .pf-oc-live { animation: pf-oc-pulse 1.8s ease-out infinite; }
+  .pf-oc-caret { animation: pf-oc-blink 1s steps(1) infinite; }
+  .pf-oc-card--late { animation: pf-oc-late 8s ease-in-out infinite; }
+}
+@keyframes pf-oc-pulse { 0% { box-shadow: 0 0 0 0 rgba(31,212,122,.6); } 70%, 100% { box-shadow: 0 0 0 .6em rgba(31,212,122,0); } }
+@keyframes pf-oc-blink { 50% { opacity: 0; } }
+@keyframes pf-oc-late { 0%, 22% { opacity: 0; transform: translateY(10px); } 32%, 92% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(10px); } }
 
 /* holographic tint */
 .pf-holo { background: conic-gradient(from 210deg at 60% 40%, #ff4fb8, #4fd1ff, #b6ff4f, #FFD60A, #ff4fb8); }

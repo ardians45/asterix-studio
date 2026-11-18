@@ -8,12 +8,12 @@ import { projectCount } from "./data";
 const PROJECTS = String(projectCount).padStart(2, "0");
 
 // Callouts around the console (desktop). dx/dy: dot, ax/ay: where the line meets the card, tx/ty: card
-// offset from that point. All in percent of the stage; the dots land on the agent nodes / the console edge.
+// offset from that point. All in percent of the stage; the dots land on the sidebar, update card and input.
 const CALLOUTS = [
-  { top: "Now", sub: "Race timing at 20FIT", dx: 76, dy: 27, ax: 76, ay: 12, tx: "-50%", ty: "-100%" },
-  { top: `${PROJECTS} Projects`, sub: "shipped", dx: 25, dy: 28, ax: 25, ay: 12, tx: "-50%", ty: "-100%" },
-  { top: "2nd place", sub: "MIA UI/UX 2025", dx: 82, dy: 82, ax: 82, ay: 92, tx: "-50%", ty: "0" },
-  { top: "Since 2023", sub: "Asterix Studio", dx: 50, dy: 82, ax: 50, ay: 92, tx: "-50%", ty: "0" },
+  { top: "Now", sub: "Race timing at 20FIT", dx: 68, dy: 27, ax: 68, ay: 12, tx: "-50%", ty: "-100%" },
+  { top: `${PROJECTS} Projects`, sub: "shipped", dx: 35, dy: 47, ax: 35, ay: 12, tx: "-50%", ty: "-100%" },
+  { top: "2nd place", sub: "MIA UI/UX 2025", dx: 78, dy: 82, ax: 78, ay: 92, tx: "-50%", ty: "0" },
+  { top: "Since 2023", sub: "Asterix Studio", dx: 24, dy: 73, ax: 24, ay: 92, tx: "-50%", ty: "0" },
 ];
 
 const STATS = [

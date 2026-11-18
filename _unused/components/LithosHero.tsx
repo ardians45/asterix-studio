@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { useLenis } from "lenis/react";
 import Image from "next/image";
 import Link from "next/link";
-import Lanyard from "./lanyard/Lanyard";
+import Lanyard from "@/components/lanyard/Lanyard";
 import HeroTitle from "./HeroTitle";
 
 // Hero artwork is served through next/image so it gets resized + converted to AVIF/WebP

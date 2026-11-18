@@ -210,7 +210,8 @@ export type Chapter = {
   lap: string;
   title: string;
   body: string;
-  photos: { src?: string; label: string }[];
+  /** boards beside the road: a logo (src) or a typeset wordmark when no logo exists */
+  photos: { src?: string; label: string; wordmark?: string }[];
 };
 
 export const journey: Chapter[] = [
@@ -222,9 +223,9 @@ export const journey: Chapter[] = [
     title: "Software engineering, then the real world",
     body: "SMK Negeri 2 Karanganyar, software engineering. Internships in digital content and events, then a 280-hour office competency programme with Kemnaker's SIAPkerja, certified.",
     photos: [
-      { src: "/portfolio/journey/s1-smk.webp", label: "SMK Negeri 2 Karanganyar" },
-      { src: "/portfolio/journey/s1-kusuma.webp", label: "Digital content & events internship" },
-      { src: "/portfolio/journey/s1-siapkerja.webp", label: "SIAPkerja · 280 hours" },
+      { src: "/portfolio/logos/smk.webp", label: "SMK Negeri 2 Karanganyar" },
+      { src: "/portfolio/logos/kusuma.webp", label: "Kusuma Kreasi Utama · intern 2020" },
+      { src: "/portfolio/logos/siapkerja.webp", label: "SIAPkerja · 280 hours" },
     ],
   },
   {
@@ -235,8 +236,8 @@ export const journey: Chapter[] = [
     title: "An informatics degree and the first clients",
     body: "Informatics engineering at Universitas Pamulang, GPA 3.57. Asterix Studio from December 2023: websites designed, built and shipped end to end, plus the ads that send them traffic.",
     photos: [
-      { src: "/portfolio/journey/s2-unpam.webp", label: "Universitas Pamulang" },
-      { src: "/portfolio/screens/srlaundry.webp", label: "Asterix Studio · first clients" },
+      { src: "/portfolio/logos/unpam.webp", label: "Universitas Pamulang" },
+      { src: "/portfolio/logos/asterix.webp", label: "Asterix Studio · since 2023" },
     ],
   },
   {
@@ -247,9 +248,8 @@ export const journey: Chapter[] = [
     title: "Top intern and a national podium",
     body: "Top intern of batch 1 at PT Kita Bantu Indonesia, designing three core products in Figma. 2nd place at the MIA UI/UX competition, top 3 of 200+ teams.",
     photos: [
-      { src: "/achievement/bantu.webp", label: "Top intern · BANTU" },
-      { src: "/achievement/mia3.webp", label: "2nd place · MIA UI/UX" },
-      { src: "/achievement/mia1.webp", label: "MIA finals" },
+      { src: "/portfolio/logos/bantu.webp", label: "BANTU · top intern 2025" },
+      { wordmark: "MIA UI/UX · LinkAja", label: "2nd place · MIA UI/UX" },
     ],
   },
   {
@@ -260,10 +260,10 @@ export const journey: Chapter[] = [
     title: "Systems that run on race day",
     body: "Race timing developer at 20FIT, streaming RFID reads to live results. Full-stack contract at PT Paletindo: the product e-catalog and internal tools. 3rd place at PRADA UI/UX and a Dicoding full-stack scholarship.",
     photos: [
-      { src: "/portfolio/video/racelab-poster.webp", label: "Race timing · 20FIT" },
-      { src: "/portfolio/screens/paletindo.webp", label: "Paletindo e-catalog" },
-      { src: "/achievement/prada.png", label: "3rd place · PRADA" },
-      { src: "/certificates/dicoding-placeholder.webp", label: "Dicoding scholarship" },
+      { src: "/portfolio/logos/racelab.webp", label: "Race timing · 20FIT" },
+      { src: "/portfolio/logos/paletindo.webp", label: "Paletindo · full-stack contract" },
+      { wordmark: "PRADA · Telkom University", label: "3rd place · PRADA" },
+      { wordmark: "Dicoding", label: "Dicoding scholarship" },
     ],
   },
 ];

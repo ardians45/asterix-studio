@@ -7,7 +7,7 @@ import { journey, journeyFinish } from "./data";
 
 const JourneyScene = dynamic(() => import("./JourneyScene"), { ssr: false });
 
-type Photo = { src?: string; label: string };
+type Photo = { src?: string; label: string; wordmark?: string };
 type Entry = { id: string; split: string; years: string; lap: string; title: string; body: string; photos?: Photo[] };
 
 const CHAPTERS: Entry[] = [...journey, { id: "fin", ...journeyFinish }];
@@ -16,9 +16,16 @@ const LAST = CHAPTERS.length - 1;
 /** small framed photo for the stacked (still) layout; a missing file falls back to an ink box with the label */
 function Thumb({ photo }: { photo: Photo }) {
   const [failed, setFailed] = useState(!photo.src);
-  return failed ? (
-    <div className="flex aspect-[4/3] h-24 shrink-0 items-center justify-center rounded-lg border-2 border-[var(--pf-butter)] bg-[#1a1a1a] p-2 text-center text-[11px] leading-tight text-[var(--pf-butter)]">
-      {photo.label}
+  return photo.wordmark || failed ? (
+    <div
+      title={photo.label}
+      className="flex aspect-[4/3] h-24 shrink-0 flex-col items-center justify-center rounded-lg border-2 border-[var(--pf-butter)] bg-white p-2 text-center font-extrabold leading-tight text-[var(--pf-ink)]"
+    >
+      {(photo.wordmark ?? photo.label).split(" · ").map((t, i) => (
+        <span key={t} className={i === 0 ? "text-lg" : "text-[10px] font-bold"}>
+          {t}
+        </span>
+      ))}
     </div>
   ) : (
     // eslint-disable-next-line @next/next/no-img-element
@@ -28,7 +35,7 @@ function Thumb({ photo }: { photo: Photo }) {
       title={photo.label}
       loading="lazy"
       onError={() => setFailed(true)}
-      className="aspect-[4/3] h-24 shrink-0 rounded-lg border-2 border-[var(--pf-butter)] object-cover"
+      className="aspect-[4/3] h-24 shrink-0 rounded-lg border-2 border-[var(--pf-butter)] bg-white object-contain"
     />
   );
 }

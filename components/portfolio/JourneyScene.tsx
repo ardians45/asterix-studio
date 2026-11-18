@@ -131,41 +131,32 @@ function labelTexture(text: string) {
   });
 }
 
-/** stand-in for a photo that is missing: ink, diagonal hatching, a camera and the label */
-function placeholderTexture(label: string) {
-  return inkPlate(640, 480, (ctx) => {
-    ctx.fillStyle = "#1a1a1a";
-    ctx.fillRect(0, 0, 640, 480);
-    ctx.strokeStyle = "rgba(255,214,10,0.10)";
-    ctx.lineWidth = 2;
-    for (let x = -480; x < 640; x += 28) {
-      ctx.beginPath();
-      ctx.moveTo(x, 480);
-      ctx.lineTo(x + 480, 0);
-      ctx.stroke();
-    }
-    // camera icon
-    ctx.strokeStyle = BUTTER;
-    ctx.lineWidth = 8;
-    ctx.lineJoin = "round";
-    ctx.strokeRect(250, 150, 140, 90);
-    ctx.strokeRect(290, 132, 60, 18);
-    ctx.beginPath();
-    ctx.arc(320, 195, 26, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.fillStyle = BUTTER;
+/** clean white panel shown until a logo loads, or as a typeset wordmark when there is no logo (first part big, rest smaller) */
+function panelTexture(wordmark?: string) {
+  return inkPlate(1024, 768, (ctx) => {
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, 1024, 768);
+    if (!wordmark) return;
+    const [head, ...rest] = wordmark.split(" · ");
+    const sub = rest.join(" · ");
+    const fit = (text: string, start: number, max: number) => {
+      let size = start;
+      ctx.font = FONT.replace("{S}", String(size));
+      while (ctx.measureText(text).width > max && size > 24) {
+        size -= 4;
+        ctx.font = FONT.replace("{S}", String(size));
+      }
+      return size;
+    };
+    ctx.fillStyle = INK;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = "700 28px Inter, system-ui, sans-serif";
-    ctx.fillText("Photo coming soon", 320, 296);
-    let size = 26;
-    ctx.font = `600 ${size}px Inter, system-ui, sans-serif`;
-    while (ctx.measureText(label).width > 560 && size > 14) {
-      size -= 2;
-      ctx.font = `600 ${size}px Inter, system-ui, sans-serif`;
+    const hs = fit(head, 230, 800);
+    ctx.fillText(head, 512, sub ? 340 : 384);
+    if (sub) {
+      fit(sub, Math.round(hs * 0.42), 800);
+      ctx.fillText(sub, 512, 340 + hs * 0.62);
     }
-    ctx.fillStyle = "rgba(255,255,255,0.7)";
-    ctx.fillText(label, 320, 336);
   });
 }
 
@@ -360,7 +351,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
       }
     });
 
-    // ── photo billboards beside the road ───────────────────────────────────
+    // ── logo billboards beside the road ───────────────────────────────────
     const loader = new TextureLoader();
     let disposed = false;
     let draw: () => void = () => {};
@@ -402,7 +393,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
         const frame = new Mesh(frameGeo, frameMat);
         frame.position.set(0, boardCenterY, 0);
 
-        const photoMat = keepMat(new MeshBasicMaterial({ map: keepTex(placeholderTexture(ph.label)) }));
+        const photoMat = keepMat(new MeshBasicMaterial({ map: keepTex(panelTexture(ph.wordmark)) }));
         const photo = new Mesh(photoGeo, photoMat);
         photo.position.set(0, boardCenterY + frameH / 2 - FRAME - BOARD_H / 2, FRAME / 2 + 0.005);
         const plate = new Mesh(labelGeo, keepMat(new MeshBasicMaterial({ map: keepTex(labelTexture(ph.label)) })));
