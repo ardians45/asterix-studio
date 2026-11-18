@@ -8,21 +8,22 @@ import { journey, journeyFinish } from "./data";
 const JourneyScene = dynamic(() => import("./JourneyScene"), { ssr: false });
 
 type Photo = { src?: string; label: string; wordmark?: string };
-type Entry = { id: string; split: string; years: string; lap: string; title: string; body: string; photos?: Photo[] };
+type Entry = { id: string; split: string; years: string; lap: string; title: string; body: string; photos?: Photo[]; clients?: Photo[] };
 
 const CHAPTERS: Entry[] = [...journey, { id: "fin", ...journeyFinish }];
 const LAST = CHAPTERS.length - 1;
 
 /** small framed photo for the stacked (still) layout; a missing file falls back to an ink box with the label */
-function Thumb({ photo }: { photo: Photo }) {
+function Thumb({ photo, small = false }: { photo: Photo; small?: boolean }) {
   const [failed, setFailed] = useState(!photo.src);
+  const h = small ? "h-12" : "h-24";
   return photo.wordmark || failed ? (
     <div
       title={photo.label}
-      className="flex aspect-[4/3] h-24 shrink-0 flex-col items-center justify-center rounded-lg border-2 border-[var(--pf-butter)] bg-white p-2 text-center font-extrabold leading-tight text-[var(--pf-ink)]"
+      className={`flex aspect-[4/3] ${h} shrink-0 flex-col items-center justify-center rounded-lg border-2 border-[var(--pf-butter)] bg-white p-1 text-center font-extrabold leading-tight text-[var(--pf-ink)]`}
     >
       {(photo.wordmark ?? photo.label).split(" · ").map((t, i) => (
-        <span key={t} className={i === 0 ? "text-lg" : "text-[10px] font-bold"}>
+        <span key={t} className={i === 0 ? (small ? "text-[10px]" : "text-lg") : "text-[10px] font-bold"}>
           {t}
         </span>
       ))}
@@ -35,7 +36,7 @@ function Thumb({ photo }: { photo: Photo }) {
       title={photo.label}
       loading="lazy"
       onError={() => setFailed(true)}
-      className="aspect-[4/3] h-24 shrink-0 rounded-lg border-2 border-[var(--pf-butter)] bg-white object-contain"
+      className={`aspect-[4/3] ${h} shrink-0 rounded-lg border-2 border-[var(--pf-butter)] bg-white object-contain`}
     />
   );
 }
@@ -195,6 +196,13 @@ export default function PortfolioJourney() {
                       <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
                         {c.photos.map((ph) => (
                           <Thumb key={ph.label} photo={ph} />
+                        ))}
+                      </div>
+                    )}
+                    {isStill && c.clients && c.clients.length > 0 && (
+                      <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
+                        {c.clients.map((ph) => (
+                          <Thumb key={ph.label} photo={ph} small />
                         ))}
                       </div>
                     )}

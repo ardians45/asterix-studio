@@ -25,6 +25,9 @@ import {
   Float32BufferAttribute,
   Fog,
   Group,
+  LatheGeometry,
+  LineBasicMaterial,
+  LineSegments,
   Material,
   Mesh,
   MeshBasicMaterial,
@@ -33,9 +36,11 @@ import {
   PerspectiveCamera,
   PlaneGeometry,
   Scene,
+  SplineCurve,
   SRGBColorSpace,
   Texture,
   TextureLoader,
+  Vector2,
   Vector3,
   WebGLRenderer,
 } from "three";
@@ -71,6 +76,15 @@ const BOARD_FIRST = 1; // papan pertama: sedikit di depan gerbang dari kamera
 const BOARD_STEP = 11; // papan berikut: di belakang gerbang
 const CAM_SIDE = 1.5; // kamera geser ke kanan dari garis tengah
 const VIEW_SHIFT = 0.45; // geser gambar ke kanan di desktop
+const CLIENT_SCALE = 0.55; // papan klien: 55% papan utama
+const CLIENT_FIRST = 4.5; // jarak papan klien pertama di belakang papan terakhir chapter
+const CLIENT_STEP = 4.6; // jarak antar papan klien
+const BALLOON_SIDE = [-23, -23]; // geser ke samping dari garis tengah (negatif = kiri jalan, yang di layar desktop jatuh di area kanan)
+const BALLOON_AFTER = [30, 30]; // unit di belakang gerbang
+const BALLOON_SCALE = 1.2;
+const BALLOON_Y = 5.5; // tinggi keranjang
+const BANNER_W = 6;
+const BANNER_H = 4.5;
 const FOV = 50;
 const UP = new Vector3(0, 1, 0);
 
@@ -175,6 +189,44 @@ function nextLapTexture() {
   });
 }
 
+/** banner printed on a balloon: butter frame, photo (drawn once it loads), ink caption strip */
+function bannerCanvas(label: string, img?: HTMLImageElement) {
+  const c = document.createElement("canvas");
+  c.width = 1024;
+  c.height = 768;
+  const ctx = c.getContext("2d")!;
+  ctx.fillStyle = BUTTER;
+  ctx.fillRect(0, 0, 1024, 768);
+  const x = 28;
+  const y = 28;
+  const w = 1024 - x * 2;
+  const h = 768 - y * 2 - 120;
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(x, y, w, h);
+  if (img && img.width && img.height) {
+    const a = img.width / img.height;
+    const t = w / h;
+    const sw = a > t ? img.height * t : img.width;
+    const sh = a > t ? img.height : img.width / t;
+    ctx.drawImage(img, (img.width - sw) / 2, (img.height - sh) / 2, sw, sh, x, y, w, h);
+  }
+  const sy = y + h + 24;
+  const sh2 = 768 - sy - y;
+  ctx.fillStyle = INK;
+  ctx.fillRect(x, sy, w, sh2);
+  let size = 64;
+  ctx.font = FONT.replace("{S}", String(size));
+  while (ctx.measureText(label).width > w - 40 && size > 24) {
+    size -= 2;
+    ctx.font = FONT.replace("{S}", String(size));
+  }
+  ctx.fillStyle = BUTTER;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, 512, sy + sh2 / 2 + 3);
+  return c;
+}
+
 /** centre-crop a photo texture to 4:3 */
 function cover43(tex: Texture) {
   const img = tex.image as { width: number; height: number } | undefined;
@@ -199,6 +251,7 @@ const easeOutBack = (x: number) => {
 };
 
 type Board = { g: Group; x: number; z: number; tx: number; tz: number; v: number };
+type Balloon = Board & { sx: number; sz: number; phase: number; baseY: number };
 
 export default function JourneyScene({ getProgress, still = false, className = "" }: Props) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -368,11 +421,61 @@ export default function JourneyScene({ getProgress, still = false, className = "
     const facing = new Vector3();
     const yaw = (25 * Math.PI) / 180;
 
+    /** one billboard at track position t, `off` to the side; sc < 1 makes a smaller board on a shorter pole */
+    const makeBoard = (ph: { src?: string; label: string; wordmark?: string }, t: number, off: number, sc: number) => {
+      frameAt(t);
+      const s = off < 0 ? -1 : 1;
+      const g = new Group();
+      g.position.set(p.x + side.x * off, p.y, p.z + side.z * off);
+      // face the oncoming camera, turned about 25 degrees toward the road
+      facing.set(-tan.x * Math.cos(yaw) - s * side.x * Math.sin(yaw), 0, -tan.z * Math.cos(yaw) - s * side.z * Math.sin(yaw));
+      g.lookAt(g.position.x + facing.x, g.position.y, g.position.z + facing.z);
+
+      const inner = new Group();
+      inner.scale.setScalar(sc);
+      const pole = new Mesh(boardPoleGeo, boardPoleMat);
+      pole.scale.y = boardCenterY;
+      pole.position.set(0, boardCenterY / 2, -FRAME);
+      const frame = new Mesh(frameGeo, frameMat);
+      frame.position.set(0, boardCenterY, 0);
+
+      const photoMat = keepMat(new MeshBasicMaterial({ map: keepTex(panelTexture(ph.wordmark)) }));
+      const photo = new Mesh(photoGeo, photoMat);
+      photo.position.set(0, boardCenterY + frameH / 2 - FRAME - BOARD_H / 2, FRAME / 2 + 0.005);
+      const plate = new Mesh(labelGeo, keepMat(new MeshBasicMaterial({ map: keepTex(labelTexture(ph.label)) })));
+      plate.position.set(0, boardCenterY - frameH / 2 + FRAME + PLATE_H / 2, FRAME / 2 + 0.005);
+      inner.add(pole, frame, photo, plate);
+      g.add(inner);
+      g.scale.y = 0.001;
+      g.visible = false;
+      scene.add(g);
+      boards.push({ g, x: g.position.x, z: g.position.z, tx: tan.x, tz: tan.z, v: 0 });
+
+      if (ph.src) {
+        loader.load(
+          ph.src,
+          (tex) => {
+            if (disposed) {
+              tex.dispose();
+              return;
+            }
+            cover43(tex);
+            texs.push(tex);
+            photoMat.map = tex;
+            photoMat.needsUpdate = true;
+            if (still) draw();
+          },
+          undefined,
+          () => {}, // missing file: keep the placeholder
+        );
+      }
+    };
+
     journey.forEach((ch, ci) => {
+      // papan diletakkan relatif terhadap kamera di tengah chapter (progress 0.1/0.3/0.5/0.7): 24..46 unit di depannya, sebelum gerbang
+      const camC = CAM_FROM + (CAM_TO - CAM_FROM) * (0.1 + 0.2 * ci);
+      const gd = (T(GATES[ci]) - T(camC)) * LEN; // jarak kamera (tengah chapter) ke gerbang chapter ini
       ch.photos.forEach((ph, k) => {
-        // papan diletakkan relatif terhadap kamera di tengah chapter (progress 0.1/0.3/0.5/0.7): 24..46 unit di depannya, sebelum gerbang
-        const camC = CAM_FROM + (CAM_TO - CAM_FROM) * (0.1 + 0.2 * ci);
-        const gd = (T(GATES[ci]) - T(camC)) * LEN; // jarak kamera (tengah chapter) ke gerbang chapter ini
         const ahead = k === 0 ? gd + BOARD_FIRST : gd + BOARD_STEP * k;
         const t = T(camC) + ahead / LEN;
         const s = -1; // semua papan di kiri jalan (permintaan user); di desktop kamera digeser lebih ke kanan supaya tetap di luar kolom teks
@@ -380,50 +483,107 @@ export default function JourneyScene({ getProgress, still = false, className = "
         // desktop: papan di balik gerbang (k>=1) digeser keluar sampai tepi dalamnya tepat di kiri tiang gerbang pada layar
         const half = (BOARD_W + FRAME * 2) / 2;
         const off = s * (wide && k > 0 ? (HALF_WIDTH + 2.3) * (ahead / gd) + half + 0.6 - CAM_SIDE : HALF_WIDTH + gap + half);
-        frameAt(t);
-        const g = new Group();
-        g.position.set(p.x + side.x * off, p.y, p.z + side.z * off);
-        // face the oncoming camera, turned about 25 degrees toward the road
-        facing.set(-tan.x * Math.cos(yaw) - s * side.x * Math.sin(yaw), 0, -tan.z * Math.cos(yaw) - s * side.z * Math.sin(yaw));
-        g.lookAt(g.position.x + facing.x, g.position.y, g.position.z + facing.z);
-
-        const pole = new Mesh(boardPoleGeo, boardPoleMat);
-        pole.scale.y = boardCenterY;
-        pole.position.set(0, boardCenterY / 2, -FRAME);
-        const frame = new Mesh(frameGeo, frameMat);
-        frame.position.set(0, boardCenterY, 0);
-
-        const photoMat = keepMat(new MeshBasicMaterial({ map: keepTex(panelTexture(ph.wordmark)) }));
-        const photo = new Mesh(photoGeo, photoMat);
-        photo.position.set(0, boardCenterY + frameH / 2 - FRAME - BOARD_H / 2, FRAME / 2 + 0.005);
-        const plate = new Mesh(labelGeo, keepMat(new MeshBasicMaterial({ map: keepTex(labelTexture(ph.label)) })));
-        plate.position.set(0, boardCenterY - frameH / 2 + FRAME + PLATE_H / 2, FRAME / 2 + 0.005);
-        g.add(pole, frame, photo, plate);
-        g.scale.y = 0.001;
-        g.visible = false;
-        scene.add(g);
-        boards.push({ g, x: g.position.x, z: g.position.z, tx: tan.x, tz: tan.z, v: 0 });
-
-        if (ph.src) {
-          loader.load(
-            ph.src,
-            (tex) => {
-              if (disposed) {
-                tex.dispose();
-                return;
-              }
-              cover43(tex);
-              texs.push(tex);
-              photoMat.map = tex;
-              photoMat.needsUpdate = true;
-              if (still) draw();
-            },
-            undefined,
-            () => {}, // missing file: keep the placeholder
-          );
-        }
+        makeBoard(ph, t, off, 1);
+      });
+      // deretan papan klien kecil di belakang papan terakhir, rapat seperti papan sponsor
+      const lastAhead = ch.photos.length > 1 ? gd + BOARD_STEP * (ch.photos.length - 1) : gd + BOARD_FIRST;
+      (ch.clients ?? []).forEach((ph, j) => {
+        const ahead = lastAhead + CLIENT_FIRST + CLIENT_STEP * j;
+        const t = T(camC) + ahead / LEN;
+        const half = ((BOARD_W + FRAME * 2) * CLIENT_SCALE) / 2;
+        makeBoard(ph, t, -(HALF_WIDTH + (wide ? 1.6 : 1.2) + half), CLIENT_SCALE);
       });
     });
+
+    // ── hot-air balloons for the two podiums (S3, S4), floating over the road ─
+    const balloons: Balloon[] = [];
+    if (!still) {
+      const prof = new SplineCurve(
+        [[0.7, 0], [1.4, 0.9], [2.3, 2.0], [2.9, 3.3], [3.0, 4.3], [2.6, 5.5], [1.7, 6.5], [0.7, 7.2], [0, 7.45]].map(([x, y]) => new Vector2(x * 1.15, y * 1.1)),
+      ).getPoints(36);
+      const lathe = new LatheGeometry(prof, 24);
+      const envGeo = keepGeo(lathe.toNonIndexed());
+      lathe.dispose();
+      {
+        const pos = envGeo.getAttribute("position");
+        const col: number[] = [];
+        const cb = new Color(BUTTER);
+        const ck = new Color("#1b1b1b");
+        for (let i = 0; i < pos.count; i += 3) {
+          const cx = (pos.getX(i) + pos.getX(i + 1) + pos.getX(i + 2)) / 3;
+          const cz = (pos.getZ(i) + pos.getZ(i + 1) + pos.getZ(i + 2)) / 3;
+          const stripe = Math.floor(((Math.atan2(cz, cx) + Math.PI) / (Math.PI * 2)) * 12 + 0.001) % 2;
+          const c = stripe ? ck : cb;
+          for (let k = 0; k < 3; k++) col.push(c.r, c.g, c.b);
+        }
+        envGeo.setAttribute("color", new Float32BufferAttribute(col, 3));
+      }
+      const envMat = keepMat(new MeshStandardMaterial({ vertexColors: true, roughness: 0.7, side: DoubleSide }));
+      const basketGeo = keepGeo(new BoxGeometry(1.5, 1, 1.5));
+      const basketMat = keepMat(new MeshStandardMaterial({ color: "#5a3d1e", roughness: 0.9 }));
+      const rimGeo = keepGeo(new BoxGeometry(1.7, 0.16, 1.7));
+      const ropeMat = keepMat(new LineBasicMaterial({ color: "#cfcfcf" }));
+      const ropeGeo = keepGeo(new BufferGeometry());
+      {
+        const v: number[] = [];
+        for (const sx of [-1, 1]) for (const sz of [-1, 1]) v.push(sx * 0.65, 0.5, sz * 0.65, sx * 0.85, 2.7, sz * 0.85);
+        ropeGeo.setAttribute("position", new Float32BufferAttribute(v, 3));
+      }
+      const env0 = 2.7; // bottom of the envelope above the basket
+      const envMid = env0 + 4.3 * 1.1; // widest point: where the banner sits
+      const bannerGeo = keepGeo(new PlaneGeometry(BANNER_W, BANNER_H, 16, 1));
+      {
+        // bend the banner around the envelope so it reads as printed on it
+        const R = 3.45 + 0.05;
+        const pos = bannerGeo.getAttribute("position");
+        for (let i = 0; i < pos.count; i++) {
+          const x = pos.getX(i);
+          pos.setZ(i, Math.sqrt(R * R - x * x));
+        }
+        bannerGeo.computeVertexNormals();
+      }
+      const specs = [
+        { src: "/portfolio/balloons/mia.webp", label: "2nd place · MIA × LinkAja 2025", gate: 2 },
+        { src: "/portfolio/balloons/prada.webp", label: "3rd place · PRADA × Tel-U 2026", gate: 3 },
+      ];
+      specs.forEach((sp, bi) => {
+        const bt = T(GATES[sp.gate]) + BALLOON_AFTER[bi] / LEN;
+        frameAt(bt);
+        const g = new Group();
+        const baseY = p.y + BALLOON_Y;
+        const lat = wide ? BALLOON_SIDE[bi] : BALLOON_SIDE[bi] * 0.7;
+        g.position.set(p.x + side.x * lat, baseY, p.z + side.z * lat);
+        g.lookAt(g.position.x - tan.x, g.position.y, g.position.z - tan.z); // +z toward the camera
+        const env = new Mesh(envGeo, envMat);
+        env.position.y = env0;
+        const basket = new Mesh(basketGeo, basketMat);
+        const rim = new Mesh(rimGeo, butterMat);
+        rim.position.y = 0.5;
+        const ropes = new LineSegments(ropeGeo, ropeMat);
+        const bannerTex = keepTex(new CanvasTexture(bannerCanvas(sp.label)));
+        bannerTex.colorSpace = SRGBColorSpace;
+        const bannerMat = keepMat(new MeshBasicMaterial({ map: bannerTex }));
+        const banner = new Mesh(bannerGeo, bannerMat);
+        banner.position.set(0, envMid, 0);
+        g.add(env, basket, rim, ropes, banner);
+        g.scale.setScalar(0.001);
+        g.visible = false;
+        scene.add(g);
+        balloons.push({ g, x: g.position.x, z: g.position.z, tx: tan.x, tz: tan.z, v: 0, sx: side.x, sz: side.z, phase: bi * 2.1, baseY });
+
+        const img = new Image();
+        img.onload = () => {
+          if (disposed) return;
+          const tex = new CanvasTexture(bannerCanvas(sp.label, img));
+          tex.colorSpace = SRGBColorSpace;
+          tex.anisotropy = 4;
+          texs.push(tex);
+          bannerMat.map = tex;
+          bannerMat.needsUpdate = true;
+        };
+        img.src = sp.src;
+      });
+    }
 
     // ── NEXT LAP sign, right of the road, facing the camera ────────────────
     {
@@ -512,6 +672,31 @@ export default function JourneyScene({ getProgress, still = false, className = "
       }
     };
 
+    /** balloons: grow in when their chapter is near, bob and drift slowly; no allocations */
+    const updateBalloons = (delta: number, time: number) => {
+      const cx = camera.position.x;
+      const cz = camera.position.z;
+      const k = 1 - Math.exp(-delta * 3);
+      for (let i = 0; i < balloons.length; i++) {
+        const b = balloons[i];
+        const dx = b.x - cx;
+        const dz = b.z - cz;
+        const d = Math.sqrt(dx * dx + dz * dz);
+        const passed = dx * b.tx + dz * b.tz < 0;
+        const want = d < (passed ? HIDE_DIST : SHOW_DIST) ? 1 : 0;
+        b.v = b.v + (want - b.v) * k;
+        if (b.v < 0.003) {
+          b.g.visible = false;
+          continue;
+        }
+        b.g.visible = true;
+        b.g.scale.setScalar(Math.max(0.001, easeOutBack(Math.min(1, b.v))) * BALLOON_SCALE);
+        const drift = Math.sin(time * 0.11 + b.phase) * 2.2;
+        b.g.position.set(b.x + b.sx * drift, b.baseY + Math.sin(time * 0.5 + b.phase) * 0.8, b.z + b.sz * drift);
+        b.g.rotation.z = Math.sin(time * 0.35 + b.phase) * 0.025;
+      }
+    };
+
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(host);
@@ -537,6 +722,7 @@ export default function JourneyScene({ getProgress, still = false, className = "
         place(smooth);
         camera.updateMatrixWorld();
         updateBoards(delta, false);
+        updateBalloons(delta, now / 1000);
         renderer.render(scene, camera);
       };
       let onScreen = true;

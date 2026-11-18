@@ -10,6 +10,7 @@ import Portfolio20fit from "@/components/portfolio/Portfolio20fit";
 import PortfolioSkills from "@/components/portfolio/PortfolioSkills";
 import PortfolioAwards from "@/components/portfolio/PortfolioAwards";
 import PortfolioFooter from "@/components/portfolio/PortfolioFooter";
+import PortfolioMarquee from "@/components/portfolio/PortfolioMarquee";
 import Certificates from "@/components/Certificates";
 import SeoProofsSection from "@/components/sections/b2b/SeoProofsSection";
 
@@ -47,6 +48,7 @@ export default function PortfolioPage() {
       <div className="pf-seo">
         <SeoProofsSection theme="portfolio" lang="en" />
       </div>
+      <PortfolioMarquee />
       <PortfolioFooter />
     </main>
   );

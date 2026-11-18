@@ -55,7 +55,6 @@ export default function PortfolioNav() {
         <div className="pf-wrap pf-nav-inner">
           <a href="#top" onClick={(e) => go(e, "#top")} aria-label="Ardian, back to top" className="pf-nav-brand">
             <span className="pf-logo-mark" aria-hidden="true" />
-            Ardian
           </a>
 
           <nav aria-label="Portfolio" className="pf-nav-links hidden lg:flex">

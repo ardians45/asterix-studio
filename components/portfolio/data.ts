@@ -212,6 +212,8 @@ export type Chapter = {
   body: string;
   /** boards beside the road: a logo (src) or a typeset wordmark when no logo exists */
   photos: { src?: string; label: string; wordmark?: string }[];
+  /** small client boards after the main ones (S2): a logo or a typeset wordmark */
+  clients?: { src?: string; label: string; wordmark?: string }[];
 };
 
 export const journey: Chapter[] = [
@@ -234,10 +236,19 @@ export const journey: Chapter[] = [
     years: "2023–2024",
     lap: "Lap one",
     title: "An informatics degree and the first clients",
-    body: "Informatics engineering at Universitas Pamulang from July 2023, GPA 3.57. Asterix Studio from December 2023: websites designed, built and shipped end to end, plus the ads that send them traffic.",
+    body: "Informatics engineering at Universitas Pamulang from July 2023, GPA 3.57, with Dicoding's learning paths alongside. Asterix Studio from December 2023: websites designed, built and shipped end to end, plus the ads that send them traffic.",
     photos: [
       { src: "/portfolio/logos/unpam.webp", label: "Universitas Pamulang · 2023" },
+      { src: "/portfolio/logos/dicoding.webp", label: "Dicoding · learning since 2024" },
       { src: "/portfolio/logos/asterix.webp", label: "Asterix Studio · since 2023" },
+    ],
+    clients: [
+      { src: "/portfolio/logos/client-srlaundry.webp", label: "SR Laundry" },
+      { src: "/portfolio/logos/paletindo.webp", label: "Paletindo" },
+      { src: "/portfolio/logos/client-ruangsenawa.webp", label: "Ruang Senawa" },
+      { src: "/portfolio/logos/client-kscontractor.webp", label: "KS Contractor" },
+      { src: "/portfolio/logos/client-airsanad.webp", label: "Airsanad" },
+      { wordmark: "Dokter Namira", label: "Dokter Namira" },
     ],
   },
   {
@@ -263,7 +274,6 @@ export const journey: Chapter[] = [
       { src: "/portfolio/logos/prada-telu.webp", label: "3rd place · PRADA × Tel-U · Ramadan 2026" },
       { src: "/portfolio/logos/paletindo.webp", label: "Paletindo · contract · Mar 2026" },
       { src: "/portfolio/logos/racelab.webp", label: "Race timing · 20FIT · Apr 2026" },
-      { src: "/portfolio/logos/dicoding.webp", label: "Dicoding scholarship" },
     ],
   },
 ];
